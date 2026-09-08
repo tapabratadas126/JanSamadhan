@@ -12,7 +12,6 @@ import {
   revokeAppSession,
 } from "./auth";
 import * as db from "./db";
-import { storagePut } from "./storage";
 
 const roleSchema = z.enum(["citizen", "university", "industry"]);
 
@@ -42,9 +41,8 @@ const authInput = z.object({
 });
 
 const photoInput = z.object({
-  data: z.string().min(1),
-  contentType: z.string().regex(/^image\//),
-  fileName: z.string().max(150).optional(),
+  url: z.string().url().max(2048),
+  fileKey: z.string().max(512).optional(),
 });
 
 export const appRouter = router({
@@ -131,24 +129,23 @@ export const appRouter = router({
         }),
       )
       .mutation(async ({ ctx, input }) => {
-        const uploaded: Array<{ url: string; fileKey?: string }> = [];
-        for (let index = 0; index < input.photos.length; index++) {
-          const photo = input.photos[index]!;
-          const data = photo.data.includes(",") ? photo.data.split(",")[1] : photo.data;
-          const buffer = Buffer.from(data, "base64");
-          if (buffer.byteLength > 5 * 1024 * 1024) {
-            throw new TRPCError({ code: "BAD_REQUEST", message: "Each image must be smaller than 5 MB." });
+        const expectedAbsolutePrefix = "challenge-photos/" + ctx.user.id + "/";
+        const photos = input.photos.map(photo => {
+          const pathname = photo.fileKey?.replace(/^\/+/, "") ?? "";
+          if (!pathname.startsWith(expectedAbsolutePrefix)) {
+            throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid challenge photo." });
           }
-          const extension = (photo.fileName?.split(".").pop() || "jpg").replace(/[^a-z0-9]/gi, "").slice(0, 8) || "jpg";
-          const stored = await storagePut(`challenge-photos/${ctx.user.id}/${Date.now()}-${index}.${extension}`, buffer, photo.contentType);
-          uploaded.push(stored);
-        }
+          if (!photo.url.startsWith("https://")) {
+            throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid challenge photo URL." });
+          }
+          return { url: photo.url, fileKey: pathname };
+        });
         const id = await db.createChallenge({
           title: input.title,
           description: input.description,
           location: input.location,
           reportedBy: ctx.user.id,
-          photos: uploaded,
+          photos,
         });
         return { id };
       }),
