@@ -1,5 +1,6 @@
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
+import mysql from "mysql2/promise";
 import {
   challengePhotos,
   challenges,
@@ -11,22 +12,37 @@ import {
 } from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _pool: ReturnType<typeof mysql.createPool> | null = null;
 
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      const url = new URL(process.env.DATABASE_URL);
+      const isTiDB = url.hostname.endsWith("tidbcloud.com");
+      _pool = mysql.createPool({
+        host: url.hostname,
+        port: Number(url.port || 3306),
+        user: decodeURIComponent(url.username),
+        password: decodeURIComponent(url.password),
+        database: url.pathname.replace(/^\//, ""),
+        waitForConnections: true,
+        connectionLimit: 5,
+        ssl: isTiDB ? { minVersion: "TLSv1.2", rejectUnauthorized: true } : undefined,
+      });
+      _db = drizzle({ client: _pool });
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+      console.warn("[Database] Failed to initialize connection:", error);
       _db = null;
+      _pool = null;
     }
   }
   return _db;
 }
 
-function requireDb() {
-  if (!_db) throw new Error("Database is not available");
-  return _db;
+async function requireDb() {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available. Check DATABASE_URL.");
+  return db;
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -58,7 +74,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
 }
 
 export async function createUser(input: InsertUser) {
-  const db = requireDb();
+  const db = await requireDb();
   const result = await db.insert(users).values(input);
   const id = Number((result as any)[0]?.insertId ?? (result as any).insertId);
   const user = await getUserById(id);
@@ -88,12 +104,12 @@ export async function getUserByEmail(email: string) {
 }
 
 export async function touchUser(id: number) {
-  const db = requireDb();
+  const db = await requireDb();
   await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, id));
 }
 
 export async function createSession(input: typeof sessions.$inferInsert) {
-  const db = requireDb();
+  const db = await requireDb();
   await db.insert(sessions).values(input);
 }
 
@@ -111,7 +127,7 @@ export async function deleteSession(id: string) {
 }
 
 export async function listChallenges(limit = 48) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db.select().from(challenges).orderBy(desc(challenges.createdAt)).limit(limit);
   return Promise.all(rows.map(async challenge => {
     const photos = await db.select().from(challengePhotos).where(eq(challengePhotos.challengeId, challenge.id));
@@ -121,7 +137,7 @@ export async function listChallenges(limit = 48) {
 }
 
 export async function getChallengeDetail(id: number) {
-  const db = requireDb();
+  const db = await requireDb();
   const challengeRows = await db.select().from(challenges).where(eq(challenges.id, id)).limit(1);
   const challenge = challengeRows[0];
   if (!challenge) return null;
@@ -148,7 +164,7 @@ export async function getChallengeDetail(id: number) {
 }
 
 export async function listProposals(limit = 48) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db
     .select({ proposal: proposals, challenge: challenges, university: users })
     .from(proposals)
@@ -163,7 +179,7 @@ export async function listProposals(limit = 48) {
 }
 
 export async function listPartnerships(limit = 48) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db
     .select({ partnership: partnerships, proposal: proposals, challenge: challenges, industry: users })
     .from(partnerships)
@@ -176,7 +192,7 @@ export async function listPartnerships(limit = 48) {
 }
 
 export async function listMineChallenges(userId: number) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db.select().from(challenges).where(eq(challenges.reportedBy, userId)).orderBy(desc(challenges.createdAt));
   return Promise.all(rows.map(async challenge => ({
     ...challenge,
@@ -185,7 +201,7 @@ export async function listMineChallenges(userId: number) {
 }
 
 export async function listMineProposals(userId: number) {
-  const db = requireDb();
+  const db = await requireDb();
   return db
     .select({ proposal: proposals, challenge: challenges })
     .from(proposals)
@@ -195,7 +211,7 @@ export async function listMineProposals(userId: number) {
 }
 
 export async function listMinePartnerships(userId: number) {
-  const db = requireDb();
+  const db = await requireDb();
   return db
     .select({ partnership: partnerships, proposal: proposals, challenge: challenges })
     .from(partnerships)
@@ -212,7 +228,7 @@ export async function createChallenge(input: {
   reportedBy: number;
   photos: Array<{ url: string; fileKey?: string }>;
 }) {
-  const db = requireDb();
+  const db = await requireDb();
   return db.transaction(async tx => {
     const result = await tx.insert(challenges).values({
       title: input.title,
@@ -230,25 +246,25 @@ export async function createChallenge(input: {
 }
 
 export async function createProposal(input: { challengeId: number; universityId: number; proposalText: string }) {
-  const db = requireDb();
+  const db = await requireDb();
   const result = await db.insert(proposals).values(input);
   return Number((result as any)[0]?.insertId ?? (result as any).insertId);
 }
 
 export async function createPartnership(input: { proposalId: number; industryId: number; partnershipDetails: string }) {
-  const db = requireDb();
+  const db = await requireDb();
   const result = await db.insert(partnerships).values(input);
   return Number((result as any)[0]?.insertId ?? (result as any).insertId);
 }
 
 export async function getChallenge(id: number) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db.select().from(challenges).where(eq(challenges.id, id)).limit(1);
   return rows[0];
 }
 
 export async function getProposal(id: number) {
-  const db = requireDb();
+  const db = await requireDb();
   const rows = await db.select().from(proposals).where(eq(proposals.id, id)).limit(1);
   return rows[0];
 }
