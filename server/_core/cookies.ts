@@ -1,22 +1,28 @@
-import type { CookieOptions, Request } from "express";
+import type { IncomingHttpHeaders } from "node:http";
 
-function isSecureRequest(req: Request) {
+type RequestLike = {
+  protocol?: string;
+  headers: IncomingHttpHeaders;
+};
+
+function isSecureRequest(req: RequestLike) {
   if (req.protocol === "https") return true;
+
   const forwardedProto = req.headers["x-forwarded-proto"];
   if (!forwardedProto) return false;
-  const values = Array.isArray(forwardedProto)
-    ? forwardedProto
-    : forwardedProto.split(",");
-  return values.some(value => value.trim().toLowerCase() === "https");
+
+  const protoList: string[] = Array.isArray(forwardedProto)
+    ? forwardedProto.map(String)
+    : [forwardedProto];
+
+  return protoList.some((proto: string) => proto.trim().toLowerCase() === "https");
 }
 
-export function getSessionCookieOptions(
-  req: Request,
-): Pick<CookieOptions, "domain" | "httpOnly" | "path" | "sameSite" | "secure"> {
+export function getSessionCookieOptions(req: RequestLike) {
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "lax",
+    sameSite: "lax" as const,
     secure: isSecureRequest(req),
   };
 }
