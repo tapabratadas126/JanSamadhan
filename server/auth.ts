@@ -1,7 +1,7 @@
 import { createHash, randomBytes, randomUUID, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import { parse as parseCookieHeader } from "cookie";
-import type { Request } from "express";
+import type { IncomingHttpHeaders } from "node:http";
 import type { User } from "../drizzle/schema";
 import { getUserBySessionId, getUserByEmail, getUserById, createSession, deleteSession } from "./db";
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
@@ -31,7 +31,9 @@ export function hashSessionToken(token: string) {
   return createHash("sha256").update(token).digest("hex");
 }
 
-function getTokenFromRequest(req: Request) {
+type RequestLike = { headers: IncomingHttpHeaders };
+
+function getTokenFromRequest(req: RequestLike) {
   const cookies = parseCookieHeader(req.headers.cookie ?? "");
   const cookieToken = cookies[COOKIE_NAME];
   if (cookieToken) return cookieToken;
@@ -54,7 +56,7 @@ export async function createAppSession(userId: number) {
   return { token: rawToken, expiresAt };
 }
 
-export async function getAppSessionUser(req: Request): Promise<User | null> {
+export async function getAppSessionUser(req: RequestLike): Promise<User | null> {
   const rawToken = getTokenFromRequest(req);
   if (!rawToken) return null;
   const session = await getUserBySessionId(hashSessionToken(rawToken));
@@ -65,7 +67,7 @@ export async function getAppSessionUser(req: Request): Promise<User | null> {
   return (await getUserById(session.userId)) ?? null;
 }
 
-export async function revokeAppSession(req: Request) {
+export async function revokeAppSession(req: RequestLike) {
   const rawToken = getTokenFromRequest(req);
   if (rawToken) await deleteSession(hashSessionToken(rawToken));
 }
