@@ -3,65 +3,63 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String    @id @default(cuid())
-  name         String
-  email        String?   @unique
-  phone        String?   @unique
-  passwordHash String
-  role         String    @default("CITIZEN") // CITIZEN, UNIVERSITY, INDUSTRY, ADMIN
-  orgName      String?   @map("org_name")
-  createdAt    DateTime  @default(now())
-
-  problems             Problem[]            @relation("ProblemPoster")
-  upvotes              Upvote[]
-  editHistory          ProblemEditHistory[]
-  solutions            Solution[]
+  id                   String               @id @default(cuid())
+  name                 String
+  email                String?              @unique
+  phone                String?              @unique
+  passwordHash         String
+  role                 String               @default("CITIZEN")
+  orgName              String?              @map("org_name")
+  createdAt            DateTime             @default(now())
+  notifications        Notification[]
   partnerships         Partnership[]        @relation("IndustryPartner")
   reviewedPartnerships Partnership[]        @relation("AdminReviewer")
-  notifications        Notification[]
+  problems             Problem[]            @relation("ProblemPoster")
+  editHistory          ProblemEditHistory[]
+  solutions            Solution[]
+  upvotes              Upvote[]
   comments             ProblemComment[]
 }
 
 model Problem {
-  id              String          @id @default(cuid())
+  id              String               @id @default(cuid())
   title           String
   description     String
-  category        String          // EDUCATION, HEALTHCARE, AGRICULTURE, etc.
+  category        String
   location        String
-  mediaUrls       String          @default("[]") // JSON array stored as string
+  mediaUrls       String               @default("[]")
   postedById      String
-  postedBy        User            @relation("ProblemPoster", fields: [postedById], references: [id])
-  status          String          @default("OPEN") // OPEN, SOLUTION_PROPOSED, PARTNERSHIP_APPROVED, RESOLVED
-  approvalStatus  String          @default("PENDING") // PENDING, APPROVED, UNDER_REVIEW, REJECTED
+  status          String               @default("OPEN")
+  approvalStatus  String               @default("PENDING")
   rejectionReason String?
-  upvoteCount     Int             @default(0)
-  isDeleted       Boolean         @default(false) @map("is_deleted")
-  deletedAt       DateTime?       @map("deleted_at")
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-
-  upvotes     Upvote[]
-  editHistory ProblemEditHistory[]
-  solutions   Solution[]
-  comments    ProblemComment[]
+  upvoteCount     Int                  @default(0)
+  isDeleted       Boolean              @default(false) @map("is_deleted")
+  deletedAt       DateTime?            @map("deleted_at")
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  postedBy        User                 @relation("ProblemPoster", fields: [postedById], references: [id])
+  editHistory     ProblemEditHistory[]
+  solutions       Solution[]
+  upvotes         Upvote[]
+  comments        ProblemComment[]
 }
 
 model ProblemComment {
-  id        String   @id @default(cuid())
+  id        String           @id @default(cuid())
   problemId String
-  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   String
-  parentId  String?  @map("parent_id")
+  parentId  String?          @map("parent_id")
+  createdAt DateTime         @default(now())
   parent    ProblemComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies   ProblemComment[] @relation("CommentReplies")
-  createdAt DateTime @default(now())
+  problem   Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("problem_comments")
 }
@@ -69,10 +67,10 @@ model ProblemComment {
 model Upvote {
   id        String   @id @default(cuid())
   problemId String
-  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([problemId, userId])
 }
@@ -80,51 +78,48 @@ model Upvote {
 model ProblemEditHistory {
   id         String   @id @default(cuid())
   problemId  String
-  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
   editedById String
-  editedBy   User     @relation(fields: [editedById], references: [id])
   fieldName  String
   oldValue   String
   newValue   String
   editedAt   DateTime @default(now())
+  editedBy   User     @relation(fields: [editedById], references: [id])
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 }
 
 model Solution {
-  id           String    @id @default(cuid())
+  id           String        @id @default(cuid())
   problemId    String
-  problem      Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
   universityId String
-  university   User      @relation(fields: [universityId], references: [id])
   title        String
   description  String
-  createdAt    DateTime  @default(now())
-
+  createdAt    DateTime      @default(now())
   partnerships Partnership[]
+  problem      Problem       @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  university   User          @relation(fields: [universityId], references: [id])
 }
 
 model Partnership {
   id              String    @id @default(cuid())
   solutionId      String
-  solution        Solution  @relation(fields: [solutionId], references: [id], onDelete: Cascade)
   industryId      String
-  industry        User      @relation("IndustryPartner", fields: [industryId], references: [id])
   proposalDetails String
-  status          String    @default("PROPOSED") // PROPOSED, APPROVED, REJECTED
+  status          String    @default("PROPOSED")
   reviewedById    String?
-  reviewedBy      User?     @relation("AdminReviewer", fields: [reviewedById], references: [id])
   reviewedAt      DateTime?
   createdAt       DateTime  @default(now())
+  industry        User      @relation("IndustryPartner", fields: [industryId], references: [id])
+  reviewedBy      User?     @relation("AdminReviewer", fields: [reviewedById], references: [id])
+  solution        Solution  @relation(fields: [solutionId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type      String   // NEW_SOLUTION, NEW_PARTNERSHIP, PARTNERSHIP_APPROVED, PARTNERSHIP_REJECTED
+  type      String
   message   String
   linkUrl   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-
