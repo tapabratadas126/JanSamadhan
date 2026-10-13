@@ -20,21 +20,28 @@ export async function POST(request: NextRequest) {
   const ext = path.extname(file.name) || ".jpg";
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
 
+  // Look for BLOB_READ_WRITE_TOKEN or any store-prefixed token like JAN_SAMADHAN_BLOB_READ_WRITE_TOKEN
+  const blobToken =
+    process.env.BLOB_READ_WRITE_TOKEN ||
+    Object.entries(process.env).find(([k]) => k.endsWith("READ_WRITE_TOKEN"))?.[1];
+
   // If Vercel Blob token is configured (e.g. deployed on Vercel), upload to Vercel Blob
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  if (blobToken) {
     try {
       const blob = await put(`uploads/${filename}`, file, {
         access: "public",
+        token: blobToken,
       });
       return NextResponse.json({ url: blob.url });
-    } catch (blobError) {
+    } catch (blobError: any) {
       console.error("Vercel Blob upload failed:", blobError);
       return NextResponse.json(
-        { error: "Failed to upload image to blob storage" },
+        { error: blobError?.message || "Failed to upload image to blob storage" },
         { status: 500 }
       );
     }
   }
+
 
   // Fallback to local filesystem for offline development without Vercel Blob token
   try {
