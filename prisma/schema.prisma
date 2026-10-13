@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String               @id @default(cuid())
+  name                 String
+  email                String?              @unique
+  phone                String?              @unique
+  passwordHash         String
+  role                 String               @default("CITIZEN")
+  orgName              String?              @map("org_name")
+  createdAt            DateTime             @default(now())
+  notifications        Notification[]
+  partnerships         Partnership[]        @relation("IndustryPartner")
+  reviewedPartnerships Partnership[]        @relation("AdminReviewer")
+  problems             Problem[]            @relation("ProblemPoster")
+  editHistory          ProblemEditHistory[]
+  solutions            Solution[]
+  upvotes              Upvote[]
+  comments             ProblemComment[]
+  industryProfile      IndustryProfile?
+  portfolioEntries     PortfolioEntry[]     @relation("IndustryPortfolio")
+  verifiedPortfolios   PortfolioEntry[]     @relation("AdminVerifier")
+  ratingsGiven         PartnershipRating[]  @relation("AdminRatings")
+}
+
+model Problem {
+  id              String               @id @default(cuid())
+  title           String
+  description     String
+  category        String
+  location        String
+  mediaUrls       String               @default("[]")
+  postedById      String
+  status          String               @default("OPEN")
+  approvalStatus  String               @default("PENDING")
+  rejectionReason String?
+  upvoteCount     Int                  @default(0)
+  isDeleted       Boolean              @default(false) @map("is_deleted")
+  deletedAt       DateTime?            @map("deleted_at")
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  postedBy        User                 @relation("ProblemPoster", fields: [postedById], references: [id])
+  editHistory     ProblemEditHistory[]
+  solutions       Solution[]
+  upvotes         Upvote[]
+  comments        ProblemComment[]
+}
+
+model ProblemComment {
+  id        String           @id @default(cuid())
+  problemId String
+  userId    String
+  content   String
+  parentId  String?          @map("parent_id")
+  createdAt DateTime         @default(now())
+  parent    ProblemComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   ProblemComment[] @relation("CommentReplies")
+  problem   Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("problem_comments")
+}
+
+model Upvote {
+  id        String   @id @default(cuid())
+  problemId String
+  userId    String
+  createdAt DateTime @default(now())
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([problemId, userId])
+}
+
+model ProblemEditHistory {
+  id         String   @id @default(cuid())
+  problemId  String
+  editedById String
+  fieldName  String
+  oldValue   String
+  newValue   String
+  editedAt   DateTime @default(now())
+  editedBy   User     @relation(fields: [editedById], references: [id])
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+model Solution {
+  id           String        @id @default(cuid())
+  problemId    String
+  universityId String
+  title        String
+  description  String
+  createdAt    DateTime      @default(now())
+  partnerships Partnership[]
+  problem      Problem       @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  university   User          @relation(fields: [universityId], references: [id])
+}
+
+model Partnership {
+  id              String             @id @default(cuid())
+  solutionId      String
+  industryId      String
+  proposalDetails String
+  status          String             @default("PROPOSED")
+  reviewedById    String?
+  reviewedAt      DateTime?
+  createdAt       DateTime           @default(now())
+  industry        User               @relation("IndustryPartner", fields: [industryId], references: [id])
+  reviewedBy      User?              @relation("AdminReviewer", fields: [reviewedById], references: [id])
+  solution        Solution           @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  rating          PartnershipRating?
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  message   String
+  linkUrl   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model IndustryProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  companyName String
+  description String
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PartnershipRating {
+  id                   String      @id @default(cuid())
+  partnershipId        String      @unique
+  ratedById            String
+  qualityScore         Int
+  budgetAdherenceScore Int
+  timelinessScore      Int
+  communicationScore   Int
+  comment              String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  partnership          Partnership @relation(fields: [partnershipId], references: [id], onDelete: Cascade)
+  ratedBy              User        @relation("AdminRatings", fields: [ratedById], references: [id])
+}
+
+model PortfolioEntry {
+  id                String    @id @default(cuid())
+  industryId        String
+  projectTitle      String
+  description       String
+  clientOrAuthority String
+  yearCompleted     Int
+  verified          Boolean   @default(false)
+  verifiedById      String?
+  verifiedAt        DateTime?
+  createdAt         DateTime  @default(now())
+  industry          User      @relation("IndustryPortfolio", fields: [industryId], references: [id], onDelete: Cascade)
+  verifiedBy        User?     @relation("AdminVerifier", fields: [verifiedById], references: [id])
+}
