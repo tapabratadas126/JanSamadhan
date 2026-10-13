@@ -78,12 +78,21 @@ export default function NewProblemPage() {
     for (const file of photos) {
       const fd = new FormData();
       fd.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      if (res.ok) {
+      try {
+        const res = await fetch("/api/upload", { method: "POST", body: fd });
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || "Failed to upload photo");
+        }
         const data = await res.json();
         uploadedUrls.push(data.url);
+      } catch (uploadErr: any) {
+        setError(uploadErr.message || "Failed to upload photos");
+        setLoading(false);
+        return;
       }
     }
+
 
     const res = await fetch("/api/problems", {
       method: "POST",
