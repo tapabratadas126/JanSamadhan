@@ -72,6 +72,13 @@ export default function IslandNavbar({
 
 
 
+        {/* Camera Cutout Lens Element */}
+        <div className="relative flex items-center justify-center w-5 h-5 rounded-full bg-[#070d18] border border-white/20 shadow-inner mr-2.5 shrink-0">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#111c34] flex items-center justify-center shadow-inner">
+            <div className="w-1 h-1 rounded-full bg-[#2E7D4F] animate-pulse" />
+          </div>
+          <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-white/40 blur-[0.2px]" />
+        </div>
 
         {/* Current Active Page Label */}
         <span className="text-xs font-semibold tracking-wide text-[#FAF7F0] mr-1.5 font-sans">
