@@ -23,6 +23,7 @@ import { CATEGORIES } from "@/components/problems/CategoryPicker";
 import ProblemCard, { StatusPill } from "@/components/problems/ProblemCard";
 import { useLanguage } from "@/context/LanguageContext";
 import BrandLogo from "@/components/layout/BrandLogo";
+import MorphingShape from "@/components/ui/MorphingShape";
 
 // ── Data Shapes ─────────────────────────────────────────────────────────────
 type ProblemItem = {
@@ -185,8 +186,16 @@ export default function HomeClient({
       {/* ─────────────────────────────────────────────────────────────────────
           4.1 HERO SECTION (Left-aligned, 2 columns, Saffron underline)
       ───────────────────────────────────────────────────────────────────── */}
-      <section className="border-b border-[#E5DFD0] py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F0]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="relative overflow-hidden border-b border-[#E5DFD0] py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F0]">
+        {/* Organic Morphing Shape in Hero background */}
+        <div className="absolute -top-24 -right-24 w-[540px] h-[540px] opacity-75 pointer-events-none z-0 hidden md:block">
+          <MorphingShape className="w-full h-full" />
+        </div>
+        <div className="absolute -bottom-36 -left-36 w-[420px] h-[420px] opacity-40 pointer-events-none z-0 hidden lg:block">
+          <MorphingShape className="w-full h-full" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column (Span 7) */}
           <div className="lg:col-span-7 space-y-6">
             {/* Eyebrow: 12px uppercase for EN, normal for Hindi */}
@@ -552,8 +561,13 @@ export default function HomeClient({
       {/* ─────────────────────────────────────────────────────────────────────
           4.3 HOW IT WORKS / USER FLOW (Native HTML/SVG with approval gates)
       ───────────────────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD0] bg-[#FFFFFF]">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <section id="how-it-works" className="relative overflow-hidden py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD0] bg-[#FFFFFF]">
+        {/* Soft Organic Morphing Shape in background */}
+        <div className="absolute -bottom-28 right-0 w-[480px] h-[480px] opacity-40 pointer-events-none z-0 hidden md:block">
+          <MorphingShape className="w-full h-full" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <div className={lang === "hi" ? "eyebrow-hi text-[#2E7D4F]" : "eyebrow-en text-[#2E7D4F]"}>
               Workflow & Governance

@@ -17,10 +17,13 @@ import {
 } from "lucide-react";
 import NotificationBell from "./NotificationBell";
 import LanguageToggle from "./LanguageToggle";
-import { PillNavItem } from "./PillNav";
 import BrandLogo from "./BrandLogo";
-import IslandNavbar from "./IslandNavbar";
 import { useLanguage } from "@/context/LanguageContext";
+
+interface NavItem {
+  label: string;
+  href: string;
+}
 
 interface NavbarProps {
   role?: string;
@@ -36,7 +39,7 @@ export default function Navbar({ role, userName }: NavbarProps) {
 
   const isLoggedIn = !!role;
 
-  // Track 8px scroll for bottom border
+  // Track scroll position to enhance glass intensity
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 8);
@@ -46,7 +49,7 @@ export default function Navbar({ role, userName }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Role metadata without emojis, using Lucide icons
+  // Role metadata using Lucide icons
   const ROLE_CONFIG: Record<
     string,
     { label: string; icon: LucideIcon; badgeClass: string }
@@ -73,9 +76,9 @@ export default function Navbar({ role, userName }: NavbarProps) {
     },
   };
 
-  // Memoise navigation items by role and language
-  const navItems: PillNavItem[] = useMemo(() => {
-    const publicItems: PillNavItem[] = [
+  // Navigation links based on role
+  const navItems: NavItem[] = useMemo(() => {
+    const publicItems: NavItem[] = [
       { href: "/problems", label: tr("nav_problems") },
       { href: "/solutions", label: tr("nav_solutions") },
       { href: "/partnerships", label: tr("nav_partnerships") },
@@ -119,7 +122,7 @@ export default function Navbar({ role, userName }: NavbarProps) {
       default:
         return publicItems;
     }
-  }, [role, tr, lang]);
+  }, [role, tr]);
 
   const currentRoleInfo = role ? ROLE_CONFIG[role] : null;
 
@@ -141,29 +144,54 @@ export default function Navbar({ role, userName }: NavbarProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-colors duration-200 bg-[#FAF7F0] ${
-        scrolled ? "border-b border-[#E5DFD0]" : "border-b border-transparent"
+      className={`sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-md ${
+        scrolled
+          ? "bg-[#FAF7F0]/85 border-b border-[#E5DFD0]/80 shadow-[0_4px_20px_-4px_rgba(23,37,74,0.06)]"
+          : "bg-[#FAF7F0]/70 border-b border-transparent"
       }`}
-      style={{ height: "76px" }}
+      style={{ height: "72px" }}
     >
       <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        {/* Left Zone: Unified Brand Logo matching Login portal */}
+        {/* Left Zone: Brand Logo */}
         <BrandLogo
           size="md"
           subtitleExtra={tr("nav_civic_network")}
           href="/"
         />
 
-        {/* Centre Zone: Camera Cutout Dynamic Island Navbar (Desktop) */}
-        <div className="hidden lg:flex items-center justify-center flex-1 max-w-2xl px-2">
-          <IslandNavbar
-            items={navItems}
-            activeHref={pathname}
-            lang={lang}
-            role={role}
-            userName={userName}
-          />
-        </div>
+        {/* Centre Zone: Standard Glass Navigation Links */}
+        <nav
+          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/60 border border-white/60 shadow-sm backdrop-blur-md"
+          aria-label="Main Navigation"
+        >
+          {navItems.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/" &&
+                (pathname?.startsWith(item.href + "/") || pathname === item.href));
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold no-underline transition-all duration-200 ${
+                  isActive
+                    ? "bg-[#17254A] text-white shadow-sm font-bold"
+                    : "text-[#1C1B18]/85 hover:text-[#17254A] hover:bg-black/5"
+                }`}
+              >
+                <span>{item.label}</span>
+                {isActive && (
+                  <span
+                    className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#2E7D4F]"
+                    aria-hidden="true"
+                  />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
 
         {/* Right Zone: Utilities */}
         <div className="flex items-center gap-3 shrink-0">
