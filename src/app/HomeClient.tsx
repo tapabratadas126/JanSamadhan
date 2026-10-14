@@ -22,6 +22,7 @@ import {
 import { CATEGORIES } from "@/components/problems/CategoryPicker";
 import ProblemCard, { StatusPill } from "@/components/problems/ProblemCard";
 import { useLanguage } from "@/context/LanguageContext";
+import BrandLogo from "@/components/layout/BrandLogo";
 
 // ── Data Shapes ─────────────────────────────────────────────────────────────
 type ProblemItem = {
@@ -1028,17 +1029,7 @@ export default function HomeClient({
       <footer className="bg-[#17254A] text-[#FAF7F0] py-12 px-4 sm:px-6 lg:px-8 mt-auto">
         <div className="max-w-7xl mx-auto space-y-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/10 pb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#2E7D4F] text-white flex items-center justify-center">
-                <Sprout className="w-4.5 h-4.5" />
-              </div>
-              <div>
-                <span className="font-serif font-semibold text-lg text-white">
-                  JanSamadhan
-                </span>
-                <span className="text-xs text-[#CBC3AE] block">जन समाधान</span>
-              </div>
-            </div>
+            <BrandLogo size="md" isWhiteText={true} href="/" />
 
             {/* Links */}
             <nav className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#E4E9F5]/90 font-medium">

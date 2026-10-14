@@ -12,15 +12,30 @@ export async function GET(request: NextRequest) {
 
   const stream = new ReadableStream({
     async start(controller) {
+      let isClosed = false;
+
+      const safeClose = () => {
+        if (!isClosed) {
+          isClosed = true;
+          try {
+            controller.close();
+          } catch {
+            // ignore if already closed
+          }
+        }
+      };
+
       const send = async () => {
+        if (isClosed || request.signal.aborted) return;
         try {
           const count = await prisma.notification.count({
             where: { userId: session.userId, isRead: false },
           });
+          if (isClosed || request.signal.aborted) return;
           const data = `data: ${JSON.stringify({ unreadCount: count })}\n\n`;
           controller.enqueue(encoder.encode(data));
         } catch {
-          controller.close();
+          safeClose();
         }
       };
 
@@ -29,7 +44,7 @@ export async function GET(request: NextRequest) {
 
       request.signal.addEventListener("abort", () => {
         clearInterval(interval);
-        controller.close();
+        safeClose();
       });
     },
   });

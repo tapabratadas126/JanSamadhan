@@ -17,7 +17,9 @@ import {
 } from "lucide-react";
 import NotificationBell from "./NotificationBell";
 import LanguageToggle from "./LanguageToggle";
-import PillNav, { PillNavItem } from "./PillNav";
+import { PillNavItem } from "./PillNav";
+import BrandLogo from "./BrandLogo";
+import IslandNavbar from "./IslandNavbar";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface NavbarProps {
@@ -145,35 +147,21 @@ export default function Navbar({ role, userName }: NavbarProps) {
       style={{ height: "76px" }}
     >
       <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        {/* Left Zone: Brand Logo & Wordmark */}
-        <Link href="/" className="flex items-center gap-3 no-underline group shrink-0">
-          <div className="w-10 h-10 rounded-full bg-[#17254A] text-white flex items-center justify-center transition-transform group-hover:rotate-12 duration-300 shadow-sm">
-            <Sprout className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif font-semibold text-lg text-[#17254A] leading-tight tracking-tight">
-              JanSamadhan
-            </span>
-            <span className="text-[11px] font-medium text-[#5E5C54] leading-none">
-              जन समाधान
-            </span>
-            <span className="text-[10px] text-[#5E5C54] hidden xl:inline mt-0.5">
-              {tr("nav_civic_network")}
-            </span>
-          </div>
-        </Link>
+        {/* Left Zone: Unified Brand Logo matching Login portal */}
+        <BrandLogo
+          size="md"
+          subtitleExtra={tr("nav_civic_network")}
+          href="/"
+        />
 
-        {/* Centre Zone: PillNav (Desktop) */}
+        {/* Centre Zone: Camera Cutout Dynamic Island Navbar (Desktop) */}
         <div className="hidden lg:flex items-center justify-center flex-1 max-w-2xl px-2">
-          <PillNav
+          <IslandNavbar
             items={navItems}
             activeHref={pathname}
-            baseColor="#17254A"
-            pillColor="#FFFFFF"
-            pillTextColor="#1C1B18"
-            hoveredPillTextColor="#FFFFFF"
-            activeDotColor="#2E7D4F"
             lang={lang}
+            role={role}
+            userName={userName}
           />
         </div>
 
