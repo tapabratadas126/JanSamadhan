@@ -160,42 +160,41 @@ export default function ProblemFeedFilters({
       </form>
 
       {/* Middle Bar: Category Pills & Grouping Toggle */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-gray-100">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-[#E5DFD0]">
         {/* Categories */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none flex-1">
           <button
             onClick={() => updateFilters({ category: null })}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors border ${
               !currentCategory
-                ? "bg-gradient-to-r from-[#14B8A6] to-[#6366F1] text-white border-transparent shadow-sm"
-                : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
+                ? "bg-[#17254A] text-white border-[#17254A]"
+                : "bg-white text-[#5E5C54] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:text-[#1C1B18]"
             }`}
           >
             All Categories
           </button>
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() =>
-                updateFilters({
-                  category: currentCategory === cat.value ? null : cat.value,
-                })
-              }
-              style={{
-                backgroundColor: currentCategory === cat.value ? cat.color : undefined,
-                color: currentCategory === cat.value ? "#FFFFFF" : undefined,
-                borderColor: currentCategory === cat.value ? cat.color : undefined,
-              }}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-all border ${
-                currentCategory === cat.value
-                  ? "shadow-sm border-transparent"
-                  : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
-              }`}
-            >
-              <span>{cat.emoji}</span>
-              <span>{cat.label}</span>
-            </button>
-          ))}
+          {CATEGORIES.map((cat) => {
+            const Icon = cat.icon;
+            const isSelected = currentCategory === cat.value;
+            return (
+              <button
+                key={cat.value}
+                onClick={() =>
+                  updateFilters({
+                    category: isSelected ? null : cat.value,
+                  })
+                }
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors border ${
+                  isSelected
+                    ? "bg-[#2E7D4F] text-white border-[#2E7D4F]"
+                    : "bg-white text-[#1C1B18] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:border-[#CBC3AE]"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Group By Location Toggle */}

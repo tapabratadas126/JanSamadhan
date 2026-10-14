@@ -107,32 +107,32 @@ export default async function PublicSolutionsPage({
               href="/solutions"
               className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all no-underline ${
                 !selectedCategory
-                  ? "bg-gradient-to-r from-[#14B8A6] to-[#6366F1] text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-[#17254A] text-white border-[#17254A]"
+                  : "bg-white text-[#5E5C54] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:text-[#1C1B18]"
               }`}
             >
               All Categories
             </Link>
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.value}
-                href={`/solutions?category=${cat.value}${
-                  searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""
-                }`}
-                style={{
-                  backgroundColor: selectedCategory === cat.value ? cat.color : undefined,
-                  color: selectedCategory === cat.value ? "#FFFFFF" : undefined,
-                }}
-                className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-all no-underline ${
-                  selectedCategory === cat.value
-                    ? "shadow-sm"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                <span>{cat.emoji}</span>
-                <span>{cat.label}</span>
-              </Link>
-            ))}
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.value;
+              return (
+                <Link
+                  key={cat.value}
+                  href={`/solutions?category=${cat.value}${
+                    searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""
+                  }`}
+                  className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors no-underline border ${
+                    isSelected
+                      ? "bg-[#2E7D4F] text-white border-[#2E7D4F]"
+                      : "bg-white text-[#1C1B18] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:border-[#CBC3AE]"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
 

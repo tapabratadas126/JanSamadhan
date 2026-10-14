@@ -34,10 +34,14 @@ export const translations = {
   role_industry: { en: "Industry", hi: "उद्योग" },
   role_admin: { en: "Admin", hi: "व्यवस्थापक" },
 
-  // ── Homepage — Hero ───────────────────────────────────────────────────────
+  // ── Homepage — Hero & Redesign ───────────────────────────────────────────
   hero_badge: {
     en: "Civic Problem Solving & Academic Innovation Platform",
     hi: "नागरिक समस्या समाधान और शैक्षणिक नवाचार मंच",
+  },
+  hero_eyebrow: {
+    en: "Jharkhand civic collaboration portal",
+    hi: "झारखंड नागरिक सहयोग पोर्टल",
   },
   hero_heading: {
     en: "Connecting Citizens, Universities & Industry to Solve Local Challenges",
@@ -48,8 +52,68 @@ export const translations = {
     hi: "सामुदायिक समस्याओं की रिपोर्ट करें, शोधकर्ताओं के साथ मिलकर तकनीकी समाधान खोजें और टिकाऊ प्रभाव के लिए उद्योग जगत से साझेदारी करें।",
   },
   hero_cta_primary: { en: "Get Started Free", hi: "मुफ़्त शुरू करें" },
+  hero_cta_report: { en: "Report a problem", hi: "समस्या दर्ज करें" },
+  hero_cta_browse: { en: "Browse problems", hi: "समस्याएँ देखें" },
   hero_cta_login: { en: "Log In", hi: "लॉग इन करें" },
   hero_cta_dashboard: { en: "Go to My Dashboard", hi: "मेरा डैशबोर्ड खोलें" },
+  hero_trust_free: { en: "Free to use", hi: "उपयोग के लिए मुफ़्त" },
+  hero_trust_verified: { en: "Verified institutions", hi: "सत्यापित संस्थान" },
+  hero_trust_transparent: { en: "Transparent progress", hi: "पारदर्शी प्रगति" },
+
+  // ── Homepage — Bento & User Flow ─────────────────────────────────────────
+  bento_live_stats: { en: "Live Impact Overview", hi: "प्रत्यक्ष प्रभाव अवलोकन" },
+  bento_latest_report: { en: "Latest reported", hi: "हाल ही में दर्ज" },
+  bento_how_title: { en: "How Collaboration Works", hi: "सहयोग कैसे काम करता है" },
+  bento_how_step1: { en: "1. Citizen reports", hi: "1. नागरिक रिपोर्ट दर्ज करता है" },
+  bento_how_step2: { en: "2. Lab develops", hi: "2. लैब समाधान बनाती है" },
+  bento_how_step3: { en: "3. Industry backs", hi: "3. उद्योग सहयोग करता है" },
+  bento_categories_title: { en: "Problem Domains", hi: "समस्या क्षेत्र" },
+  bento_impact_title: { en: "Civic Outcomes", hi: "नागरिक परिणाम" },
+  bento_impact_desc: {
+    en: "Empowering Jharkhand districts with scalable research and CSR funding for local civic issues.",
+    hi: "स्थानीय नागरिक मुद्दों के लिए अनुसंधान और सीएसआर वित्तपोषण के साथ झारखंड के जिलों को सशक्त बनाना।",
+  },
+  bento_who_title: { en: "Who It's For", hi: "यह किसके लिए है" },
+  flow_title: { en: "How JanSamadhan Works", hi: "जन समाधान कैसे काम करता है" },
+  flow_subtitle: {
+    en: "Every problem passes through transparent, verified review gates.",
+    hi: "प्रत्येक समस्या पारदर्शी और सत्यापित समीक्षा चरणों से गुजरती है।",
+  },
+  flow_step1_title: { en: "Citizen Submits", hi: "नागरिक दर्ज करता है" },
+  flow_step1_desc: {
+    en: "Citizen submits a detailed civic issue with location and photos.",
+    hi: "नागरिक स्थान और फ़ोटो के साथ समस्या प्रस्तुत करता है।",
+  },
+  flow_gate1_title: { en: "Admin Verification", hi: "व्यवस्थापक सत्यापन" },
+  flow_gate1_desc: {
+    en: "Admin validates the submission before it goes public.",
+    hi: "सार्वजनिक होने से पहले व्यवस्थापक समीक्षा और अनुमोदन करता है।",
+  },
+  flow_step2_title: { en: "University Proposes", hi: "विश्वविद्यालय समाधान प्रस्तुत करता है" },
+  flow_step2_desc: {
+    en: "Researchers design technical and sustainable prototypes.",
+    hi: "शोधकर्ता तकनीकी व टिकाऊ समाधान प्रस्तावित करते हैं।",
+  },
+  flow_step3_title: { en: "Industry Partners", hi: "उद्योग साझेदारी प्रदान करता है" },
+  flow_step3_desc: {
+    en: "Corporate partner pledges CSR funding or equipment.",
+    hi: "कॉर्पोरेट पार्टनर सीएसआर फ़ंड या उपकरण प्रदान करता है।",
+  },
+  flow_gate2_title: { en: "Partnership Approval", hi: "साझेदारी अनुमोदन" },
+  flow_gate2_desc: {
+    en: "Admin reviews partnership terms for transparency.",
+    hi: "व्यवस्थापक पारदर्शिता के लिए साझेदारी को मंज़ूरी देता है।",
+  },
+  join_heading: { en: "Join the Civic Network", hi: "नागरिक नेटवर्क से जुड़ें" },
+  join_subtext: {
+    en: "Choose your role and participate in solving grassroots civic challenges.",
+    hi: "अपनी भूमिका चुनें और ज़मीनी नागरिक समस्याओं के समाधान में भाग लें।",
+  },
+  footer_about: { en: "About", hi: "हमारे बारे में" },
+  footer_contact: { en: "Contact", hi: "संपर्क करें" },
+  footer_privacy: { en: "Privacy Policy", hi: "गोपनीयता नीति" },
+  footer_terms: { en: "Terms of Use", hi: "उपयोग की शर्तें" },
+  footer_accessibility: { en: "Accessibility", hi: "सुलभता" },
 
   // ── Homepage — Metrics ────────────────────────────────────────────────────
   metric_problems: { en: "Civic Problems Reported", hi: "दर्ज की गई नागरिक समस्याएँ" },

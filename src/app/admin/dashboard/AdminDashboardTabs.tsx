@@ -387,20 +387,20 @@ export default function AdminDashboardTabs({
 
   return (
     <div className="space-y-6">
-      {/* Tabs Navigation */}
-      <div className="flex border-b border-gray-200 bg-white rounded-t-2xl px-6 pt-3 gap-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-x-auto scrollbar-none">
+      {/* Tabs Navigation: Single green (#2E7D4F) underline for active tab */}
+      <div className="flex border-b border-[#E5DFD0] bg-[#FFFFFF] rounded-t-2xl px-6 pt-3 gap-6 overflow-x-auto scrollbar-none">
         <button
           onClick={() => setActiveTab("pending_problems")}
-          className={`py-3.5 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
             activeTab === "pending_problems"
-              ? "border-amber-500 text-amber-700"
-              : "border-transparent text-gray-500 hover:text-gray-800"
+              ? "border-[#2E7D4F] text-[#2E7D4F]"
+              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
           }`}
         >
-          <Clock size={17} />
+          <Clock size={16} />
           <span>Approval Queue</span>
           {pendingProblems.length > 0 && (
-            <span className="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold">
+            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
               {pendingProblems.length} pending
             </span>
           )}
@@ -408,16 +408,16 @@ export default function AdminDashboardTabs({
 
         <button
           onClick={() => setActiveTab("partnerships")}
-          className={`py-3.5 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
             activeTab === "partnerships"
-              ? "border-[#6366F1] text-[#6366F1]"
-              : "border-transparent text-gray-500 hover:text-gray-800"
+              ? "border-[#2E7D4F] text-[#2E7D4F]"
+              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
           }`}
         >
-          <Handshake size={17} />
+          <Handshake size={16} />
           <span>Partnerships</span>
           {pendingPartnerships.length > 0 && (
-            <span className="bg-purple-100 text-purple-900 text-xs px-2.5 py-0.5 rounded-full font-bold">
+            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
               {pendingPartnerships.length} pending
             </span>
           )}
@@ -425,16 +425,16 @@ export default function AdminDashboardTabs({
 
         <button
           onClick={() => setActiveTab("portfolio_review")}
-          className={`py-3.5 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
             activeTab === "portfolio_review"
-              ? "border-emerald-600 text-emerald-800"
-              : "border-transparent text-gray-500 hover:text-gray-800"
+              ? "border-[#2E7D4F] text-[#2E7D4F]"
+              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
           }`}
         >
-          <Briefcase size={17} />
+          <Briefcase size={16} />
           <span>Portfolio Review</span>
           {pendingPortfolioEntries.length > 0 && (
-            <span className="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold">
+            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
               {pendingPortfolioEntries.length} pending
             </span>
           )}
@@ -442,25 +442,25 @@ export default function AdminDashboardTabs({
 
         <button
           onClick={() => setActiveTab("problems")}
-          className={`py-3.5 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
             activeTab === "problems"
-              ? "border-[#14B8A6] text-[#0D9488]"
-              : "border-transparent text-gray-500 hover:text-gray-800"
+              ? "border-[#2E7D4F] text-[#2E7D4F]"
+              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
           }`}
         >
-          <AlertTriangle size={17} />
+          <AlertTriangle size={16} />
           <span>All Civic Problems ({problems.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab("solutions")}
-          className={`py-3.5 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
             activeTab === "solutions"
-              ? "border-[#6366F1] text-[#6366F1]"
-              : "border-transparent text-gray-500 hover:text-gray-800"
+              ? "border-[#2E7D4F] text-[#2E7D4F]"
+              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
           }`}
         >
-          <Lightbulb size={17} />
+          <Lightbulb size={16} />
           <span>Academic Solutions ({solutions.length})</span>
         </button>
       </div>

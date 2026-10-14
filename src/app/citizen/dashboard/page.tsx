@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Plus, FileText, ThumbsUp, Lightbulb, ArrowRight } from "lucide-react";
+import { Plus, FileText, ThumbsUp, Lightbulb, ArrowRight, User } from "lucide-react";
 import ProblemCard from "@/components/problems/ProblemCard";
 
 export const dynamic = "force-dynamic";
@@ -33,87 +33,102 @@ export default async function CitizenDashboard() {
   ]);
 
   const totalUpvotes = myProblems.reduce((a, p) => a + p.upvoteCount, 0);
+  const totalSolutions = myProblems.reduce((a, p) => a + (p._count?.solutions || 0), 0);
 
   return (
-    <div className="space-y-8 animate-feed-enter">
-      {/* Welcome header */}
+    <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Welcome Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200 mb-2">
-            <span>🧑</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#E3F0E7] text-[#2E7D4F] border border-[#2E7D4F]/30 mb-2">
+            <User size={13} />
             <span>Citizen Portal</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">
+          <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-[#17254A]">
             Welcome, {session.name.split(" ")[0]}!
           </h1>
-          <p className="text-gray-500 mt-1 text-base sm:text-lg">
-            Report community issues, monitor academic solutions, and track resolution.
+          <p className="text-[#5E5C54] mt-1 text-sm sm:text-base">
+            Report community issues, monitor academic solutions, and track transparent resolution.
           </p>
         </div>
 
         <Link
           href="/citizen/problems/new"
-          className="btn-primary py-3 px-6 text-sm font-bold no-underline"
+          className="btn-primary py-2.5 px-5 text-sm font-semibold no-underline"
         >
-          <Plus size={18} />
+          <Plus size={16} />
           <span>Report a Problem</span>
         </Link>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="card text-center p-6 bg-white border border-gray-100 shadow-sm flex flex-col items-center justify-center">
-          <div className="w-11 h-11 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center mb-2">
-            <FileText size={20} />
+      {/* One Unified Metrics Panel with Dividers (instead of 3 separate tinted cards) */}
+      <div className="bg-[#FFFFFF] rounded-2xl border border-[#E5DFD0] p-6 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#E5DFD0]">
+        <div className="flex flex-col items-center justify-center p-4 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#17254A] flex items-center justify-center mb-2 border border-[#E5DFD0]">
+            <FileText size={18} />
           </div>
-          <div className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">{myProblems.length}</div>
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1">My Reports</div>
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+            {myProblems.length}
+          </div>
+          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
+            My Reports
+          </div>
         </div>
 
-        <div className="card text-center p-6 bg-white border border-gray-100 shadow-sm flex flex-col items-center justify-center">
-          <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center mb-2">
-            <ThumbsUp size={20} />
+        <div className="flex flex-col items-center justify-center p-4 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#2E7D4F] flex items-center justify-center mb-2 border border-[#E5DFD0]">
+            <ThumbsUp size={18} />
           </div>
-          <div className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">{totalUpvotes}</div>
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1">Total Upvotes Received</div>
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+            {totalUpvotes}
+          </div>
+          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
+            Upvotes Received
+          </div>
         </div>
 
-        <div className="card text-center p-6 bg-white border border-gray-100 shadow-sm flex flex-col items-center justify-center">
-          <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mb-2">
-            <Lightbulb size={20} />
+        <div className="flex flex-col items-center justify-center p-4 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#D98324] flex items-center justify-center mb-2 border border-[#E5DFD0]">
+            <Lightbulb size={18} />
           </div>
-          <div className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">
-            {myProblems.reduce((a, p) => a + (p._count?.solutions || 0), 0)}
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+            {totalSolutions}
           </div>
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1">Academic Solutions</div>
+          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
+            Academic Solutions
+          </div>
         </div>
       </div>
 
-      {/* CTA Box */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-teal-600 via-indigo-600 to-indigo-700 p-8 text-white shadow-lg shadow-indigo-500/20">
-        <div className="max-w-xl space-y-3">
-          <h2 className="text-2xl font-extrabold text-white">Notice an issue in your neighborhood?</h2>
-          <p className="text-teal-100 text-sm leading-relaxed">
-            Report civic challenges like road hazards, water quality issues, sanitation, or accessibility barriers in 3 easy steps.
+      {/* Notice an Issue? Panel (Flat Navy #17254A, no gradients) */}
+      <div className="rounded-2xl bg-[#17254A] text-white p-6 sm:p-8 border border-[#17254A]">
+        <div className="max-w-2xl space-y-3">
+          <h2 className="font-serif text-xl sm:text-2xl font-semibold text-white">
+            Notice an issue in your neighborhood?
+          </h2>
+          <p className="text-xs sm:text-sm text-[#E4E9F5]/90 leading-relaxed">
+            Report civic challenges like road hazards, water quality issues, sanitation, or accessibility barriers in 3 verified steps.
           </p>
           <div className="pt-2">
             <Link
               href="/citizen/problems/new"
-              className="inline-flex items-center gap-2 bg-white text-indigo-900 font-bold px-6 py-3 rounded-xl hover:bg-teal-50 transition-colors no-underline text-sm shadow-md"
+              className="inline-flex items-center gap-2 bg-[#2E7D4F] text-white font-semibold px-5 py-2.5 rounded-[10px] hover:bg-[#22633D] transition-colors no-underline text-sm"
             >
-              <Plus size={18} />
+              <Plus size={16} />
               <span>Report New Problem</span>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Most Upvoted Problems */}
+      {/* Community Priority Problems */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Community Priority Problems</h2>
-            <p className="text-xs text-gray-500">Most upvoted issues across communities</p>
+            <h2 className="font-serif text-xl font-semibold text-[#17254A]">
+              Community Priority Problems
+            </h2>
+            <p className="text-xs text-[#5E5C54]">Most upvoted issues across communities</p>
           </div>
           <Link href="/problems" className="btn-outline text-xs py-1.5 px-3.5 no-underline">
             <span>Browse all</span>
@@ -122,10 +137,9 @@ export default async function CitizenDashboard() {
         </div>
 
         {recentProblems.length === 0 ? (
-          <div className="card text-center py-12 text-gray-500 space-y-2">
-            <div className="text-4xl mb-2">🏘️</div>
-            <p className="font-bold text-gray-800">No problems reported yet.</p>
-            <p className="text-xs text-gray-400">Be the first citizen to report a community problem!</p>
+          <div className="card text-center py-12 text-[#5E5C54] space-y-2">
+            <p className="font-semibold text-[#1C1B18]">No problems reported yet.</p>
+            <p className="text-xs text-[#5E5C54]">Be the first citizen to report a community problem!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

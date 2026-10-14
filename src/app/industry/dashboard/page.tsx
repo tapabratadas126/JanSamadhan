@@ -2,7 +2,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Handshake, ArrowRight, Eye } from "lucide-react";
+import { Handshake, ArrowRight, Eye, Building2 } from "lucide-react";
 import IndustryProfileClient from "./IndustryProfileClient";
 
 export const dynamic = "force-dynamic";
@@ -127,18 +127,18 @@ export default async function IndustryDashboard() {
   };
 
   return (
-    <div className="space-y-8 animate-feed-enter">
+    <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 mb-2">
-            <span>🏭</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FBEBD3] text-[#98590A] border border-[#D98324]/30 mb-2">
+            <Building2 size={14} />
             <span>Industry & CSR Management Portal</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">
+          <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-[#17254A]">
             Welcome, {session.name}
           </h1>
-          <p className="text-gray-500 mt-1 text-base sm:text-lg">
+          <p className="text-[#5E5C54] mt-1 text-sm sm:text-base">
             Manage your verified company profile, view administrative ratings, and propose CSR partnerships.
           </p>
         </div>
@@ -146,14 +146,14 @@ export default async function IndustryDashboard() {
         <div className="flex items-center gap-3">
           <Link
             href={`/industry/${session.userId}`}
-            className="btn-outline py-2.5 px-4 text-xs font-bold no-underline flex items-center gap-1.5"
+            className="btn-outline py-2.5 px-4 text-xs font-semibold no-underline flex items-center gap-1.5"
           >
             <Eye size={15} />
             <span>Public Profile Page</span>
           </Link>
           <Link
             href="/solutions"
-            className="btn-primary py-2.5 px-5 text-xs font-bold no-underline flex items-center gap-1.5"
+            className="btn-primary py-2.5 px-5 text-xs font-semibold no-underline flex items-center gap-1.5"
           >
             <Handshake size={15} />
             <span>Explore Solutions</span>
@@ -189,10 +189,10 @@ export default async function IndustryDashboard() {
       <div className="card p-6 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="font-serif text-xl font-semibold text-[#17254A]">
               Academic Solutions Ready for CSR Partnership
             </h2>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-[#5E5C54] mt-0.5">
               Sponsor verified community interventions with measurable impact
             </p>
           </div>
@@ -209,35 +209,36 @@ export default async function IndustryDashboard() {
           {recentSolutions.map((sol) => (
             <div
               key={sol.id}
-              className="p-5 rounded-2xl border border-gray-200/80 bg-[#FAFAF9] hover:bg-white hover:shadow-md transition-all flex flex-col justify-between"
+              className="p-5 rounded-2xl border border-[#E5DFD0] bg-[#FAF7F0] hover:bg-[#FFFFFF] transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="badge bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-indigo-100">
+                  <span className="badge bg-[#E4E9F5] text-[#17254A] border-[#17254A]/20">
                     {sol.university.name}
                   </span>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-[#5E5C54]">
                     {new Date(sol.createdAt).toLocaleDateString("en-IN", {
                       day: "numeric",
                       month: "short",
                     })}
                   </span>
                 </div>
-                <h3 className="font-bold text-gray-900 text-base">{sol.title}</h3>
-                <p className="text-xs text-gray-500 mt-1 mb-2 font-medium">
-                  Addressing: <span className="font-semibold text-gray-700">{sol.problem.title}</span> ({sol.problem.location})
-                </p>
-                <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
-                  {sol.description}
-                </p>
+
+                <h3 className="font-semibold text-base text-[#1C1B18] line-clamp-1 mb-1">
+                  {sol.title}
+                </h3>
+                <div className="text-xs text-[#5E5C54] mb-3">
+                  Problem: {sol.problem.title} ({sol.problem.location})
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-gray-200/70 flex items-center justify-between">
-                <span className="text-xs text-gray-500 font-medium">
-                  {sol._count.partnerships} partnerships proposed
+
+              <div className="pt-3 border-t border-[#E5DFD0] flex items-center justify-between">
+                <span className="text-xs text-[#5E5C54]">
+                  {sol._count.partnerships} partnerships offered
                 </span>
                 <Link
                   href={`/solutions/${sol.id}`}
-                  className="btn-primary text-xs py-1.5 px-3.5 no-underline"
+                  className="btn-primary text-xs py-1.5 px-3 no-underline"
                 >
                   Propose Partnership
                 </Link>

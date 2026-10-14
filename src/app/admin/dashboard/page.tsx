@@ -81,81 +81,106 @@ export default async function AdminDashboardPage() {
   ]);
 
   return (
-    <div className="space-y-8 animate-feed-enter">
+    <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 mb-2">
-            <span>🛡️</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#F1ECDF] text-[#1C1B18] border border-[#CBC3AE] mb-2">
+            <ShieldCheck size={14} />
             <span>Platform Administration & Moderation</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1F2933]">
+          <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-[#17254A]">
             JanSamadhan Control Center
           </h1>
-          <p className="text-gray-500 mt-1 text-base sm:text-lg">
+          <p className="text-[#5E5C54] mt-1 text-sm sm:text-base">
             Review problem submissions, moderate partnership proposals, and oversee platform activity.
           </p>
         </div>
       </div>
 
-      {/* Metrics Grid */}
+      {/* Metrics Row: Saffron for pending, green for approved, neutral for others */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <div className="card p-5 border border-amber-200 shadow-sm bg-amber-50/40">
+        {/* Pending Submissions (Saffron) */}
+        <div className="card p-4 sm:p-5 border border-[#D98324]/40 bg-[#FBEBD3]/60">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
-              <Clock size={20} />
+            <div className="w-10 h-10 rounded-xl bg-[#D98324] text-white flex items-center justify-center shrink-0">
+              <Clock size={18} />
             </div>
             <div>
-              <p className="text-xs text-amber-800 font-bold uppercase tracking-wider">Pending Submissions</p>
-              <p className="text-2xl sm:text-3xl font-extrabold text-amber-950">{pendingProblemsCount}</p>
+              <p className="text-[11px] text-[#98590A] font-semibold uppercase tracking-wider">
+                Pending Problems
+              </p>
+              <p className="text-2xl sm:text-3xl font-serif font-bold text-[#17254A]">
+                {pendingProblemsCount}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="card p-5 border border-gray-100 shadow-sm">
+        {/* Total Problems (Neutral) */}
+        <div className="card p-4 sm:p-5 border border-[#E5DFD0] bg-[#FFFFFF]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
-              <AlertTriangle size={20} />
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F0] text-[#17254A] border border-[#E5DFD0] flex items-center justify-center shrink-0">
+              <AlertTriangle size={18} />
             </div>
             <div>
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Total Problems</p>
-              <p className="text-2xl sm:text-3xl font-extrabold text-gray-900">{problemsCount}</p>
+              <p className="text-[11px] text-[#5E5C54] font-semibold uppercase tracking-wider">
+                Total Problems
+              </p>
+              <p className="text-2xl sm:text-3xl font-serif font-bold text-[#1C1B18]">
+                {problemsCount}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="card p-5 border border-gray-100 shadow-sm">
+        {/* Academic Solutions (Neutral) */}
+        <div className="card p-4 sm:p-5 border border-[#E5DFD0] bg-[#FFFFFF]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center">
-              <Lightbulb size={20} />
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F0] text-[#17254A] border border-[#E5DFD0] flex items-center justify-center shrink-0">
+              <Lightbulb size={18} />
             </div>
             <div>
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Academic Solutions</p>
-              <p className="text-2xl sm:text-3xl font-extrabold text-gray-900">{solutionsCount}</p>
+              <p className="text-[11px] text-[#5E5C54] font-semibold uppercase tracking-wider">
+                Solutions
+              </p>
+              <p className="text-2xl sm:text-3xl font-serif font-bold text-[#1C1B18]">
+                {solutionsCount}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="card p-5 border border-purple-200/70 shadow-sm bg-purple-50/20">
+        {/* Pending Partnerships (Saffron) */}
+        <div className="card p-4 sm:p-5 border border-[#D98324]/40 bg-[#FBEBD3]/60">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center">
-              <Handshake size={20} />
+            <div className="w-10 h-10 rounded-xl bg-[#D98324] text-white flex items-center justify-center shrink-0">
+              <Handshake size={18} />
             </div>
             <div>
-              <p className="text-xs text-purple-800 font-bold uppercase tracking-wider">Pending Deals</p>
-              <p className="text-2xl sm:text-3xl font-extrabold text-purple-950">{pendingPartnershipsCount}</p>
+              <p className="text-[11px] text-[#98590A] font-semibold uppercase tracking-wider">
+                Pending Deals
+              </p>
+              <p className="text-2xl sm:text-3xl font-serif font-bold text-[#17254A]">
+                {pendingPartnershipsCount}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="card p-5 border border-emerald-200/70 shadow-sm bg-emerald-50/20">
+        {/* Approved Deals (Green) */}
+        <div className="card p-4 sm:p-5 border border-[#2E7D4F]/40 bg-[#E3F0E7]/60">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
-              <CheckCircle2 size={20} />
+            <div className="w-10 h-10 rounded-xl bg-[#2E7D4F] text-white flex items-center justify-center shrink-0">
+              <CheckCircle2 size={18} />
             </div>
             <div>
-              <p className="text-xs text-emerald-800 font-bold uppercase tracking-wider">Approved Deals</p>
-              <p className="text-2xl sm:text-3xl font-extrabold text-emerald-900">{approvedPartnershipsCount}</p>
+              <p className="text-[11px] text-[#2E7D4F] font-semibold uppercase tracking-wider">
+                Approved Deals
+              </p>
+              <p className="text-2xl sm:text-3xl font-serif font-bold text-[#17254A]">
+                {approvedPartnershipsCount}
+              </p>
             </div>
           </div>
         </div>

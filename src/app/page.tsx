@@ -23,16 +23,67 @@ export default async function Home({
   const selectedCategory = params.category || "";
   const searchQuery = params.search || "";
 
-  // ── Aggregate stats (only active, approved problems) ──────────────────────────
-  const [problemCount, solutionCount, partnershipCount] = await Promise.all([
-    prisma.problem.count({ where: { approvalStatus: "APPROVED", isDeleted: false } }),
-    prisma.solution.count({
-      where: { problem: { approvalStatus: "APPROVED", isDeleted: false } },
-    }),
-    prisma.partnership.count({
-      where: { solution: { problem: { approvalStatus: "APPROVED", isDeleted: false } } },
-    }),
-  ]);
+  // ── Aggregate stats (only public items: approved & not deleted) ─────────────
+  const [problemCount, solutionCount, partnershipCount, categoryGroups, latestChain] =
+    await Promise.all([
+      prisma.problem.count({
+        where: { approvalStatus: "APPROVED", isDeleted: false },
+      }),
+      prisma.solution.count({
+        where: { problem: { approvalStatus: "APPROVED", isDeleted: false } },
+      }),
+      prisma.partnership.count({
+        where: {
+          status: "APPROVED",
+          solution: { problem: { approvalStatus: "APPROVED", isDeleted: false } },
+        },
+      }),
+      prisma.problem.groupBy({
+        by: ["category"],
+        where: { approvalStatus: "APPROVED", isDeleted: false },
+        _count: { id: true },
+      }),
+      prisma.problem.findFirst({
+        where: {
+          approvalStatus: "APPROVED",
+          isDeleted: false,
+          solutions: {
+            some: {
+              partnerships: {
+                some: { status: "APPROVED" },
+              },
+            },
+          },
+        },
+        include: {
+          postedBy: { select: { name: true } },
+          solutions: {
+            where: {
+              partnerships: {
+                some: { status: "APPROVED" },
+              },
+            },
+            include: {
+              university: { select: { name: true } },
+              partnerships: {
+                where: { status: "APPROVED" },
+                include: {
+                  industry: { select: { name: true } },
+                },
+                take: 1,
+              },
+            },
+            take: 1,
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+  const categoryCounts: Record<string, number> = {};
+  categoryGroups.forEach((g) => {
+    categoryCounts[g.category] = g._count.id;
+  });
 
   // ── Problems feed (strictly approved & not deleted) ───────────────────────────
   const problemWhere: Record<string, unknown> = {
@@ -114,8 +165,9 @@ export default async function Home({
     },
   });
 
-  // ── Partnerships feed (strictly linked to approved & not deleted problem) ──────
+  // ── Partnerships feed (strictly APPROVED partnerships on approved problems) ────
   const partnershipWhere: Record<string, unknown> = {
+    status: "APPROVED",
     solution: { problem: { approvalStatus: "APPROVED", isDeleted: false } },
   };
   if (selectedCategory) {
@@ -129,6 +181,7 @@ export default async function Home({
   }
   if (searchQuery) {
     partnershipWhere.AND = [
+      { status: "APPROVED" },
       { solution: { problem: { approvalStatus: "APPROVED", isDeleted: false } } },
       {
         OR: [
@@ -166,6 +219,8 @@ export default async function Home({
         problemCount={problemCount}
         solutionCount={solutionCount}
         partnershipCount={partnershipCount}
+        categoryCounts={categoryCounts}
+        latestChain={latestChain}
         problems={problems}
         solutions={solutions}
         partnerships={partnerships}

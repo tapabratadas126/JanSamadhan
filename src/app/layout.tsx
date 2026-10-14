@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans, Noto_Sans_Devanagari } from "next/font/google";
+import { DM_Sans, Fraunces, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["600", "700"],
   variable: "--font-heading",
   display: "swap",
 });
@@ -39,9 +40,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakartaSans.variable} ${notoDevanagari.variable}`}
+      className={`${dmSans.variable} ${fraunces.variable} ${notoDevanagari.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-[#FAF7F0] text-[#1C1B18]">
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

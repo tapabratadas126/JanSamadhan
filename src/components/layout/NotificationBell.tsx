@@ -83,29 +83,25 @@ export default function NotificationBell() {
     <div className="relative" ref={ref}>
       <button
         onClick={toggle}
-        className={`relative p-2.5 rounded-xl hover:bg-gray-100 transition-all ${
-          unreadCount > 0 ? "text-indigo-600" : "text-gray-600"
-        }`}
+        type="button"
+        className="relative p-2 rounded-full hover:bg-[#F1ECDF] transition-colors text-[#17254A]"
         aria-label={`${unreadCount} unread notifications`}
       >
-        <Bell
-          size={20}
-          className={`${unreadCount > 0 ? "animate-bell-shake text-indigo-600" : "text-gray-600"}`}
-        />
+        <Bell size={20} className="text-[#17254A]" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+          <span className="absolute top-0 right-0 min-w-[18px] h-[18px] px-1 bg-[#D98324] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 w-80 sm:w-96 bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-gray-100/80 z-50 overflow-hidden animate-dropdown">
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50/60">
+        <div className="absolute right-0 top-12 w-80 sm:w-96 bg-[#FFFFFF] rounded-2xl border border-[#E5DFD0] z-50 overflow-hidden shadow-lg animate-dropdown">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5DFD0] bg-[#FAF7F0]">
             <div className="flex items-center gap-2">
-              <h3 className="font-bold text-gray-900 text-sm">Notifications</h3>
+              <h3 className="font-semibold text-[#1C1B18] text-sm">Notifications</h3>
               {unreadCount > 0 && (
-                <span className="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-[#FBEBD3] text-[#98590A] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#D98324]/30">
                   {unreadCount} new
                 </span>
               )}
@@ -113,34 +109,33 @@ export default function NotificationBell() {
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors"
+                type="button"
+                className="text-xs font-semibold text-[#2E7D4F] hover:text-[#22633D] flex items-center gap-1 transition-colors"
               >
                 <Check size={13} /> Mark all read
               </button>
             )}
           </div>
 
-          <div className="max-h-96 overflow-y-auto divide-y divide-gray-50">
+          <div className="max-h-96 overflow-y-auto divide-y divide-[#E5DFD0]">
             {notifications.length === 0 ? (
-              <div className="text-center py-10 text-gray-400">
-                <Bell size={32} className="mx-auto mb-2 opacity-30 text-gray-400" />
-                <p className="text-sm font-medium text-gray-500">No notifications yet</p>
-                <p className="text-xs text-gray-400 mt-0.5">We&apos;ll notify you about problem and solution updates</p>
+              <div className="text-center py-10 text-[#5E5C54]">
+                <Bell size={30} className="mx-auto mb-2 opacity-30" />
+                <p className="text-sm font-medium text-[#1C1B18]">No notifications yet</p>
+                <p className="text-xs text-[#5E5C54] mt-0.5">We will notify you about problem and solution updates</p>
               </div>
             ) : (
               notifications.map((n) => (
                 <div
                   key={n.id}
                   className={`p-4 transition-colors ${
-                    !n.isRead
-                      ? "bg-indigo-50/40 hover:bg-indigo-50/70"
-                      : "hover:bg-gray-50/80"
+                    !n.isRead ? "bg-[#FAF7F0] hover:bg-[#F1ECDF]" : "hover:bg-[#FAF7F0]"
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-800 leading-snug font-medium">{n.message}</p>
-                      <p className="text-xs text-gray-400 mt-1">{timeAgo(n.createdAt)}</p>
+                      <p className="text-sm text-[#1C1B18] leading-snug font-medium">{n.message}</p>
+                      <p className="text-xs text-[#5E5C54] mt-1">{timeAgo(n.createdAt)}</p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 mt-0.5">
                       {n.linkUrl && (
@@ -150,7 +145,7 @@ export default function NotificationBell() {
                             markRead(n.id);
                             setOpen(false);
                           }}
-                          className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 no-underline inline-flex items-center gap-0.5"
+                          className="text-xs font-semibold text-[#2E7D4F] hover:text-[#22633D] no-underline inline-flex items-center gap-0.5"
                         >
                           <span>View</span>
                           <ExternalLink size={11} />
@@ -159,7 +154,8 @@ export default function NotificationBell() {
                       {!n.isRead && (
                         <button
                           onClick={() => markRead(n.id)}
-                          className="w-2.5 h-2.5 rounded-full bg-indigo-600 shrink-0 hover:scale-125 transition-transform"
+                          type="button"
+                          className="w-2.5 h-2.5 rounded-full bg-[#D98324] shrink-0 hover:scale-125 transition-transform"
                           title="Mark as read"
                         />
                       )}
