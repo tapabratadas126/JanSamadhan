@@ -235,7 +235,7 @@ export default function HomeClient({
             {/* Two CTAs */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
-                href="/citizen/problems/new"
+                href={session ? "/citizen/problems/new" : "/login?redirect=/citizen/problems/new"}
                 className="btn-primary text-sm font-semibold px-6 py-3 no-underline shadow-sm"
               >
                 <span>{tr("hero_cta_report")}</span>

@@ -126,7 +126,7 @@ export default async function PublicProblemsPage({
             </p>
           </div>
 
-          {session?.role === "CITIZEN" ? (
+          {session ? (
             <Link
               href="/citizen/problems/new"
               className="btn-primary text-sm py-2.5 px-5 inline-flex items-center gap-2 no-underline"
@@ -134,7 +134,7 @@ export default async function PublicProblemsPage({
               <Plus size={16} />
               <span>Report New Problem</span>
             </Link>
-          ) : !session ? (
+          ) : (
             <Link
               href="/login?redirect=/citizen/problems/new"
               className="btn-primary text-sm py-2.5 px-5 inline-flex items-center gap-2 no-underline"
@@ -142,7 +142,7 @@ export default async function PublicProblemsPage({
               <Plus size={16} />
               <span>Report Problem (Sign In)</span>
             </Link>
-          ) : null}
+          )}
         </div>
 
         {/* Filter Controls Bar */}

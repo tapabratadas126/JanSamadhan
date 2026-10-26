@@ -118,6 +118,7 @@ export default function Navbar({ role, userName }: NavbarProps) {
           { href: "/problems", label: tr("nav_problems") },
           { href: "/solutions", label: tr("nav_solutions") },
           { href: "/partnerships", label: tr("nav_partnerships") },
+          { href: "/citizen/problems/new", label: tr("nav_report_problem") },
         ];
       default:
         return publicItems;

@@ -8,7 +8,9 @@ export default async function CitizenLayout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  if (!session || session.role !== "CITIZEN") redirect("/login");
+  if (!session) {
+    redirect("/login?redirect=/citizen/problems/new");
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAF9] flex flex-col">

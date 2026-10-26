@@ -52,19 +52,31 @@ export async function proxy(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const redirectUrl = new URL("/login", request.url);
+    redirectUrl.searchParams.set("redirect", pathname + request.nextUrl.search);
+    return NextResponse.redirect(redirectUrl);
   }
 
   const session = await verifyJWT(token);
   if (!session) {
-    const response = NextResponse.redirect(new URL("/login", request.url));
+    const redirectUrl = new URL("/login", request.url);
+    redirectUrl.searchParams.set("redirect", pathname + request.nextUrl.search);
+    const response = NextResponse.redirect(redirectUrl);
     response.cookies.delete("token");
     return response;
   }
 
-  // Check role-path access
+  // All authenticated users can submit a civic problem
+  if (pathname === "/citizen/problems/new") {
+    return NextResponse.next();
+  }
+
+  // Check role-path access (Admins have access to all dashboards and routes)
   for (const [role, paths] of Object.entries(rolePathMap)) {
     if (paths.some((p) => pathname.startsWith(p))) {
+      if (session.role === "ADMIN") {
+        continue;
+      }
       if (session.role !== role) {
         return NextResponse.redirect(
           new URL(getRoleDashboard(session.role), request.url)
