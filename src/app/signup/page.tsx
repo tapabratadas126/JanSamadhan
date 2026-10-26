@@ -99,15 +99,16 @@ function SignupForm() {
 
   return (
     <div className="w-full max-w-xl">
-      <div className="text-center mb-8">
-        <Link
-          href="/"
-          className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-[#14B8A6] to-[#6366F1] rounded-2xl mb-3.5 shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform no-underline"
-        >
-          <MapPin className="w-7 h-7 text-white" />
+      <div className="text-center mb-8 flex flex-col items-center">
+        <Link href="/" className="inline-block hover:opacity-95 transition-opacity no-underline mb-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo-full.png"
+            alt="JanSamadhan — Local voices. Shared solutions."
+            className="h-16 w-auto object-contain mx-auto"
+          />
         </Link>
-        <h1 className="text-3xl font-extrabold text-[#1F2933]">{tr("signup_heading")}</h1>
-        <p className="text-gray-500 mt-1 text-sm">{tr("signup_subtitle")}</p>
+        <p className="text-gray-500 text-xs sm:text-sm">{tr("signup_subtitle")}</p>
       </div>
 
       <div className="card shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gray-100 p-8 space-y-6">

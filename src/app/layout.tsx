@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   title: "JanSamadhan — Civic Problem Solving Platform",
   description:
     "Connect citizens, universities, and industry partners to solve local community problems",
+  icons: {
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
+  },
 };
 
 export default function RootLayout({
