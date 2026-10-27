@@ -387,95 +387,95 @@ export default function AdminDashboardTabs({
 
   return (
     <div className="space-y-6">
-      {/* Tabs Navigation: Single green (#2E7D4F) underline for active tab */}
-      <div className="flex border-b border-[#E5DFD0] bg-[#FFFFFF] rounded-t-2xl px-6 pt-3 gap-6 overflow-x-auto scrollbar-none">
+      {/* Tabs Navigation: Neo-brutalist segmented tabs with 2px borders */}
+      <div className="bg-[#FFFFFF] border-2 border-[#171e19] shadow-[5px_5px_0_0_#171e19] rounded-xl p-2 flex gap-2 overflow-x-auto scrollbar-none">
         <button
           onClick={() => setActiveTab("pending_problems")}
-          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider rounded-lg border-2 flex items-center gap-2 transition-all whitespace-nowrap ${
             activeTab === "pending_problems"
-              ? "border-[#2E7D4F] text-[#2E7D4F]"
-              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+              ? "bg-[#ffe17c] text-[#171e19] border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+              : "bg-transparent border-transparent text-[#525e59] hover:bg-[#faf9f6] hover:text-[#171e19]"
           }`}
         >
-          <Clock size={16} />
-          <span>Approval Queue</span>
+          <Clock size={15} />
+          <span>Queue</span>
           {pendingProblems.length > 0 && (
-            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
-              {pendingProblems.length} pending
+            <span className="bg-[#171e19] text-[#ffe17c] text-[10px] px-2 py-0.5 rounded border border-[#171e19] font-black">
+              {pendingProblems.length}
             </span>
           )}
         </button>
 
         <button
           onClick={() => setActiveTab("partnerships")}
-          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider rounded-lg border-2 flex items-center gap-2 transition-all whitespace-nowrap ${
             activeTab === "partnerships"
-              ? "border-[#2E7D4F] text-[#2E7D4F]"
-              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+              ? "bg-[#ffe17c] text-[#171e19] border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+              : "bg-transparent border-transparent text-[#525e59] hover:bg-[#faf9f6] hover:text-[#171e19]"
           }`}
         >
-          <Handshake size={16} />
+          <Handshake size={15} />
           <span>Partnerships</span>
           {pendingPartnerships.length > 0 && (
-            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
-              {pendingPartnerships.length} pending
+            <span className="bg-[#171e19] text-[#ffe17c] text-[10px] px-2 py-0.5 rounded border border-[#171e19] font-black">
+              {pendingPartnerships.length}
             </span>
           )}
         </button>
 
         <button
           onClick={() => setActiveTab("portfolio_review")}
-          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider rounded-lg border-2 flex items-center gap-2 transition-all whitespace-nowrap ${
             activeTab === "portfolio_review"
-              ? "border-[#2E7D4F] text-[#2E7D4F]"
-              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+              ? "bg-[#ffe17c] text-[#171e19] border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+              : "bg-transparent border-transparent text-[#525e59] hover:bg-[#faf9f6] hover:text-[#171e19]"
           }`}
         >
-          <Briefcase size={16} />
-          <span>Portfolio Review</span>
+          <Briefcase size={15} />
+          <span>Portfolio</span>
           {pendingPortfolioEntries.length > 0 && (
-            <span className="bg-[#FBEBD3] text-[#98590A] text-xs px-2.5 py-0.5 rounded-full font-bold border border-[#D98324]/30">
-              {pendingPortfolioEntries.length} pending
+            <span className="bg-[#171e19] text-[#ffe17c] text-[10px] px-2 py-0.5 rounded border border-[#171e19] font-black">
+              {pendingPortfolioEntries.length}
             </span>
           )}
         </button>
 
         <button
           onClick={() => setActiveTab("problems")}
-          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider rounded-lg border-2 flex items-center gap-2 transition-all whitespace-nowrap ${
             activeTab === "problems"
-              ? "border-[#2E7D4F] text-[#2E7D4F]"
-              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+              ? "bg-[#ffe17c] text-[#171e19] border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+              : "bg-transparent border-transparent text-[#525e59] hover:bg-[#faf9f6] hover:text-[#171e19]"
           }`}
         >
-          <AlertTriangle size={16} />
-          <span>All Civic Problems ({problems.length})</span>
+          <AlertTriangle size={15} />
+          <span>All Problems ({problems.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab("solutions")}
-          className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+          className={`py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider rounded-lg border-2 flex items-center gap-2 transition-all whitespace-nowrap ${
             activeTab === "solutions"
-              ? "border-[#2E7D4F] text-[#2E7D4F]"
-              : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+              ? "bg-[#ffe17c] text-[#171e19] border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+              : "bg-transparent border-transparent text-[#525e59] hover:bg-[#faf9f6] hover:text-[#171e19]"
           }`}
         >
-          <Lightbulb size={16} />
+          <Lightbulb size={15} />
           <span>Academic Solutions ({solutions.length})</span>
         </button>
       </div>
 
       {/* Tab 0: Pending Problem Submissions Queue */}
       {activeTab === "pending_problems" && (
-        <div className="space-y-6 animate-feed-enter">
-          <div className="flex flex-wrap items-center justify-between gap-4 bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80">
+        <div className="space-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 bg-[#ffe17c] p-5 rounded-xl border-2 border-[#171e19] shadow-[5px_5px_0_0_#171e19]">
             <div>
-              <h2 className="text-lg font-bold text-amber-950 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-                <span>Citizen Submission Approval Queue ({pendingProblems.length})</span>
+              <h2 className="text-base sm:text-lg font-black text-[#171e19] flex items-center gap-2 uppercase tracking-wide">
+                <span className="w-3 h-3 rounded-full bg-[#171e19]"></span>
+                <span>Approval Queue ({pendingProblems.length} Pending)</span>
               </h2>
-              <p className="text-xs text-amber-800 mt-0.5">
-                Submissions must be approved by an administrator before appearing live on the public feed.
+              <p className="text-xs text-[#171e19] mt-0.5 font-medium">
+                Verify civic problems submitted by citizens. Approved records will be published immediately on public and research feeds.
               </p>
             </div>
           </div>
@@ -501,33 +501,33 @@ export default function AdminDashboardTabs({
                 return (
                   <div
                     key={problem.id}
-                    className="card p-6 space-y-4 border-2 border-amber-200/80 shadow-md bg-white"
+                    className="p-6 space-y-4 border-2 border-[#171e19] shadow-[5px_5px_0_0_#171e19] rounded-xl bg-[#FFFFFF]"
                   >
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div className="space-y-1.5 flex-1 min-w-[280px]">
                         <div className="flex items-center gap-2 flex-wrap">
                           <ApprovalStatusPill status={problem.approvalStatus} />
-                          <span className="badge bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-indigo-100">
+                          <span className="badge bg-[#faf9f6] text-[#171e19] text-xs font-mono font-bold px-2.5 py-0.5 rounded border-2 border-[#171e19]">
                             {problem.category.replace("_", " ")}
                           </span>
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-[#525e59] font-mono">
                             Submitted {new Date(problem.createdAt).toLocaleString("en-IN")}
                           </span>
                         </div>
 
-                        <h3 className="font-bold text-gray-900 text-xl leading-snug">
+                        <h3 className="font-black text-[#171e19] text-xl leading-snug">
                           {problem.title}
                         </h3>
 
-                        <div className="flex items-center gap-3 text-xs text-gray-600 font-medium">
-                          <span className="flex items-center gap-1">
-                            <MapPin size={13} className="text-gray-400" />
+                        <div className="flex items-center gap-3 text-xs text-[#525e59] font-mono">
+                          <span className="flex items-center gap-1 font-bold text-[#171e19]">
+                            <MapPin size={13} className="text-[#171e19]" />
                             <span>{problem.location}</span>
                           </span>
                           <span>•</span>
                           <span>
                             Submitted by:{" "}
-                            <strong className="text-gray-800">{problem.postedBy.name}</strong>{" "}
+                            <strong className="text-[#171e19]">{problem.postedBy.name}</strong>{" "}
                             {problem.postedBy.email && `(${problem.postedBy.email})`}
                           </span>
                         </div>
@@ -538,7 +538,7 @@ export default function AdminDashboardTabs({
                         <button
                           onClick={() => handleApproveProblem(problem.id)}
                           disabled={processingId === problem.id}
-                          className="btn-primary text-xs py-2 px-4 bg-emerald-600 hover:bg-emerald-700 flex items-center gap-1.5 font-bold shadow-sm"
+                          className="btn-brutalist-yellow text-xs font-mono font-bold uppercase tracking-wider py-2 px-4 flex items-center gap-1.5"
                         >
                           <Check size={15} />
                           <span>Approve & Publish</span>
@@ -548,7 +548,7 @@ export default function AdminDashboardTabs({
                           <button
                             onClick={() => handleUnderReviewProblem(problem.id)}
                             disabled={processingId === problem.id}
-                            className="btn-outline text-xs py-2 px-3.5 text-blue-700 border-blue-200 hover:bg-blue-50 flex items-center gap-1.5 font-semibold"
+                            className="btn-secondary text-xs font-mono font-bold uppercase tracking-wider py-2 px-3.5 flex items-center gap-1.5"
                           >
                             <Eye size={15} />
                             <span>Under Review</span>
@@ -561,7 +561,7 @@ export default function AdminDashboardTabs({
                             setRejectionReason("");
                           }}
                           disabled={processingId === problem.id}
-                          className="btn-danger text-xs py-2 px-3.5 flex items-center gap-1.5 font-semibold"
+                          className="btn-danger text-xs font-mono font-bold uppercase tracking-wider py-2 px-3.5 flex items-center gap-1.5"
                         >
                           <XCircle size={15} />
                           <span>Reject</span>
@@ -569,17 +569,17 @@ export default function AdminDashboardTabs({
                       </div>
                     </div>
 
-                    <div className="bg-[#FAFAF9] p-4 rounded-xl border border-gray-200/70 text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
-                        Problem Description
+                    <div className="bg-[#faf9f6] p-4 rounded-lg border-2 border-[#171e19] text-sm text-[#171e19] leading-relaxed whitespace-pre-line font-mono">
+                      <h4 className="text-[11px] font-bold text-[#525e59] uppercase tracking-wider mb-1">
+                        PROBLEM DESCRIPTION
                       </h4>
-                      {problem.description}
+                      <p className="font-sans font-medium text-sm text-[#171e19]">{problem.description}</p>
                     </div>
 
                     {mediaUrls.length > 0 && (
-                      <div className="space-y-1.5">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                          Evidence Photos ({mediaUrls.length})
+                      <div className="space-y-1.5 font-mono">
+                        <h4 className="text-[11px] font-bold text-[#525e59] uppercase tracking-wider">
+                          EVIDENCE PHOTOS ({mediaUrls.length})
                         </h4>
                         <div className="flex gap-3 overflow-x-auto pb-1">
                           {mediaUrls.map((url, i) => (
@@ -588,7 +588,7 @@ export default function AdminDashboardTabs({
                               key={i}
                               src={url}
                               alt="Evidence"
-                              className="h-24 w-32 object-cover rounded-xl border border-gray-200 shadow-sm shrink-0"
+                              className="h-24 w-32 object-cover rounded-lg border-2 border-[#171e19] shadow-[2px_2px_0_0_#171e19] shrink-0"
                             />
                           ))}
                         </div>
@@ -946,14 +946,14 @@ export default function AdminDashboardTabs({
 
       {/* Tab 3: Problems Moderation & Listing */}
       {activeTab === "problems" && (
-        <div className="space-y-4 animate-feed-enter">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#FFFFFF] p-4 rounded-xl border-2 border-[#171e19] shadow-[5px_5px_0_0_#171e19]">
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Problem Filter:</span>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#171e19]">Filter:</span>
               <select
                 value={problemStatusFilter}
                 onChange={(e) => setProblemStatusFilter(e.target.value)}
-                className="input text-xs py-1.5 px-3 w-auto font-semibold"
+                className="input text-xs py-1.5 px-3 w-auto font-mono font-bold border-2 border-[#171e19] bg-[#faf9f6]"
               >
                 <option value="ALL">All Problems ({problems.length})</option>
                 <option value="ACTIVE">All Active ({problems.filter((p) => !p.isDeleted).length})</option>
@@ -966,13 +966,13 @@ export default function AdminDashboardTabs({
             </div>
 
             <div className="relative flex-1 sm:max-w-xs w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#171e19] w-3.5 h-3.5" />
               <input
                 type="text"
                 value={problemSearch}
                 onChange={(e) => setProblemSearch(e.target.value)}
-                placeholder="Search title, location, citizen..."
-                className="input text-xs pl-9 py-1.5"
+                placeholder="Search title, location..."
+                className="input text-xs pl-9 py-1.5 font-mono border-2 border-[#171e19] bg-[#faf9f6]"
               />
             </div>
           </div>
@@ -981,27 +981,27 @@ export default function AdminDashboardTabs({
             {filteredProblems.map((problem) => (
               <div
                 key={problem.id}
-                className={`card p-5 flex flex-wrap items-center justify-between gap-4 ${
-                  problem.isDeleted ? "bg-red-50/30 border-red-200" : ""
+                className={`p-5 rounded-xl border-2 border-[#171e19] shadow-[4px_4px_0_0_#171e19] flex flex-wrap items-center justify-between gap-4 ${
+                  problem.isDeleted ? "bg-[#fee2e2]/60" : "bg-[#FFFFFF]"
                 }`}
               >
                 <div className="space-y-1.5 flex-1 min-w-[280px]">
                   <div className="flex items-center gap-2 flex-wrap">
                     {problem.isDeleted && (
-                      <span className="badge bg-red-100 text-red-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-red-300">
-                        🗑️ Soft Deleted
+                      <span className="badge bg-[#b91c1c] text-[#faf9f6] text-xs font-mono font-bold px-2.5 py-0.5 rounded border-2 border-[#171e19]">
+                        Soft Deleted
                       </span>
                     )}
                     <ApprovalStatusPill status={problem.approvalStatus} />
-                    <span className="badge bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-100">
+                    <span className="badge bg-[#faf9f6] text-[#171e19] text-xs font-mono font-bold px-2.5 py-0.5 rounded border-2 border-[#171e19]">
                       {problem.category.replace("_", " ")}
                     </span>
                     <StatusPill status={problem.status} />
                   </div>
-                  <h3 className="font-bold text-gray-900 text-base">{problem.title}</h3>
-                  <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <h3 className="font-bold text-[#171e19] text-base">{problem.title}</h3>
+                  <div className="flex items-center gap-3 text-xs text-[#525e59] font-mono">
                     <span className="flex items-center gap-1">
-                      <MapPin size={12} />
+                      <MapPin size={12} className="text-[#171e19]" />
                       <span>{problem.location}</span>
                     </span>
                     <span>•</span>
@@ -1011,7 +1011,7 @@ export default function AdminDashboardTabs({
                   </div>
 
                   {problem.approvalStatus === "REJECTED" && problem.rejectionReason && (
-                    <p className="text-xs text-red-600 bg-red-50 p-2 rounded-lg border border-red-100 font-medium">
+                    <p className="text-xs text-[#b91c1c] bg-[#fee2e2] p-2 rounded border border-[#b91c1c] font-mono font-semibold">
                       Rejection Reason: {problem.rejectionReason}
                     </p>
                   )}
@@ -1020,33 +1020,33 @@ export default function AdminDashboardTabs({
                 <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
                   {/* Approval Status Selector */}
                   <div className="flex items-center gap-1">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase">Approval:</span>
+                    <span className="text-[10px] font-mono font-bold text-[#525e59] uppercase">Approval:</span>
                     <select
                       value={problem.approvalStatus}
                       onChange={(e) => handleUpdateProblemApprovalStatus(problem.id, e.target.value)}
                       disabled={processingId === problem.id}
-                      className="input text-xs py-1 px-2.5 w-auto font-semibold border-gray-200 bg-white"
+                      className="text-xs py-1 px-2.5 w-auto font-mono font-bold border-2 border-[#171e19] bg-[#FFFFFF] rounded"
                     >
-                      <option value="PENDING">⏳ Pending</option>
-                      <option value="UNDER_REVIEW">🔍 Under Review</option>
-                      <option value="APPROVED">✅ Approved</option>
-                      <option value="REJECTED">❌ Rejected</option>
+                      <option value="PENDING">Pending</option>
+                      <option value="UNDER_REVIEW">Under Review</option>
+                      <option value="APPROVED">Approved</option>
+                      <option value="REJECTED">Rejected</option>
                     </select>
                   </div>
 
                   {/* Problem Resolution Status Selector */}
                   <div className="flex items-center gap-1">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase">Status:</span>
+                    <span className="text-[10px] font-mono font-bold text-[#525e59] uppercase">Status:</span>
                     <select
                       value={problem.status}
                       onChange={(e) => handleUpdateProblemStatus(problem.id, e.target.value)}
                       disabled={processingId === problem.id}
-                      className="input text-xs py-1 px-2.5 w-auto font-semibold border-emerald-200 bg-emerald-50/60 text-emerald-900"
+                      className="text-xs py-1 px-2.5 w-auto font-mono font-bold border-2 border-[#171e19] bg-[#ffe17c] text-[#171e19] rounded"
                     >
-                      <option value="OPEN">🆕 Open</option>
-                      <option value="SOLUTION_PROPOSED">💡 Solution Proposed</option>
-                      <option value="PARTNERSHIP_APPROVED">🤝 Partnership Approved</option>
-                      <option value="RESOLVED">✅ Resolved</option>
+                      <option value="OPEN">Open</option>
+                      <option value="SOLUTION_PROPOSED">Solution Proposed</option>
+                      <option value="PARTNERSHIP_APPROVED">Partnership Approved</option>
+                      <option value="RESOLVED">Resolved</option>
                     </select>
                   </div>
 
@@ -1054,7 +1054,7 @@ export default function AdminDashboardTabs({
                     <button
                       onClick={() => handleRestoreProblem(problem.id)}
                       disabled={processingId === problem.id}
-                      className="btn-outline text-xs py-1 px-2.5 border-emerald-300 text-emerald-700 hover:bg-emerald-50 flex items-center gap-1 font-semibold"
+                      className="btn-secondary text-xs py-1 px-2.5 font-mono font-bold uppercase flex items-center gap-1"
                       title="Restore problem"
                     >
                       <RefreshCw size={13} />
@@ -1064,7 +1064,7 @@ export default function AdminDashboardTabs({
                     <button
                       onClick={() => handleDeleteProblem(problem.id)}
                       disabled={processingId === problem.id}
-                      className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+                      className="p-1.5 text-[#525e59] hover:text-[#b91c1c] hover:bg-[#fee2e2] rounded border-2 border-[#171e19] transition-colors"
                       title="Delete Problem"
                     >
                       <Trash2 size={16} />

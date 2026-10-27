@@ -105,12 +105,12 @@ export default function ProblemCard({ problem, href }: ProblemCardProps) {
 
   return (
     <Link href={href} className="no-underline block group h-full">
-      <div className="card card-hover flex flex-col justify-between h-full group-hover:border-[#CBC3AE]">
+      <div className="bg-[#FFFFFF] border-2 border-[#171e19] shadow-[5px_5px_0_0_#171e19] rounded-xl p-5 flex flex-col justify-between h-full transition-all duration-200 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[7px_7px_0_0_#171e19]">
         <div>
           {/* Header Tag and Status */}
           <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FAF7F0] text-[#17254A] border border-[#E5DFD0]">
-              <CategoryIcon className="w-3.5 h-3.5 text-[#17254A]" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-[#faf9f6] text-[#171e19] border-2 border-[#171e19]">
+              <CategoryIcon className="w-3.5 h-3.5 text-[#171e19]" />
               <span>{categoryLabel}</span>
             </span>
 
@@ -121,34 +121,34 @@ export default function ProblemCard({ problem, href }: ProblemCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-base font-semibold text-[#1C1B18] leading-snug mb-2 line-clamp-2 group-hover:text-[#2E7D4F] transition-colors">
+          <h3 className="text-base font-bold text-[#171e19] leading-snug mb-2 line-clamp-2 group-hover:text-[#a07800] transition-colors">
             {problem.title}
           </h3>
 
           {/* Location */}
-          <div className="flex items-center gap-1.5 text-xs text-[#5E5C54] mb-4">
-            <MapPin size={13} className="text-[#5E5C54] shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs text-[#525e59] mb-4 font-medium">
+            <MapPin size={13} className="text-[#171e19] shrink-0" />
             <span className="truncate">{problem.location}</span>
           </div>
         </div>
 
         {/* Footer Meta */}
-        <div className="pt-3 border-t border-[#E5DFD0] flex items-center justify-between text-xs text-[#5E5C54]">
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center gap-1 text-[#1C1B18] font-semibold bg-[#FAF7F0] px-2 py-0.5 rounded-full border border-[#E5DFD0]">
-              <ThumbsUp size={12} className="text-[#2E7D4F]" />
+        <div className="pt-3 border-t-2 border-[#171e19] flex items-center justify-between text-xs text-[#525e59] font-mono">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1 text-[#171e19] font-bold bg-[#ffe17c] px-2 py-0.5 rounded border-2 border-[#171e19] shadow-[1px_1px_0_0_#171e19]">
+              <ThumbsUp size={12} className="text-[#171e19]" />
               <span>{problem.upvoteCount}</span>
             </span>
 
             {problem._count && problem._count.solutions > 0 && (
-              <span className="flex items-center gap-1 text-[#17254A] bg-[#E4E9F5] px-2 py-0.5 rounded-full font-semibold border border-[#E5DFD0]">
+              <span className="flex items-center gap-1 text-[#171e19] bg-[#b7c6c2] px-2 py-0.5 rounded font-bold border-2 border-[#171e19] shadow-[1px_1px_0_0_#171e19]">
                 <Lightbulb size={12} />
                 <span>{problem._count.solutions} sol</span>
               </span>
             )}
           </div>
 
-          <span className="text-[#5E5C54]">{timeAgo(problem.createdAt)}</span>
+          <span className="text-[#525e59] text-[11px] font-bold uppercase tracking-wider">{timeAgo(problem.createdAt)}</span>
         </div>
       </div>
     </Link>

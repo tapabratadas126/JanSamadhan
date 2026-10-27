@@ -36,85 +36,97 @@ export default async function CitizenDashboard() {
   const totalSolutions = myProblems.reduce((a, p) => a + (p._count?.solutions || 0), 0);
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="space-y-8 max-w-7xl mx-auto py-2">
       {/* Welcome Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#171e19] pb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#E3F0E7] text-[#2E7D4F] border border-[#2E7D4F]/30 mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 font-mono text-xs font-bold uppercase bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] shadow-[2px_2px_0_0_#171e19] mb-2">
             <User size={13} />
             <span>Citizen Portal</span>
           </div>
-          <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-[#17254A]">
+          <h1 className="text-3xl sm:text-5xl font-black uppercase text-[#171e19] tracking-tight">
             Welcome, {session.name.split(" ")[0]}!
           </h1>
-          <p className="text-[#5E5C54] mt-1 text-sm sm:text-base">
-            Report community issues, monitor academic solutions, and track transparent resolution.
+          <p className="font-mono text-xs sm:text-sm text-[#171e19]/70 mt-1 uppercase font-bold">
+            Report community issues · Monitor academic solutions · Transparent resolution
           </p>
         </div>
 
         <Link
           href="/citizen/problems/new"
-          className="btn-primary py-2.5 px-5 text-sm font-semibold no-underline"
+          className="btn-brutalist-yellow text-sm font-extrabold py-3 px-6 no-underline flex items-center gap-2 cursor-pointer"
         >
-          <Plus size={16} />
+          <Plus size={18} strokeWidth={3} />
           <span>Report a Problem</span>
         </Link>
       </div>
 
-      {/* One Unified Metrics Panel with Dividers (instead of 3 separate tinted cards) */}
-      <div className="bg-[#FFFFFF] rounded-2xl border border-[#E5DFD0] p-6 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#E5DFD0]">
-        <div className="flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#17254A] flex items-center justify-center mb-2 border border-[#E5DFD0]">
-            <FileText size={18} />
+      {/* Neo-Brutalist Metrics Panel */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="border-3 border-[#171e19] bg-white p-6 shadow-[6px_6px_0_0_#171e19]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-xs font-black uppercase tracking-wider text-[#171e19] bg-[#ffe17c] px-2 py-0.5 border border-[#171e19]">
+              My Reports
+            </span>
+            <div className="w-10 h-10 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] flex items-center justify-center">
+              <FileText size={18} />
+            </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+          <div className="text-4xl sm:text-5xl font-black text-[#171e19] font-mono">
             {myProblems.length}
           </div>
-          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
-            My Reports
-          </div>
+          <p className="font-mono text-xs text-[#171e19]/60 mt-1">Grievances logged by you</p>
         </div>
 
-        <div className="flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#2E7D4F] flex items-center justify-center mb-2 border border-[#E5DFD0]">
-            <ThumbsUp size={18} />
+        <div className="border-3 border-[#171e19] bg-[#ffe17c] p-6 shadow-[6px_6px_0_0_#171e19]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-xs font-black uppercase tracking-wider text-[#171e19] bg-white px-2 py-0.5 border border-[#171e19]">
+              Upvotes Received
+            </span>
+            <div className="w-10 h-10 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] flex items-center justify-center">
+              <ThumbsUp size={18} />
+            </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+          <div className="text-4xl sm:text-5xl font-black text-[#171e19] font-mono">
             {totalUpvotes}
           </div>
-          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
-            Upvotes Received
-          </div>
+          <p className="font-mono text-xs text-[#171e19]/70 mt-1">Community endorsements</p>
         </div>
 
-        <div className="flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-10 h-10 rounded-full bg-[#FAF7F0] text-[#D98324] flex items-center justify-center mb-2 border border-[#E5DFD0]">
-            <Lightbulb size={18} />
+        <div className="border-3 border-[#171e19] bg-[#b7c6c2] p-6 shadow-[6px_6px_0_0_#171e19]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-xs font-black uppercase tracking-wider text-[#171e19] bg-white px-2 py-0.5 border border-[#171e19]">
+              Academic Solutions
+            </span>
+            <div className="w-10 h-10 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] flex items-center justify-center">
+              <Lightbulb size={18} />
+            </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-[#17254A]">
+          <div className="text-4xl sm:text-5xl font-black text-[#171e19] font-mono">
             {totalSolutions}
           </div>
-          <div className="text-xs font-semibold text-[#5E5C54] uppercase tracking-wider mt-1">
-            Academic Solutions
-          </div>
+          <p className="font-mono text-xs text-[#171e19]/70 mt-1">Research proposals linked</p>
         </div>
       </div>
 
-      {/* Notice an Issue? Panel (Flat Navy #17254A, no gradients) */}
-      <div className="rounded-2xl bg-[#17254A] text-white p-6 sm:p-8 border border-[#17254A]">
+      {/* Notice an Issue? Boxed Callout */}
+      <div className="border-3 border-[#171e19] bg-[#171e19] text-white p-6 sm:p-8 shadow-[8px_8px_0_0_#ffe17c]">
         <div className="max-w-2xl space-y-3">
-          <h2 className="font-serif text-xl sm:text-2xl font-semibold text-white">
+          <div className="inline-block border border-white bg-[#ff6b6b] text-white font-mono text-[11px] font-bold uppercase px-2 py-0.5">
+            Civic Alert
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#ffe17c]">
             Notice an issue in your neighborhood?
           </h2>
-          <p className="text-xs sm:text-sm text-[#E4E9F5]/90 leading-relaxed">
+          <p className="font-mono text-xs sm:text-sm text-gray-200 leading-relaxed">
             Report civic challenges like road hazards, water quality issues, sanitation, or accessibility barriers in 3 verified steps.
           </p>
           <div className="pt-2">
             <Link
               href="/citizen/problems/new"
-              className="inline-flex items-center gap-2 bg-[#2E7D4F] text-white font-semibold px-5 py-2.5 rounded-[10px] hover:bg-[#22633D] transition-colors no-underline text-sm"
+              className="inline-flex items-center gap-2 bg-[#ffe17c] text-[#171e19] font-mono font-bold uppercase px-5 py-3 border-2 border-white shadow-[4px_4px_0_0_#ffffff] hover:bg-white transition-all no-underline text-sm"
             >
-              <Plus size={16} />
+              <Plus size={16} strokeWidth={3} />
               <span>Report New Problem</span>
             </Link>
           </div>
@@ -122,24 +134,27 @@ export default async function CitizenDashboard() {
       </div>
 
       {/* Community Priority Problems */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 pt-4">
+        <div className="flex items-center justify-between border-b-2 border-[#171e19] pb-3">
           <div>
-            <h2 className="font-serif text-xl font-semibold text-[#17254A]">
+            <h2 className="text-2xl font-black uppercase text-[#171e19] tracking-tight">
               Community Priority Problems
             </h2>
-            <p className="text-xs text-[#5E5C54]">Most upvoted issues across communities</p>
+            <p className="font-mono text-xs text-[#171e19]/70 uppercase">Most upvoted civic issues in the area</p>
           </div>
-          <Link href="/problems" className="btn-outline text-xs py-1.5 px-3.5 no-underline">
+          <Link
+            href="/problems"
+            className="font-mono text-xs font-bold uppercase px-3 py-1.5 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffe17c] transition-all no-underline flex items-center gap-1"
+          >
             <span>Browse all</span>
             <ArrowRight size={14} />
           </Link>
         </div>
 
         {recentProblems.length === 0 ? (
-          <div className="card text-center py-12 text-[#5E5C54] space-y-2">
-            <p className="font-semibold text-[#1C1B18]">No problems reported yet.</p>
-            <p className="text-xs text-[#5E5C54]">Be the first citizen to report a community problem!</p>
+          <div className="border-3 border-[#171e19] bg-white p-12 text-center shadow-[6px_6px_0_0_#171e19] space-y-2">
+            <p className="font-mono font-bold text-base text-[#171e19] uppercase">No problems reported yet.</p>
+            <p className="font-mono text-xs text-[#171e19]/60">Be the first citizen to report a community problem!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

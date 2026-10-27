@@ -102,11 +102,11 @@ export function AnimatedStepper({
       {...rest}
     >
       <div
-        className={`mx-auto w-full max-w-3xl overflow-hidden rounded-[20px] bg-[#FFFFFF] border border-[#E5DFD0] ${stepCircleContainerClassName}`}
+        className={`mx-auto w-full max-w-3xl overflow-hidden rounded-xl bg-[#FFFFFF] border-2 border-[#171e19] shadow-[6px_6px_0_0_#171e19] ${stepCircleContainerClassName}`}
       >
         {/* Step Indicators */}
         <div
-          className={`flex w-full items-center justify-between px-6 sm:px-8 pt-6 pb-2 border-b border-[#E5DFD0] bg-[#FAF7F0] ${stepContainerClassName}`}
+          className={`flex w-full items-center justify-between px-6 sm:px-8 pt-6 pb-4 border-b-2 border-[#171e19] bg-[#faf9f6] ${stepContainerClassName}`}
         >
           {stepsArray.map((_, index) => {
             const stepNumber = index + 1;
@@ -156,7 +156,7 @@ export function AnimatedStepper({
         {/* Footer Actions */}
         {!isCompleted && (
           <div
-            className={`px-6 sm:px-8 pb-6 pt-4 border-t border-[#E5DFD0] bg-[#FAF7F0] ${footerClassName}`}
+            className={`px-6 sm:px-8 pb-6 pt-4 border-t-2 border-[#171e19] bg-[#faf9f6] ${footerClassName}`}
           >
             <div
               className={`flex items-center ${
@@ -167,7 +167,7 @@ export function AnimatedStepper({
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="btn-secondary text-sm font-semibold"
+                  className="btn-secondary text-xs uppercase tracking-wider font-mono font-bold"
                   {...backButtonProps}
                 >
                   {backButtonText}
@@ -176,7 +176,7 @@ export function AnimatedStepper({
               <button
                 type="button"
                 onClick={isLastStep ? handleComplete : handleNext}
-                className="btn-primary text-sm font-semibold"
+                className="btn-brutalist-yellow text-xs uppercase tracking-wider font-mono font-bold"
                 {...nextButtonProps}
               >
                 {isLastStep ? completeButtonText : nextButtonText}
@@ -338,18 +338,18 @@ function StepIndicator({
       }`}
     >
       <div
-        className={`flex h-9 w-9 items-center justify-center rounded-full border-2 font-semibold text-xs transition-colors duration-200 ${
+        className={`flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#171e19] font-mono font-bold text-xs transition-transform duration-200 ${
           isComplete
-            ? "bg-[#2E7D4F] border-[#2E7D4F] text-white"
+            ? "bg-[#ffe17c] text-[#171e19] shadow-[2px_2px_0_0_#171e19]"
             : isActive
-            ? "bg-[#FFFFFF] border-[#2E7D4F] text-[#2E7D4F]"
-            : "bg-[#F1ECDF] border-[#E5DFD0] text-[#5E5C54]"
+            ? "bg-[#171e19] text-[#faf9f6] shadow-[2px_2px_0_0_#ffe17c]"
+            : "bg-[#e2e8e4] text-[#717a75]"
         }`}
       >
         {isComplete ? (
           <Check className="h-4 w-4 stroke-[3]" />
         ) : (
-          <span>{step}</span>
+          <span>0{step}</span>
         )}
       </div>
     </button>
@@ -361,9 +361,9 @@ function StepIndicator({
  */
 function StepConnector({ isComplete }: { isComplete: boolean }) {
   return (
-    <div className="relative mx-3 sm:mx-4 h-[2px] flex-1 overflow-hidden rounded-full bg-[#E5DFD0]">
+    <div className="relative mx-3 sm:mx-4 h-[3px] flex-1 overflow-hidden bg-[#e2e8e4] border-t border-b border-[#171e19]">
       <motion.div
-        className="absolute inset-0 bg-[#2E7D4F] origin-left"
+        className="absolute inset-0 bg-[#ffe17c] origin-left"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: isComplete ? 1 : 0 }}
         transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}

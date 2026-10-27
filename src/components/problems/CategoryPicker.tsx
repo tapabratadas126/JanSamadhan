@@ -132,20 +132,22 @@ export default function CategoryPicker({ selected, onChange }: CategoryPickerPro
             key={cat.value}
             type="button"
             onClick={() => onChange(cat.value)}
-            className={`group relative flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-center transition-all duration-150 min-h-[96px] ${
+            className={`group relative flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-[#171e19] text-center transition-all duration-100 min-h-[104px] cursor-pointer ${
               isSelected
-                ? "border-[#2E7D4F] bg-[#E3F0E7] text-[#2E7D4F] font-semibold"
-                : "border-[#E5DFD0] bg-[#FFFFFF] hover:border-[#CBC3AE] hover:bg-[#FAF7F0] text-[#1C1B18]"
+                ? "bg-[#ffe17c] shadow-[4px_4px_0_0_#171e19] translate-x-[-1px] translate-y-[-1px]"
+                : "bg-white hover:bg-[#b7c6c2]/20 shadow-[2px_2px_0_0_#171e19]"
             }`}
           >
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
-                isSelected ? "bg-[#2E7D4F] text-[#FFFFFF]" : "bg-[#F1ECDF] text-[#17254A] group-hover:bg-[#E5DFD0]"
+              className={`w-11 h-11 border-2 border-[#171e19] flex items-center justify-center mb-2 transition-colors ${
+                isSelected
+                  ? "bg-[#171e19] text-[#ffe17c] shadow-[1px_1px_0_0_#171e19]"
+                  : "bg-[#faf9f6] text-[#171e19] shadow-[1px_1px_0_0_#171e19]"
               }`}
             >
-              <IconComponent className="w-5 h-5" />
+              <IconComponent className="w-5 h-5" strokeWidth={2.5} />
             </div>
-            <span className="text-xs leading-snug line-clamp-2">
+            <span className="font-mono text-xs font-bold uppercase text-[#171e19] leading-snug line-clamp-2">
               {cat.label}
             </span>
           </button>

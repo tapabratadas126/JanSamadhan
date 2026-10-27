@@ -115,34 +115,47 @@ export default async function PublicProblemsPage({
       <Navbar role={session?.role} userName={session?.name} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-6 w-full">
-        {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1F2933]">
-              Browse Civic Problems
-            </h1>
-            <p className="text-sm sm:text-base text-gray-500 mt-1">
-              Explore, filter, and sort civic issues reported by citizens across communities.
-            </p>
+        {/* Header Window Bar */}
+        <div className="bg-[#FFFFFF] border-2 border-[#171e19] shadow-[6px_6px_0_0_#171e19] rounded-xl overflow-hidden">
+          <div className="bg-[#171e19] text-[#faf9f6] px-4 py-2 flex items-center justify-between text-xs font-mono uppercase tracking-wider">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ffe17c]"></span>
+              <span>INDEX: ALL_CIVIC_PROBLEMS</span>
+            </div>
+            <span className="text-[#b7c6c2] text-[11px]">FEED_STATUS: ACTIVE</span>
           </div>
 
-          {session ? (
-            <Link
-              href="/citizen/problems/new"
-              className="btn-primary text-sm py-2.5 px-5 inline-flex items-center gap-2 no-underline"
-            >
-              <Plus size={16} />
-              <span>Report New Problem</span>
-            </Link>
-          ) : (
-            <Link
-              href="/login?redirect=/citizen/problems/new"
-              className="btn-primary text-sm py-2.5 px-5 inline-flex items-center gap-2 no-underline"
-            >
-              <Plus size={16} />
-              <span>Report Problem (Sign In)</span>
-            </Link>
-          )}
+          <div className="p-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="inline-block px-2.5 py-0.5 rounded bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                COMMUNITY DIRECTORY
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-[#171e19] tracking-tight">
+                Browse Civic Problems
+              </h1>
+              <p className="text-xs sm:text-sm text-[#525e59] mt-1 font-medium">
+                Explore, filter, and sort community challenges reported by citizens across districts and wards.
+              </p>
+            </div>
+
+            {session ? (
+              <Link
+                href="/citizen/problems/new"
+                className="btn-brutalist-yellow text-xs font-mono font-bold uppercase tracking-wider py-2.5 px-5 inline-flex items-center gap-2 no-underline"
+              >
+                <Plus size={16} />
+                <span>Report New Problem</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login?redirect=/citizen/problems/new"
+                className="btn-brutalist-yellow text-xs font-mono font-bold uppercase tracking-wider py-2.5 px-5 inline-flex items-center gap-2 no-underline"
+              >
+                <Plus size={16} />
+                <span>Report Problem (Sign In)</span>
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Filter Controls Bar */}

@@ -176,24 +176,24 @@ export default function NewProblemPage() {
   if (submittedProblemId) {
     return (
       <div className="max-w-xl mx-auto py-12 px-4 sm:px-6">
-        <div className="card text-center p-8 sm:p-10 space-y-6 border border-[#E5DFD0]">
-          <div className="w-16 h-16 rounded-full bg-[#E3F0E7] text-[#2E7D4F] flex items-center justify-center mx-auto border border-[#2E7D4F]/30">
+        <div className="bg-[#FFFFFF] border-2 border-[#171e19] shadow-[8px_8px_0_0_#171e19] rounded-xl text-center p-8 sm:p-10 space-y-6">
+          <div className="w-16 h-16 rounded-xl bg-[#ffe17c] text-[#171e19] flex items-center justify-center mx-auto border-2 border-[#171e19] shadow-[3px_3px_0_0_#171e19]">
             <CheckCircle2 size={36} />
           </div>
 
           <div className="space-y-2">
-            <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[#17254A]">
-              Problem Submitted
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171e19] tracking-tight">
+              PROBLEM RECORDED!
             </h2>
-            <p className="text-sm text-[#5E5C54] leading-relaxed max-w-md mx-auto">
-              Your civic report has been received. An administrator will review your submission before it appears on the public feed.
+            <p className="text-sm text-[#525e59] leading-relaxed max-w-md mx-auto">
+              Your civic report has been queued for verification. An administrator will review your submission before it appears live on the public feed.
             </p>
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/citizen/my-problems"
-              className="btn-primary text-sm font-semibold w-full sm:w-auto px-6 py-2.5 no-underline"
+              className="btn-brutalist-yellow text-xs font-mono uppercase tracking-wider font-bold w-full sm:w-auto px-6 py-2.5 no-underline"
             >
               View My Reports
             </Link>
@@ -209,7 +209,7 @@ export default function NewProblemPage() {
                 setPhotos([]);
                 setPhotoPreviews([]);
               }}
-              className="btn-secondary text-sm font-semibold w-full sm:w-auto px-6 py-2.5"
+              className="btn-secondary text-xs font-mono uppercase tracking-wider font-bold w-full sm:w-auto px-6 py-2.5"
             >
               Report Another Problem
             </button>
@@ -223,22 +223,33 @@ export default function NewProblemPage() {
   const isCurrentStepValid = currentStep === 1 ? isStep1Valid : currentStep === 2 ? isStep2Valid : true;
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6">
-      <div className="space-y-1">
-        <div className={lang === "hi" ? "eyebrow-hi text-[#2E7D4F]" : "eyebrow-en text-[#2E7D4F]"}>
-          Citizen Grievance Submission
+    <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8 space-y-6">
+      {/* Neo-brutalist Header Window Bar */}
+      <div className="bg-[#FFFFFF] border-2 border-[#171e19] shadow-[6px_6px_0_0_#171e19] rounded-xl overflow-hidden">
+        <div className="bg-[#171e19] text-[#faf9f6] px-4 py-2 flex items-center justify-between text-xs font-mono uppercase tracking-wider">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ffe17c]"></span>
+            <span>CITIZEN_GRIEVANCE_DESK.SYS</span>
+          </div>
+          <span className="text-[#b7c6c2] text-[11px]">PORTAL: PUBLIC_REPORT</span>
         </div>
-        <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-[#17254A]">
-          Report a Civic Problem
-        </h1>
-        <p className="text-xs sm:text-sm text-[#5E5C54]">
-          Submit community challenges to connect with researchers, universities, and CSR partners.
-        </p>
+
+        <div className="p-6 sm:p-8 space-y-2">
+          <div className="inline-block px-3 py-1 rounded bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] font-mono text-[11px] font-bold uppercase tracking-wider">
+            CIVIC ENGAGEMENT PORTAL
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#171e19] tracking-tight">
+            Report a Civic Problem
+          </h1>
+          <p className="text-xs sm:text-sm text-[#525e59] max-w-2xl font-medium">
+            Submit community challenges directly to university researchers, student labs, and CSR industry sponsors.
+          </p>
+        </div>
       </div>
 
       {submitError && (
-        <div className="p-4 rounded-xl bg-[#F8E1DC] border border-[#A33A2B] text-[#A33A2B] text-xs font-semibold flex items-center gap-2">
-          <AlertCircle size={16} className="shrink-0" />
+        <div className="p-4 rounded-xl bg-[#fee2e2] border-2 border-[#b91c1c] text-[#b91c1c] text-xs font-bold font-mono shadow-[4px_4px_0_0_#b91c1c] flex items-center gap-2">
+          <AlertCircle size={18} className="shrink-0" />
           <span>{submitError}</span>
         </div>
       )}
@@ -375,18 +386,18 @@ export default function NewProblemPage() {
           <div className="space-y-6 pt-2">
             {/* Photo Upload Area */}
             <div className="space-y-2">
-              <label className="label text-xs sm:text-sm">
+              <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#171e19]">
                 Photographic Evidence (Optional, max 5 images)
               </label>
               <div
-                className="border-2 border-dashed border-[#E5DFD0] hover:border-[#2E7D4F] rounded-2xl p-6 text-center cursor-pointer bg-[#FAF7F0] hover:bg-[#F1ECDF]/40 transition-colors"
+                className="border-2 border-dashed border-[#171e19] hover:bg-[#ffe17c]/20 rounded-xl p-6 text-center cursor-pointer bg-[#faf9f6] transition-colors"
                 onClick={() => fileInputRef.current?.click()}
               >
-                <Camera size={32} className="mx-auto mb-2 text-[#5E5C54]" />
-                <p className="text-xs sm:text-sm font-semibold text-[#1C1B18]">
+                <Camera size={32} className="mx-auto mb-2 text-[#171e19]" />
+                <p className="text-xs sm:text-sm font-mono font-bold uppercase text-[#171e19]">
                   Click or drag photos to attach
                 </p>
-                <p className="text-[11px] text-[#5E5C54] mt-0.5">
+                <p className="text-[11px] text-[#525e59] mt-0.5 font-mono">
                   PNG, JPG or WEBP up to 5 MB per file ({5 - photos.length} remaining)
                 </p>
               </div>
@@ -404,7 +415,7 @@ export default function NewProblemPage() {
               {photoPreviews.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
                   {photoPreviews.map((previewUrl, idx) => (
-                    <div key={idx} className="relative rounded-xl overflow-hidden border border-[#E5DFD0] aspect-square bg-[#FFFFFF]">
+                    <div key={idx} className="relative rounded-lg overflow-hidden border-2 border-[#171e19] shadow-[3px_3px_0_0_#171e19] aspect-square bg-[#FFFFFF]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={previewUrl}
@@ -417,7 +428,7 @@ export default function NewProblemPage() {
                           e.stopPropagation();
                           removePhoto(idx);
                         }}
-                        className="absolute top-1 right-1 w-6 h-6 rounded-full bg-[#17254A]/80 hover:bg-[#A33A2B] text-white flex items-center justify-center transition-colors"
+                        className="absolute top-1 right-1 w-6 h-6 rounded-md bg-[#171e19] hover:bg-[#b91c1c] text-[#faf9f6] flex items-center justify-center transition-colors border border-[#faf9f6]"
                         title="Remove photo"
                       >
                         <X size={13} />
@@ -429,27 +440,28 @@ export default function NewProblemPage() {
             </div>
 
             {/* Review Summary */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF7F0] border border-[#E5DFD0] space-y-3">
-              <div className="flex items-center justify-between border-b border-[#E5DFD0] pb-2">
-                <span className="text-xs font-semibold text-[#17254A] uppercase tracking-wider">
-                  Summary & Verification
+            <div className="p-5 rounded-xl bg-[#faf9f6] border-2 border-[#171e19] shadow-[4px_4px_0_0_#171e19] space-y-3 font-mono">
+              <div className="flex items-center justify-between border-b-2 border-[#171e19] pb-2">
+                <span className="text-xs font-bold text-[#171e19] uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#ffe17c]"></span>
+                  SUMMARY & VERIFICATION
                 </span>
-                <span className="text-[11px] text-[#5E5C54]">Ready to submit</span>
+                <span className="text-[11px] text-[#525e59] font-bold uppercase">Ready to submit</span>
               </div>
 
               {/* Category summary item */}
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <CategoryIcon className="w-4 h-4 text-[#2E7D4F]" />
-                  <span className="text-[#5E5C54]">Category:</span>
-                  <span className="font-semibold text-[#1C1B18]">
+                  <CategoryIcon className="w-4 h-4 text-[#171e19]" />
+                  <span className="text-[#525e59]">Category:</span>
+                  <span className="font-bold text-[#171e19]">
                     {selectedCategoryObj?.label || category}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCurrentStep(1)}
-                  className="text-xs text-[#2E7D4F] hover:underline font-semibold flex items-center gap-0.5"
+                  className="text-xs text-[#171e19] hover:underline font-bold flex items-center gap-0.5 bg-[#ffe17c] px-2 py-0.5 rounded border border-[#171e19]"
                 >
                   <Edit3 size={11} /> Edit
                 </button>
@@ -458,13 +470,13 @@ export default function NewProblemPage() {
               {/* Title summary item */}
               <div className="flex items-start justify-between text-xs gap-3">
                 <div className="flex-1">
-                  <span className="text-[#5E5C54]">Title: </span>
-                  <span className="font-semibold text-[#1C1B18]">{title}</span>
+                  <span className="text-[#525e59]">Title: </span>
+                  <span className="font-bold text-[#171e19]">{title}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="text-xs text-[#2E7D4F] hover:underline font-semibold flex items-center gap-0.5 shrink-0"
+                  className="text-xs text-[#171e19] hover:underline font-bold flex items-center gap-0.5 shrink-0 bg-[#ffe17c] px-2 py-0.5 rounded border border-[#171e19]"
                 >
                   <Edit3 size={11} /> Edit
                 </button>
@@ -473,22 +485,22 @@ export default function NewProblemPage() {
               {/* Location summary item */}
               <div className="flex items-start justify-between text-xs gap-3">
                 <div className="flex-1">
-                  <span className="text-[#5E5C54]">Location: </span>
-                  <span className="font-semibold text-[#1C1B18]">{location}</span>
+                  <span className="text-[#525e59]">Location: </span>
+                  <span className="font-bold text-[#171e19]">{location}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="text-xs text-[#2E7D4F] hover:underline font-semibold flex items-center gap-0.5 shrink-0"
+                  className="text-xs text-[#171e19] hover:underline font-bold flex items-center gap-0.5 shrink-0 bg-[#ffe17c] px-2 py-0.5 rounded border border-[#171e19]"
                 >
                   <Edit3 size={11} /> Edit
                 </button>
               </div>
 
               {/* Photos count */}
-              <div className="text-xs text-[#5E5C54] pt-1 border-t border-[#E5DFD0]">
-                <span>Attached Photos: </span>
-                <span className="font-semibold text-[#1C1B18]">{photos.length}</span>
+              <div className="text-xs text-[#525e59] pt-2 border-t-2 border-[#171e19] flex items-center justify-between">
+                <span>Attached Photos:</span>
+                <span className="font-bold text-[#171e19] bg-[#b7c6c2] px-2 py-0.5 rounded border border-[#171e19]">{photos.length} FILE(S)</span>
               </div>
             </div>
           </div>
