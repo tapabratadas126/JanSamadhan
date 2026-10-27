@@ -26,27 +26,25 @@ export default function MorphingShape({ className = "" }: MorphingShapeProps) {
     >
       <svg
         viewBox="0 0 600 600"
-        className="w-full h-full filter drop-shadow-xl"
+        className="w-full h-full"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Subtle multi-stop civic gradient with soft teal, warm saffron, and navy glow */}
+          {/* Neo-Brutalist gradient: Yellow → Sage → Charcoal accent */}
           <linearGradient id="morphGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.14" />
-            <stop offset="45%" stopColor="#6366F1" stopOpacity="0.10" />
-            <stop offset="80%" stopColor="#D98324" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#2E7D4F" stopOpacity="0.16" />
+            <stop offset="0%" stopColor="#ffe17c" stopOpacity="0.25" />
+            <stop offset="50%" stopColor="#b7c6c2" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#171e19" stopOpacity="0.08" />
           </linearGradient>
 
           <linearGradient id="morphStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.35" />
-            <stop offset="50%" stopColor="#6366F1" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#D98324" stopOpacity="0.30" />
+            <stop offset="0%" stopColor="#171e19" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#ffe17c" stopOpacity="0.35" />
           </linearGradient>
         </defs>
 
-        {/* Outer glowing morphing blob */}
+        {/* Outer morphing blob */}
         <motion.path
           d={path1}
           animate={{
@@ -70,11 +68,11 @@ export default function MorphingShape({ className = "" }: MorphingShapeProps) {
           style={{ transformOrigin: "300px 300px" }}
           fill="url(#morphGrad1)"
           stroke="url(#morphStroke)"
-          strokeWidth="1.5"
-          strokeDasharray="8 6"
+          strokeWidth="2"
+          strokeDasharray="12 8"
         />
 
-        {/* Secondary inner counter-rotating accent ring for rich depth */}
+        {/* Inner counter-rotating accent ring */}
         <motion.path
           d={path3}
           animate={{
@@ -104,9 +102,9 @@ export default function MorphingShape({ className = "" }: MorphingShapeProps) {
           }}
           style={{ transformOrigin: "300px 300px" }}
           fill="none"
-          stroke="#17254A"
-          strokeOpacity="0.12"
-          strokeWidth="1"
+          stroke="#171e19"
+          strokeOpacity="0.15"
+          strokeWidth="1.5"
         />
       </svg>
     </div>

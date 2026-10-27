@@ -1,24 +1,58 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   NEO-BRUTALIST DESIGN SYSTEM — JanSamadhan
+   Palette: Yellow #ffe17c · Charcoal #171e19 · Sage #b7c6c2 · Cream #faf9f6
+   Borders: 2px solid #171e19 · Shadows: 4px hard offset
+   ============================================================================ */
+
 @layer base {
   :root {
-    --bg-page: #FAF7F0;
-    --surface-card: #FFFFFF;
-    --surface-sunken: #F1ECDF;
-    --navy: #17254A;
-    --navy-soft: #E4E9F5;
-    --ink: #1C1B18;
-    --ink-secondary: #5E5C54;
-    --border: #E5DFD0;
-    --border-strong: #CBC3AE;
-    --green: #2E7D4F;
-    --green-hover: #22633D;
-    --green-soft: #E3F0E7;
-    --saffron: #D98324;
-    --saffron-soft: #FBEBD3;
-    --saffron-text: #98590A;
-    --rejected: #A33A2B;
-    --rejected-soft: #F8E1DC;
+    /* ── Core Palette ─────────────────────────────────────── */
+    --yellow: #ffe17c;
+    --yellow-hover: #ffd94a;
+    --charcoal: #171e19;
+    --cream: #faf9f6;
+    --sage: #b7c6c2;
+    --sage-light: #dfe8e5;
+    --sage-dark: #8da39d;
+
+    /* ── Semantic Tokens ──────────────────────────────────── */
+    --bg-page: var(--cream);
+    --surface-card: #ffffff;
+    --surface-elevated: var(--yellow);
+    --ink: var(--charcoal);
+    --ink-secondary: #4a5550;
+    --ink-muted: #6b7b75;
+    --border: var(--charcoal);
+    --border-subtle: var(--sage);
+    --border-width: 2px;
+
+    /* ── Status Colors ────────────────────────────────────── */
+    --green: #2d6a4f;
+    --green-soft: #d8f3dc;
+    --green-text: #1b4332;
+    --saffron: #e07a24;
+    --saffron-soft: #fef3e2;
+    --saffron-text: #8b4513;
+    --red: #c1292e;
+    --red-soft: #fde8e8;
+    --red-text: #991b1b;
+    --blue: #264653;
+    --blue-soft: #e0f2f1;
+
+    /* ── Shadows ──────────────────────────────────────────── */
+    --shadow-brutal: 4px 4px 0px var(--charcoal);
+    --shadow-brutal-sm: 2px 2px 0px var(--charcoal);
+    --shadow-brutal-lg: 6px 6px 0px var(--charcoal);
+    --shadow-brutal-yellow: 4px 4px 0px var(--yellow);
+    --shadow-brutal-sage: 4px 4px 0px var(--sage);
+
+    /* ── Radii (purposely minimal for brutalist) ──────────── */
+    --radius-none: 0px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
   }
 
   * {
@@ -30,25 +64,26 @@
     color: var(--ink);
     font-family: var(--font-body), var(--font-devanagari), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 16px;
-    line-height: 1.625; /* 26px */
+    line-height: 1.625;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading), serif;
-    font-weight: 600;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 800;
     color: var(--ink);
-    letter-spacing: -0.015em;
-    line-height: 1.25;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-transform: uppercase;
   }
 
   h1 {
-    font-size: 2.25rem; /* 36px */
+    font-size: 2.75rem;
   }
 
   h2 {
-    font-size: 1.75rem; /* 28px */
+    font-size: 2rem;
   }
 
   button {
@@ -58,33 +93,39 @@
   }
 
   a {
-    color: var(--navy);
+    color: var(--charcoal);
     text-decoration: none;
-    transition: color 150ms ease-out;
+    transition: all 120ms ease-out;
   }
 
-  /* Eyebrow styling: uppercase and tracking for EN only, normal for Hindi */
+  /* Eyebrow styling */
   .eyebrow-en {
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
+    letter-spacing: 0.14em;
+    font-weight: 800;
   }
 
   .eyebrow-hi {
     font-size: 13px;
     text-transform: none;
     letter-spacing: normal;
-    font-weight: 600;
+    font-weight: 700;
   }
 
-  /* Smooth custom scrollbar for horizontal category pills */
+  /* Hide scrollbars on horizontal scroll containers */
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
   .scrollbar-none {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: var(--yellow);
+    color: var(--charcoal);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -101,70 +142,80 @@
 
 @layer components {
   /* ==========================================================================
-     Buttons - Tactile, Flat Token Styles (No Gradients)
+     BUTTONS — Neo-Brutalist: Hard borders, offset shadows, snappy transforms
      ========================================================================== */
   .btn-primary {
-    background-color: #2E7D4F;
-    color: #FFFFFF !important;
-    font-family: var(--font-body), sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.65rem 1.35rem;
-    border-radius: 10px; /* button radius 10 */
+    background-color: var(--yellow);
+    color: var(--charcoal) !important;
+    font-family: var(--font-heading), var(--font-body), sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm);
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border: 1px solid #2E7D4F;
-    transition: background-color 150ms ease, transform 150ms ease;
+    border: var(--border-width) solid var(--charcoal);
+    box-shadow: var(--shadow-brutal);
+    transition: transform 100ms ease, box-shadow 100ms ease, background-color 120ms ease;
     text-decoration: none !important;
     user-select: none;
+    position: relative;
   }
 
   .btn-primary:hover:not(:disabled) {
-    background-color: #22633D;
-    border-color: #22633D;
-    transform: translateY(-1px);
+    background-color: var(--yellow-hover);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--charcoal);
   }
 
   .btn-primary:active:not(:disabled) {
-    transform: translateY(0);
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--charcoal);
   }
 
   .btn-primary:disabled {
     opacity: 0.55;
     cursor: not-allowed;
     transform: none;
+    box-shadow: var(--shadow-brutal-sm);
   }
 
   .btn-secondary {
-    background-color: #FFFFFF;
-    color: #17254A !important;
-    border: 1px solid #E5DFD0;
-    font-family: var(--font-body), sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.65rem 1.35rem;
-    border-radius: 10px;
+    background-color: var(--surface-card);
+    color: var(--charcoal) !important;
+    border: var(--border-width) solid var(--charcoal);
+    font-family: var(--font-heading), var(--font-body), sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm);
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 150ms ease;
+    box-shadow: var(--shadow-brutal);
+    transition: transform 100ms ease, box-shadow 100ms ease, background-color 120ms ease;
     text-decoration: none !important;
     user-select: none;
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background-color: #F1ECDF;
-    border-color: #CBC3AE;
-    transform: translateY(-1px);
+    background-color: var(--sage-light);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--charcoal);
   }
 
   .btn-secondary:active:not(:disabled) {
-    transform: translateY(0);
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--charcoal);
   }
 
   .btn-secondary:disabled {
@@ -174,183 +225,243 @@
 
   .btn-outline {
     background-color: transparent;
-    color: #17254A;
-    border: 1.5px solid #E5DFD0;
+    color: var(--charcoal);
+    border: var(--border-width) solid var(--charcoal);
     font-family: var(--font-body), sans-serif;
-    font-weight: 600;
-    padding: 0.55rem 1.25rem;
-    border-radius: 10px;
+    font-weight: 700;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    transition: all 150ms ease;
+    box-shadow: var(--shadow-brutal-sm);
+    transition: transform 100ms ease, box-shadow 100ms ease, background-color 120ms ease;
     text-decoration: none !important;
   }
 
   .btn-outline:hover {
-    background-color: #FFFFFF;
-    border-color: #17254A;
-    color: #17254A;
+    background-color: var(--yellow);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--charcoal);
+  }
+
+  .btn-outline:active {
+    transform: translate(1px, 1px);
+    box-shadow: 0px 0px 0px var(--charcoal);
   }
 
   .btn-danger {
-    background-color: #F8E1DC;
-    color: #A33A2B !important;
-    border: 1px solid #A33A2B;
+    background-color: var(--red-soft);
+    color: var(--red-text) !important;
+    border: var(--border-width) solid var(--red);
     font-family: var(--font-body), sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.65rem 1.35rem;
-    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm);
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 150ms ease;
+    box-shadow: 3px 3px 0px var(--red);
+    transition: transform 100ms ease, box-shadow 100ms ease;
     text-decoration: none !important;
   }
 
   .btn-danger:hover {
-    background-color: #A33A2B;
+    background-color: var(--red);
     color: #FFFFFF !important;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--red-text);
+  }
+
+  .btn-danger:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--red-text);
   }
 
   .btn-ghost {
-    color: #5E5C54;
-    font-weight: 500;
+    color: var(--ink-secondary);
+    font-weight: 600;
     padding: 0.5rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
     background: transparent;
-    border: 1px solid transparent;
-    transition: background-color 150ms ease, color 150ms ease;
+    border: var(--border-width) solid transparent;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
     text-decoration: none !important;
   }
 
   .btn-ghost:hover {
-    background-color: #F1ECDF;
-    color: #1C1B18;
+    background-color: var(--yellow);
+    color: var(--charcoal);
+    border-color: var(--charcoal);
   }
 
   /* ==========================================================================
-     Cards & Surfaces - Flat with 1px border, 16px radius, no heavy shadows
+     CARDS — Neo-Brutalist: Hard 2px borders, offset shadows, minimal radius
      ========================================================================== */
-  .card {
-    background-color: #FFFFFF;
-    border-radius: 16px; /* card radius 16 */
-    border: 1px solid #E5DFD0;
-    padding: 1.5rem;
-    transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), border-color 180ms ease;
+  .card, .card-brutalist {
+    background-color: #ffffff;
+    border: 2px solid var(--charcoal);
+    padding: 2rem;
+    box-shadow: 6px 6px 0px var(--charcoal);
+    border-radius: 0px;
+    transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
   .card-hover:hover {
-    transform: translateY(-2px);
-    border-color: #CBC3AE;
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-lg);
   }
 
   /* Bento Tile Base */
   .bento-tile {
-    background-color: #FFFFFF;
-    border-radius: 16px;
-    border: 1px solid #E5DFD0;
+    background-color: var(--surface-card);
+    border-radius: 0px;
+    border: var(--border-width) solid var(--charcoal);
     padding: 1.5rem;
-    transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), border-color 180ms ease;
+    box-shadow: var(--shadow-brutal);
+    transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
   .bento-tile:hover {
-    transform: translateY(-2px);
-    border-color: #CBC3AE;
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-lg);
   }
 
   /* ==========================================================================
-     Forms & Inputs
+     FORMS & INPUTS — Brutalist: High contrast boxed inputs with sharp borders
      ========================================================================== */
-  .input {
+  .input, .input-brutalist {
     width: 100%;
-    background-color: #FFFFFF;
-    border: 1px solid #E5DFD0;
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    color: #1C1B18;
-    transition: border-color 150ms ease, box-shadow 150ms ease;
-    min-height: 46px;
+    background-color: #ffffff !important;
+    border: 2px solid var(--charcoal) !important;
+    border-radius: 0px !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.95rem !important;
+    font-family: var(--font-body), monospace, sans-serif !important;
+    color: var(--charcoal) !important;
+    box-shadow: 2px 2px 0px var(--charcoal) !important;
+    transition: all 120ms ease-out !important;
+    min-height: 48px;
+    display: block;
   }
 
-  .input:focus {
-    outline: none;
-    border-color: #2E7D4F;
-    box-shadow: 0 0 0 3px rgba(46, 125, 79, 0.15);
+  .input:focus, .input-brutalist:focus {
+    outline: none !important;
+    border-color: var(--charcoal) !important;
+    box-shadow: 4px 4px 0px var(--charcoal) !important;
+    background-color: #ffffff !important;
+    transform: translate(-1px, -1px);
   }
 
-  .input::placeholder {
-    color: #5E5C54;
-    opacity: 0.7;
+  .input::placeholder, .input-brutalist::placeholder {
+    color: #6b7b75 !important;
+    opacity: 0.8;
+  }
+
+  .btn-brutalist-yellow {
+    background-color: var(--yellow) !important;
+    color: var(--charcoal) !important;
+    font-family: var(--font-heading), sans-serif !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    border: 2px solid var(--charcoal) !important;
+    box-shadow: 4px 4px 0px var(--charcoal) !important;
+    padding: 0.85rem 1.5rem !important;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 100ms ease;
+  }
+
+  .btn-brutalist-yellow:hover:not(:disabled) {
+    background-color: var(--yellow-hover) !important;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--charcoal) !important;
+  }
+
+  .btn-brutalist-yellow:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--charcoal) !important;
+  }
+
+  .btn-brutalist-yellow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   .label {
     display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #1C1B18;
-    margin-bottom: 0.35rem;
+    font-size: 0.825rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--charcoal);
+    margin-bottom: 0.4rem;
+    font-family: var(--font-heading), monospace, sans-serif;
   }
 
   /* ==========================================================================
-     Badges & Semantic Status (Always Icon + Text, No Color-Only Signals)
+     BADGES — Neo-Brutalist: Tiny hard shadows, visible borders
      ========================================================================== */
   .badge {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.25rem 0.65rem;
-    border-radius: 9999px; /* pills fully rounded */
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
     line-height: 1;
     white-space: nowrap;
-    border: 1px solid transparent;
+    border: 1.5px solid var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .status-open {
-    background-color: #F1ECDF;
-    color: #1C1B18;
-    border-color: #E5DFD0;
+    background-color: var(--sage-light);
+    color: var(--charcoal);
+    border-color: var(--charcoal);
   }
 
   .status-solution,
   .status-proposed {
-    background-color: #FBEBD3;
-    color: #98590A;
-    border-color: #D98324;
+    background-color: var(--saffron-soft);
+    color: var(--saffron-text);
+    border-color: var(--saffron);
   }
 
   .status-approved,
   .status-partnership,
   .status-resolved,
   .status-completed {
-    background-color: #E3F0E7;
-    color: #2E7D4F;
-    border-color: #2E7D4F;
+    background-color: var(--green-soft);
+    color: var(--green-text);
+    border-color: var(--green);
   }
 
   .status-pending {
-    background-color: #FBEBD3;
-    color: #98590A;
-    border-color: #D98324;
+    background-color: var(--saffron-soft);
+    color: var(--saffron-text);
+    border-color: var(--saffron);
   }
 
   .status-rejected {
-    background-color: #F8E1DC;
-    color: #A33A2B;
-    border-color: #A33A2B;
+    background-color: var(--red-soft);
+    color: var(--red-text);
+    border-color: var(--red);
   }
 
   /* Page headers */
@@ -359,28 +470,30 @@
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    color: #1C1B18;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
   }
 
   .page-header p {
-    color: #5E5C54;
-    margin-top: 0.25rem;
+    color: var(--ink-secondary);
+    margin-top: 0.5rem;
     font-size: 1.05rem;
   }
 }
 
 /* ==========================================================================
-   Motion & Utilities
+   MOTION & UTILITIES
    ========================================================================== */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fadeIn 250ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes skeletonPulse {
@@ -389,7 +502,27 @@
 }
 
 .skeleton {
-  background-color: #E5DFD0;
-  border-radius: 8px;
+  background-color: var(--sage-light);
+  border-radius: var(--radius-sm);
   animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+/* Neo-Brutalist sticker/accent for key elements */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+.nb-wiggle:hover {
+  animation: wiggle 200ms ease-in-out 2;
+}
+
+/* Marquee-style scroll for brutalist accent */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.nb-marquee {
+  animation: marquee 25s linear infinite;
 }

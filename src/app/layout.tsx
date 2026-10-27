@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces, Noto_Sans_Devanagari } from "next/font/google";
+import { Space_Grotesk, Inter, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const dmSans = DM_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
+  variable: "--font-heading",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -44,9 +44,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${fraunces.variable} ${notoDevanagari.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${notoDevanagari.variable}`}
     >
-      <body className="font-sans antialiased bg-[#FAF7F0] text-[#1C1B18]">
+      <body className="font-sans antialiased bg-[#faf9f6] text-[#171e19]">
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

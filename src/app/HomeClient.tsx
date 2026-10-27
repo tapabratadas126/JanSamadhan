@@ -182,45 +182,61 @@ export default function HomeClient({
   const isRealChain = !!latestChain;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F0] text-[#1C1B18] flex flex-col">
+    <div className="min-h-screen bg-[#faf9f6] text-[#171e19] flex flex-col">
       {/* ─────────────────────────────────────────────────────────────────────
-          4.1 HERO SECTION (Left-aligned, 2 columns, Saffron underline)
+          MARQUEE TICKER — Neo-Brutalist accent bar
       ───────────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-[#E5DFD0] py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F0]">
+      <div className="bg-[#171e19] text-[#ffe17c] py-2 overflow-hidden border-b-[3px] border-[#ffe17c]">
+        <div className="flex whitespace-nowrap nb-marquee">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="mx-8 text-xs font-bold uppercase tracking-[0.2em]">
+              ★ CIVIC PROBLEMS ★ UNIVERSITY SOLUTIONS ★ INDUSTRY PARTNERSHIPS ★ LOCAL IMPACT ★ OPEN GOVERNANCE
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────────────
+          4.1 HERO SECTION — Neo-Brutalist: Bold yellow, hard shadows
+      ───────────────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b-[3px] border-[#171e19] py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#ffe17c]">
         {/* Organic Morphing Shape in Hero background */}
-        <div className="absolute -top-24 -right-24 w-[540px] h-[540px] opacity-75 pointer-events-none z-0 hidden md:block">
+        <div className="absolute -top-24 -right-24 w-[540px] h-[540px] opacity-50 pointer-events-none z-0 hidden md:block">
           <MorphingShape className="w-full h-full" />
         </div>
-        <div className="absolute -bottom-36 -left-36 w-[420px] h-[420px] opacity-40 pointer-events-none z-0 hidden lg:block">
+        <div className="absolute -bottom-36 -left-36 w-[420px] h-[420px] opacity-30 pointer-events-none z-0 hidden lg:block">
           <MorphingShape className="w-full h-full" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column (Span 7) */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Eyebrow: 12px uppercase for EN, normal for Hindi */}
-            <div className={lang === "hi" ? "eyebrow-hi text-[#2E7D4F]" : "eyebrow-en text-[#2E7D4F]"}>
-              {tr("hero_eyebrow")}
+            {/* Eyebrow */}
+            <div className="inline-block">
+              <span className={`${lang === "hi" ? "eyebrow-hi" : "eyebrow-en"} text-[#171e19] bg-white px-3 py-1.5 border-2 border-[#171e19] inline-block`} style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                {tr("hero_eyebrow")}
+              </span>
             </div>
 
-            {/* H1 Heading with Saffron hand-drawn SVG underline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-[42px] font-semibold text-[#17254A] leading-[1.2] tracking-tight">
-              <span>Connecting citizens, universities and </span>
-              <span className="relative inline-block whitespace-nowrap">
+            {/* H1 Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-[#171e19] leading-[1.05] tracking-tight uppercase">
+              <span>Connecting citizens, universities & </span>
+              <span className="relative inline-block">
                 industry
+                {/* Bold underline stroke */}
                 <svg
-                  className="absolute left-0 -bottom-2 w-full h-3 overflow-visible pointer-events-none"
-                  viewBox="0 0 160 12"
+                  className="absolute left-0 -bottom-2 w-full h-4 overflow-visible pointer-events-none"
+                  viewBox="0 0 160 14"
                   fill="none"
                 >
                   <motion.path
-                    d="M 2 8 C 45 2, 115 11, 158 5"
-                    stroke="#D98324"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
+                    d="M 2 10 C 45 3, 115 12, 158 6"
+                    stroke="#171e19"
+                    strokeWidth="5"
+                    strokeLinecap="square"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                   />
                 </svg>
               </span>
@@ -228,113 +244,108 @@ export default function HomeClient({
             </h1>
 
             {/* Short subcopy */}
-            <p className="text-base sm:text-lg text-[#5E5C54] max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg text-[#171e19]/75 max-w-2xl leading-relaxed font-medium">
               {tr("hero_subtext")}
             </p>
 
             {/* Two CTAs */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
                 href={session ? "/citizen/problems/new" : "/login?redirect=/citizen/problems/new"}
-                className="btn-primary text-sm font-semibold px-6 py-3 no-underline shadow-sm"
+                className="btn-primary text-sm font-extrabold px-7 py-3.5 no-underline"
               >
                 <span>{tr("hero_cta_report")}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={18} strokeWidth={3} />
               </Link>
               <Link
                 href="/#browse-section"
-                className="btn-outline text-sm font-semibold px-6 py-3 no-underline"
+                className="btn-secondary text-sm font-bold px-7 py-3.5 no-underline"
               >
                 {tr("hero_cta_browse")}
               </Link>
             </div>
 
             {/* Three Trust Ticks */}
-            <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-[#5E5C54] font-medium border-t border-[#E5DFD0]/70">
+            <div className="pt-5 flex flex-wrap items-center gap-6 text-xs text-[#171e19]/70 font-bold uppercase tracking-wider border-t-2 border-[#171e19]/20">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-[#2E7D4F]" />
+                <CheckCircle2 size={16} className="text-[#171e19]" />
                 <span>{tr("hero_trust_free")}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-[#2E7D4F]" />
+                <CheckCircle2 size={16} className="text-[#171e19]" />
                 <span>{tr("hero_trust_verified")}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-[#2E7D4F]" />
+                <CheckCircle2 size={16} className="text-[#171e19]" />
                 <span>{tr("hero_trust_transparent")}</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column (Span 5): Journey Visual */}
+          {/* Right Column (Span 5): Journey Visual — Brutalist card */}
           <div className="lg:col-span-5">
-            <div className="bg-[#FFFFFF] p-6 sm:p-7 rounded-2xl border border-[#E5DFD0] space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-[#E5DFD0]">
-                <span className="text-xs font-semibold text-[#17254A] uppercase tracking-wider">
+            <div className="bg-white p-6 sm:p-7 border-[3px] border-[#171e19] space-y-4" style={{ boxShadow: "6px 6px 0px #171e19", borderRadius: "8px" }}>
+              <div className="flex items-center justify-between pb-3 border-b-2 border-[#171e19]/15">
+                <span className="text-xs font-extrabold text-[#171e19] uppercase tracking-[0.15em]">
                   Civic Collaboration Journey
                 </span>
-                <span className="badge bg-[#F1ECDF] text-[#17254A] border-[#CBC3AE]">
-                  {isRealChain ? "Live Chain" : "Example Journey"}
+                <span className="badge bg-[#ffe17c] text-[#171e19] border-[#171e19]">
+                  {isRealChain ? "Live Chain" : "Example"}
                 </span>
               </div>
 
               {/* Step 1: Citizen reports */}
-              <div className="relative pl-8 pb-4">
-                <div className="absolute left-0 top-0.5 w-6 h-6 rounded-full bg-[#E3F0E7] text-[#2E7D4F] border border-[#2E7D4F] flex items-center justify-center">
-                  <User size={13} />
+              <div className="relative pl-9 pb-4">
+                <div className="absolute left-0 top-0.5 w-7 h-7 bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] flex items-center justify-center font-extrabold text-xs" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  1
                 </div>
-                {/* Connector line */}
-                <div className="absolute left-3 top-7 bottom-0 w-[2px] bg-[#E5DFD0]" />
-
+                <div className="absolute left-3 top-8 bottom-0 w-[2px] bg-[#171e19]/20" />
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#2E7D4F]">1. Citizen Reports</span>
-                    <span className="text-[11px] text-[#5E5C54]">{chainData.location}</span>
+                    <span className="text-xs font-extrabold text-[#171e19] uppercase">Citizen Reports</span>
+                    <span className="text-[11px] text-[#171e19]/60 font-semibold">{chainData.location}</span>
                   </div>
-                  <h4 className="text-sm font-semibold text-[#1C1B18] line-clamp-1">
+                  <h4 className="text-sm font-bold text-[#171e19] line-clamp-1">
                     {chainData.title}
                   </h4>
-                  <p className="text-xs text-[#5E5C54]">Reported by {chainData.postedBy.name}</p>
+                  <p className="text-xs text-[#171e19]/60 font-medium">Reported by {chainData.postedBy.name}</p>
                 </div>
               </div>
 
               {/* Step 2: University proposes */}
-              <div className="relative pl-8 pb-4">
-                <div className="absolute left-0 top-0.5 w-6 h-6 rounded-full bg-[#E4E9F5] text-[#17254A] border border-[#17254A] flex items-center justify-center">
-                  <GraduationCap size={13} />
+              <div className="relative pl-9 pb-4">
+                <div className="absolute left-0 top-0.5 w-7 h-7 bg-[#b7c6c2] text-[#171e19] border-2 border-[#171e19] flex items-center justify-center font-extrabold text-xs" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  2
                 </div>
-                {/* Connector line */}
-                <div className="absolute left-3 top-7 bottom-0 w-[2px] bg-[#E5DFD0]" />
-
+                <div className="absolute left-3 top-8 bottom-0 w-[2px] bg-[#171e19]/20" />
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#17254A]">2. University Proposes</span>
-                    <span className="text-[11px] text-[#5E5C54]">Research & Tech</span>
+                    <span className="text-xs font-extrabold text-[#171e19] uppercase">University Proposes</span>
+                    <span className="text-[11px] text-[#171e19]/60 font-semibold">Research & Tech</span>
                   </div>
-                  <h4 className="text-sm font-semibold text-[#1C1B18] line-clamp-1">
+                  <h4 className="text-sm font-bold text-[#171e19] line-clamp-1">
                     {chainData.solutions[0]?.title || "Technical Feasibility Study"}
                   </h4>
-                  <p className="text-xs text-[#5E5C54]">
+                  <p className="text-xs text-[#171e19]/60 font-medium">
                     Lead: {chainData.solutions[0]?.university.name || "University Partner"}
                   </p>
                 </div>
               </div>
 
               {/* Step 3: Industry backs */}
-              <div className="relative pl-8">
-                <div className="absolute left-0 top-0.5 w-6 h-6 rounded-full bg-[#FBEBD3] text-[#98590A] border border-[#D98324] flex items-center justify-center">
-                  <Building2 size={13} />
+              <div className="relative pl-9">
+                <div className="absolute left-0 top-0.5 w-7 h-7 bg-[#2d6a4f] text-white border-2 border-[#171e19] flex items-center justify-center font-extrabold text-xs" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  3
                 </div>
-
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#98590A]">3. Industry Backs</span>
+                    <span className="text-xs font-extrabold text-[#171e19] uppercase">Industry Backs</span>
                     <span className="badge status-approved text-[10px] py-0.5">Approved</span>
                   </div>
-                  <h4 className="text-sm font-semibold text-[#1C1B18] line-clamp-1">
+                  <h4 className="text-sm font-bold text-[#171e19] line-clamp-1">
                     {chainData.solutions[0]?.partnerships[0]?.industry.name || "Corporate CSR Deployment"}
                   </h4>
-                  <p className="text-xs text-[#5E5C54]">Sponsorship & Resource Deployment</p>
+                  <p className="text-xs text-[#171e19]/60 font-medium">Sponsorship & Resource Deployment</p>
                 </div>
               </div>
             </div>
@@ -343,95 +354,96 @@ export default function HomeClient({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          4.2 LIVE IMPACT BENTO GRID
+          4.2 LIVE IMPACT BENTO GRID — Neo-Brutalist tiles
       ───────────────────────────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD0] bg-[#FAF7F0]">
-        <div className="max-w-7xl mx-auto space-y-6">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b-[3px] border-[#171e19] bg-[#faf9f6]">
+        <div className="max-w-7xl mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className={lang === "hi" ? "eyebrow-hi text-[#2E7D4F]" : "eyebrow-en text-[#2E7D4F]"}>
+              <div className={lang === "hi" ? "eyebrow-hi text-[#2d6a4f]" : "eyebrow-en text-[#2d6a4f]"}>
                 {tr("bento_live_stats")}
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[#17254A]">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#171e19] uppercase tracking-tight">
                 Measurable Impact Across Communities
               </h2>
             </div>
             <Link
               href="#how-it-works"
-              className="text-xs font-semibold text-[#2E7D4F] hover:text-[#22633D] inline-flex items-center gap-1"
+              className="text-xs font-bold text-[#171e19] hover:text-[#ffe17c] bg-[#171e19] hover:bg-[#171e19] text-white px-4 py-2 border-2 border-[#171e19] inline-flex items-center gap-1 uppercase tracking-wider transition-colors no-underline"
+              style={{ boxShadow: "2px 2px 0px #b7c6c2" }}
             >
-              <span>Learn how verified review gates work</span>
+              <span>How it works</span>
               <ChevronRight size={14} />
             </Link>
           </div>
 
           {/* 12-Column Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
-            {/* Tile A (span 5, 2 rows): Problems reported with dynamic counter & latest problem link */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
+            {/* Tile A (span 5, 2 rows): Problems reported */}
             <div className="lg:col-span-5 lg:row-span-2 bento-tile flex flex-col justify-between space-y-4">
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-full bg-[#E3F0E7] text-[#2E7D4F] flex items-center justify-center">
-                  <MapPin size={20} />
+              <div className="space-y-3">
+                <div className="w-11 h-11 bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] flex items-center justify-center" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <MapPin size={22} />
                 </div>
-                <div className="text-4xl sm:text-5xl font-bold text-[#17254A]">
+                <div className="text-5xl sm:text-6xl font-extrabold text-[#171e19]">
                   <DynamicCounter value={problemCount} />
                 </div>
-                <h3 className="font-semibold text-base text-[#1C1B18]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase tracking-wider">
                   {tr("metric_problems")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed font-medium">
                   Verified civic issues submitted by citizens across urban and rural wards, prioritized by community votes.
                 </p>
               </div>
 
               {problems[0] && (
-                <div className="pt-4 border-t border-[#E5DFD0] space-y-1">
-                  <div className="text-[11px] font-semibold text-[#5E5C54] uppercase tracking-wider">
+                <div className="pt-4 border-t-2 border-[#171e19]/15 space-y-1">
+                  <div className="text-[11px] font-extrabold text-[#171e19]/50 uppercase tracking-[0.15em]">
                     {tr("bento_latest_report")}
                   </div>
                   <Link
                     href={`/problems/${problems[0].id}`}
-                    className="text-sm font-semibold text-[#17254A] hover:text-[#2E7D4F] line-clamp-1 block transition-colors"
+                    className="text-sm font-bold text-[#171e19] hover:text-[#2d6a4f] line-clamp-1 block transition-colors"
                   >
                     {problems[0].title}
                   </Link>
-                  <span className="text-[11px] text-[#5E5C54]">{problems[0].location}</span>
+                  <span className="text-[11px] text-[#171e19]/50 font-semibold">{problems[0].location}</span>
                 </div>
               )}
             </div>
 
-            {/* Tile B (span 4): Solutions Proposed (Flat Navy emphasis tile) */}
-            <div className="lg:col-span-4 bento-tile bg-[#17254A] text-white border-[#17254A] flex flex-col justify-between">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center">
-                  <Lightbulb size={18} />
+            {/* Tile B (span 4): Solutions Proposed (Dark charcoal tile) */}
+            <div className="lg:col-span-4 bento-tile bg-[#171e19] text-white border-[#171e19] flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #ffe17c" }}>
+              <div className="space-y-3">
+                <div className="w-10 h-10 bg-[#ffe17c] text-[#171e19] border-2 border-white/30 flex items-center justify-center">
+                  <Lightbulb size={20} />
                 </div>
-                <div className="text-3xl sm:text-4xl font-bold text-white">
+                <div className="text-4xl sm:text-5xl font-extrabold text-[#ffe17c]">
                   <DynamicCounter value={solutionCount} />
                 </div>
-                <h3 className="font-semibold text-base text-white">
+                <h3 className="font-extrabold text-base text-white uppercase tracking-wider">
                   {tr("metric_solutions")}
                 </h3>
               </div>
-              <p className="text-xs text-[#E4E9F5]/80 pt-2 leading-relaxed">
+              <p className="text-xs text-white/60 pt-3 leading-relaxed font-medium">
                 Applied research, prototypes, and engineering solutions designed by university faculties and research scholars.
               </p>
             </div>
 
-            {/* Tile C (span 3): Partnerships Formed (Flat Soft Green emphasis tile) */}
-            <div className="lg:col-span-3 bento-tile bg-[#E3F0E7] border-[#2E7D4F]/30 text-[#17254A] flex flex-col justify-between">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-full bg-[#2E7D4F] text-white flex items-center justify-center">
-                  <Handshake size={18} />
+            {/* Tile C (span 3): Partnerships Formed (Sage tile) */}
+            <div className="lg:col-span-3 bento-tile bg-[#b7c6c2] border-[#171e19] text-[#171e19] flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #171e19" }}>
+              <div className="space-y-3">
+                <div className="w-10 h-10 bg-[#2d6a4f] text-white border-2 border-[#171e19] flex items-center justify-center">
+                  <Handshake size={20} />
                 </div>
-                <div className="text-3xl sm:text-4xl font-bold text-[#2E7D4F]">
+                <div className="text-4xl sm:text-5xl font-extrabold text-[#171e19]">
                   <DynamicCounter value={partnershipCount} />
                 </div>
-                <h3 className="font-semibold text-base text-[#17254A]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase tracking-wider">
                   {tr("metric_partnerships")}
                 </h3>
               </div>
-              <p className="text-xs text-[#5E5C54] pt-2 leading-relaxed">
+              <p className="text-xs text-[#171e19]/60 pt-3 leading-relaxed font-medium">
                 Approved CSR partnerships backing civic solutions with deployment resources.
               </p>
             </div>
@@ -439,28 +451,28 @@ export default function HomeClient({
             {/* Tile D (span 7): How it Works in 3 Compact Steps */}
             <div className="lg:col-span-7 bento-tile space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-base text-[#17254A]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase tracking-wider">
                   {tr("bento_how_title")}
                 </h3>
                 <Link
                   href="#how-it-works"
-                  className="text-xs font-semibold text-[#2E7D4F] hover:underline"
+                  className="text-xs font-bold text-[#171e19] hover:text-[#2d6a4f] uppercase tracking-wider"
                 >
                   View diagram →
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-3 bg-[#FAF7F0] rounded-xl border border-[#E5DFD0] space-y-1">
-                  <div className="text-xs font-bold text-[#2E7D4F]">{tr("bento_how_step1")}</div>
-                  <div className="text-[11px] text-[#5E5C54]">Submit issues with photos & GPS.</div>
+                <div className="p-3 bg-[#ffe17c] border-2 border-[#171e19] space-y-1" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <div className="text-xs font-extrabold text-[#171e19] uppercase">{tr("bento_how_step1")}</div>
+                  <div className="text-[11px] text-[#171e19]/65 font-medium">Submit issues with photos & GPS.</div>
                 </div>
-                <div className="p-3 bg-[#FAF7F0] rounded-xl border border-[#E5DFD0] space-y-1">
-                  <div className="text-xs font-bold text-[#17254A]">{tr("bento_how_step2")}</div>
-                  <div className="text-[11px] text-[#5E5C54]">Universities submit actionable R&D.</div>
+                <div className="p-3 bg-[#b7c6c2] border-2 border-[#171e19] space-y-1" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <div className="text-xs font-extrabold text-[#171e19] uppercase">{tr("bento_how_step2")}</div>
+                  <div className="text-[11px] text-[#171e19]/65 font-medium">Universities submit actionable R&D.</div>
                 </div>
-                <div className="p-3 bg-[#FAF7F0] rounded-xl border border-[#E5DFD0] space-y-1">
-                  <div className="text-xs font-bold text-[#D98324]">{tr("bento_how_step3")}</div>
-                  <div className="text-[11px] text-[#5E5C54]">CSR partners fund and scale.</div>
+                <div className="p-3 bg-white border-2 border-[#171e19] space-y-1" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <div className="text-xs font-extrabold text-[#171e19] uppercase">{tr("bento_how_step3")}</div>
+                  <div className="text-[11px] text-[#171e19]/65 font-medium">CSR partners fund and scale.</div>
                 </div>
               </div>
             </div>
@@ -468,10 +480,10 @@ export default function HomeClient({
             {/* Tile E (span 5): 10 Categories with Live Counts */}
             <div className="lg:col-span-5 bento-tile space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-sm text-[#17254A]">
+                <h3 className="font-extrabold text-sm text-[#171e19] uppercase tracking-wider">
                   {tr("bento_categories_title")}
                 </h3>
-                <span className="text-[11px] text-[#5E5C54]">10 Active Domains</span>
+                <span className="text-[11px] text-[#171e19]/50 font-bold uppercase">10 Active Domains</span>
               </div>
               <div className="grid grid-cols-5 gap-2">
                 {CATEGORIES.map((cat) => {
@@ -482,10 +494,11 @@ export default function HomeClient({
                       key={cat.value}
                       href={`/?tab=problems&category=${cat.value}#browse-section`}
                       title={`${cat.label}: ${count} problems`}
-                      className="p-2 rounded-xl bg-[#FAF7F0] hover:bg-[#F1ECDF] border border-[#E5DFD0] flex flex-col items-center justify-center text-center transition-colors group no-underline"
+                      className="p-2 bg-[#faf9f6] hover:bg-[#ffe17c] border-2 border-[#171e19] flex flex-col items-center justify-center text-center transition-colors group no-underline"
+                      style={{ boxShadow: "1px 1px 0px #171e19" }}
                     >
-                      <Icon className="w-4 h-4 text-[#17254A] group-hover:text-[#2E7D4F] transition-colors mb-1" />
-                      <span className="text-[10px] font-bold text-[#17254A] leading-none">
+                      <Icon className="w-4 h-4 text-[#171e19] group-hover:text-[#171e19] transition-colors mb-1" />
+                      <span className="text-[10px] font-extrabold text-[#171e19] leading-none">
                         {count}
                       </span>
                     </Link>
@@ -495,60 +508,63 @@ export default function HomeClient({
             </div>
 
             {/* Tile F (span 4): Impact highlight */}
-            <div className="lg:col-span-4 bento-tile space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#D98324]">
+            <div className="lg:col-span-4 bento-tile space-y-2 bg-[#ffe17c]" style={{ boxShadow: "4px 4px 0px #171e19" }}>
+              <div className="flex items-center gap-2 text-xs font-extrabold text-[#171e19] uppercase tracking-wider">
                 <Sparkles size={14} />
                 <span>{tr("bento_impact_title")}</span>
               </div>
-              <h4 className="font-semibold text-sm text-[#1C1B18]">
+              <h4 className="font-extrabold text-sm text-[#171e19] uppercase">
                 Institutional Civic Bridge
               </h4>
-              <p className="text-xs text-[#5E5C54] leading-relaxed">
+              <p className="text-xs text-[#171e19]/65 leading-relaxed font-medium">
                 {tr("bento_impact_desc")}
               </p>
             </div>
 
             {/* Tile G (span 8): Who it's for with links */}
             <div className="lg:col-span-8 bento-tile space-y-3">
-              <h3 className="font-semibold text-sm text-[#17254A]">
+              <h3 className="font-extrabold text-sm text-[#171e19] uppercase tracking-wider">
                 {tr("bento_who_title")}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Link
                   href="/signup"
-                  className="p-3 bg-[#FAF7F0] hover:bg-[#FFFFFF] border border-[#E5DFD0] rounded-xl no-underline block transition-all"
+                  className="p-4 bg-[#ffe17c] hover:bg-[#ffd94a] border-2 border-[#171e19] no-underline block transition-all"
+                  style={{ boxShadow: "2px 2px 0px #171e19" }}
                 >
-                  <div className="text-xs font-bold text-[#17254A] flex items-center justify-between">
+                  <div className="text-xs font-extrabold text-[#171e19] flex items-center justify-between uppercase">
                     <span>Citizens</span>
-                    <ArrowRight size={12} />
+                    <ArrowRight size={14} strokeWidth={3} />
                   </div>
-                  <p className="text-[11px] text-[#5E5C54] mt-1">
+                  <p className="text-[11px] text-[#171e19]/65 mt-1 font-medium">
                     Report local issues and vote on community priorities.
                   </p>
                 </Link>
 
                 <Link
                   href="/signup"
-                  className="p-3 bg-[#FAF7F0] hover:bg-[#FFFFFF] border border-[#E5DFD0] rounded-xl no-underline block transition-all"
+                  className="p-4 bg-[#b7c6c2] hover:bg-[#a5b8b3] border-2 border-[#171e19] no-underline block transition-all"
+                  style={{ boxShadow: "2px 2px 0px #171e19" }}
                 >
-                  <div className="text-xs font-bold text-[#17254A] flex items-center justify-between">
+                  <div className="text-xs font-extrabold text-[#171e19] flex items-center justify-between uppercase">
                     <span>Universities</span>
-                    <ArrowRight size={12} />
+                    <ArrowRight size={14} strokeWidth={3} />
                   </div>
-                  <p className="text-[11px] text-[#5E5C54] mt-1">
+                  <p className="text-[11px] text-[#171e19]/65 mt-1 font-medium">
                     Bridge campus research with real-world municipal needs.
                   </p>
                 </Link>
 
                 <Link
                   href="/signup"
-                  className="p-3 bg-[#FAF7F0] hover:bg-[#FFFFFF] border border-[#E5DFD0] rounded-xl no-underline block transition-all"
+                  className="p-4 bg-white hover:bg-[#faf9f6] border-2 border-[#171e19] no-underline block transition-all"
+                  style={{ boxShadow: "2px 2px 0px #171e19" }}
                 >
-                  <div className="text-xs font-bold text-[#17254A] flex items-center justify-between">
+                  <div className="text-xs font-extrabold text-[#171e19] flex items-center justify-between uppercase">
                     <span>Industry & CSR</span>
-                    <ArrowRight size={12} />
+                    <ArrowRight size={14} strokeWidth={3} />
                   </div>
-                  <p className="text-[11px] text-[#5E5C54] mt-1">
+                  <p className="text-[11px] text-[#171e19]/65 mt-1 font-medium">
                     Deploy capital and equipment with transparent impact tracking.
                   </p>
                 </Link>
@@ -559,23 +575,25 @@ export default function HomeClient({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          4.3 HOW IT WORKS / USER FLOW (Native HTML/SVG with approval gates)
+          4.3 HOW IT WORKS / USER FLOW — Neo-Brutalist flow cards
       ───────────────────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="relative overflow-hidden py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD0] bg-[#FFFFFF]">
+      <section id="how-it-works" className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-[3px] border-[#171e19] bg-white">
         {/* Soft Organic Morphing Shape in background */}
-        <div className="absolute -bottom-28 right-0 w-[480px] h-[480px] opacity-40 pointer-events-none z-0 hidden md:block">
+        <div className="absolute -bottom-28 right-0 w-[480px] h-[480px] opacity-30 pointer-events-none z-0 hidden md:block">
           <MorphingShape className="w-full h-full" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto space-y-10">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <div className={lang === "hi" ? "eyebrow-hi text-[#2E7D4F]" : "eyebrow-en text-[#2E7D4F]"}>
-              Workflow & Governance
+        <div className="relative z-10 max-w-7xl mx-auto space-y-12">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-block">
+              <span className={`${lang === "hi" ? "eyebrow-hi" : "eyebrow-en"} text-[#171e19] bg-[#ffe17c] px-3 py-1 border-2 border-[#171e19] inline-block`} style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                Workflow & Governance
+              </span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-4xl font-semibold text-[#17254A]">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#171e19] uppercase tracking-tight">
               {tr("flow_title")}
             </h2>
-            <p className="text-sm sm:text-base text-[#5E5C54]">
+            <p className="text-sm sm:text-base text-[#171e19]/60 font-medium">
               {tr("flow_subtitle")}
             </p>
           </div>
@@ -583,18 +601,18 @@ export default function HomeClient({
           {/* Interactive Flow Grid with 5 Nodes */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
             {/* Step 1: Citizen Submits */}
-            <div className="p-5 rounded-2xl bg-[#FAF7F0] border border-[#E5DFD0] space-y-2 flex flex-col justify-between">
+            <div className="p-5 bg-[#ffe17c] border-[3px] border-[#171e19] space-y-3 flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #171e19" }}>
               <div>
-                <span className="text-[11px] font-bold text-[#2E7D4F] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-extrabold text-[#171e19] uppercase tracking-[0.15em] block mb-2">
                   Step 1
                 </span>
-                <div className="w-9 h-9 rounded-full bg-[#E3F0E7] text-[#2E7D4F] flex items-center justify-center mb-3">
-                  <User size={18} />
+                <div className="w-10 h-10 bg-white text-[#171e19] border-2 border-[#171e19] flex items-center justify-center mb-3" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <User size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#1C1B18]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                   {tr("flow_step1_title")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed mt-1">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed mt-1 font-medium">
                   {tr("flow_step1_desc")}
                 </p>
               </div>
@@ -602,18 +620,18 @@ export default function HomeClient({
             </div>
 
             {/* Gate 1: Admin Approval */}
-            <div className="p-5 rounded-2xl bg-[#FBEBD3]/50 border border-[#D98324]/40 space-y-2 flex flex-col justify-between">
+            <div className="p-5 bg-white border-[3px] border-[#e07a24] space-y-3 flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #e07a24" }}>
               <div>
-                <span className="text-[11px] font-bold text-[#98590A] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-extrabold text-[#e07a24] uppercase tracking-[0.15em] block mb-2">
                   Gate 1
                 </span>
-                <div className="w-9 h-9 rounded-full bg-[#D98324] text-white flex items-center justify-center mb-3">
-                  <ShieldCheck size={18} />
+                <div className="w-10 h-10 bg-[#e07a24] text-white border-2 border-[#171e19] flex items-center justify-center mb-3" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <ShieldCheck size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#17254A]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                   {tr("flow_gate1_title")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed mt-1">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed mt-1 font-medium">
                   {tr("flow_gate1_desc")}
                 </p>
               </div>
@@ -621,18 +639,18 @@ export default function HomeClient({
             </div>
 
             {/* Step 2: University Proposes */}
-            <div className="p-5 rounded-2xl bg-[#FAF7F0] border border-[#E5DFD0] space-y-2 flex flex-col justify-between">
+            <div className="p-5 bg-[#b7c6c2] border-[3px] border-[#171e19] space-y-3 flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #171e19" }}>
               <div>
-                <span className="text-[11px] font-bold text-[#17254A] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-extrabold text-[#171e19] uppercase tracking-[0.15em] block mb-2">
                   Step 2
                 </span>
-                <div className="w-9 h-9 rounded-full bg-[#E4E9F5] text-[#17254A] flex items-center justify-center mb-3">
-                  <GraduationCap size={18} />
+                <div className="w-10 h-10 bg-white text-[#171e19] border-2 border-[#171e19] flex items-center justify-center mb-3" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <GraduationCap size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#1C1B18]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                   {tr("flow_step2_title")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed mt-1">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed mt-1 font-medium">
                   {tr("flow_step2_desc")}
                 </p>
               </div>
@@ -640,18 +658,18 @@ export default function HomeClient({
             </div>
 
             {/* Step 3: Industry Partners */}
-            <div className="p-5 rounded-2xl bg-[#FAF7F0] border border-[#E5DFD0] space-y-2 flex flex-col justify-between">
+            <div className="p-5 bg-[#faf9f6] border-[3px] border-[#171e19] space-y-3 flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #171e19" }}>
               <div>
-                <span className="text-[11px] font-bold text-[#98590A] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-extrabold text-[#171e19] uppercase tracking-[0.15em] block mb-2">
                   Step 3
                 </span>
-                <div className="w-9 h-9 rounded-full bg-[#FBEBD3] text-[#98590A] flex items-center justify-center mb-3">
-                  <Building2 size={18} />
+                <div className="w-10 h-10 bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] flex items-center justify-center mb-3" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <Building2 size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#1C1B18]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                   {tr("flow_step3_title")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed mt-1">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed mt-1 font-medium">
                   {tr("flow_step3_desc")}
                 </p>
               </div>
@@ -659,18 +677,18 @@ export default function HomeClient({
             </div>
 
             {/* Gate 2: Admin Approval of Partnership */}
-            <div className="p-5 rounded-2xl bg-[#E3F0E7]/60 border border-[#2E7D4F]/40 space-y-2 flex flex-col justify-between">
+            <div className="p-5 bg-[#d8f3dc] border-[3px] border-[#2d6a4f] space-y-3 flex flex-col justify-between" style={{ boxShadow: "4px 4px 0px #2d6a4f" }}>
               <div>
-                <span className="text-[11px] font-bold text-[#2E7D4F] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-extrabold text-[#2d6a4f] uppercase tracking-[0.15em] block mb-2">
                   Gate 2
                 </span>
-                <div className="w-9 h-9 rounded-full bg-[#2E7D4F] text-white flex items-center justify-center mb-3">
-                  <Handshake size={18} />
+                <div className="w-10 h-10 bg-[#2d6a4f] text-white border-2 border-[#171e19] flex items-center justify-center mb-3" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <Handshake size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#17254A]">
+                <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                   {tr("flow_gate2_title")}
                 </h3>
-                <p className="text-xs text-[#5E5C54] leading-relaxed mt-1">
+                <p className="text-xs text-[#171e19]/60 leading-relaxed mt-1 font-medium">
                   {tr("flow_gate2_desc")}
                 </p>
               </div>
@@ -681,15 +699,15 @@ export default function HomeClient({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          4.4 BROWSE SECTION (Search, Category horizontal scroll, Single green underline tab)
+          4.4 BROWSE SECTION — Brutalist search & tabs
       ───────────────────────────────────────────────────────────────────── */}
-      <main id="browse-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 space-y-8 w-full">
+      <main id="browse-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-1 space-y-8 w-full">
         {/* Search & Category Chips */}
-        <div className="bg-[#FFFFFF] p-6 rounded-2xl border border-[#E5DFD0] space-y-5">
+        <div className="bg-white p-6 border-[3px] border-[#171e19] space-y-5" style={{ boxShadow: "4px 4px 0px #171e19" }}>
           <form method="GET" className="flex flex-col sm:flex-row gap-3">
             <input type="hidden" name="tab" value={activeTab} />
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#5E5C54] w-4.5 h-4.5" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#171e19]/50 w-4.5 h-4.5" />
               <input
                 type="text"
                 name="search"
@@ -708,7 +726,7 @@ export default function HomeClient({
 
           {/* Category Chips: Lucide icons, full labels, horizontal scroll on mobile */}
           <div className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#5E5C54]">
+            <span className="text-xs font-extrabold uppercase tracking-[0.15em] text-[#171e19]/50">
               {tr("filter_label")}
             </span>
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
@@ -716,11 +734,12 @@ export default function HomeClient({
                 href={`/?tab=${activeTab}${
                   searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""
                 }#browse-section`}
-                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors no-underline border ${
+                className={`px-4 py-2 text-xs font-bold whitespace-nowrap transition-all no-underline border-2 border-[#171e19] uppercase tracking-wider ${
                   !selectedCategory
-                    ? "bg-[#17254A] text-[#FFFFFF] border-[#17254A]"
-                    : "bg-[#FFFFFF] text-[#5E5C54] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:text-[#1C1B18]"
+                    ? "bg-[#171e19] text-[#ffe17c]"
+                    : "bg-white text-[#171e19] hover:bg-[#ffe17c]"
                 }`}
+                style={{ boxShadow: !selectedCategory ? "none" : "1px 1px 0px #171e19" }}
               >
                 {tr("filter_all")}
               </Link>
@@ -734,11 +753,12 @@ export default function HomeClient({
                     href={`/?tab=${activeTab}&category=${cat.value}${
                       searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""
                     }#browse-section`}
-                    className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors no-underline border ${
+                    className={`px-3.5 py-2 text-xs font-bold whitespace-nowrap flex items-center gap-1.5 transition-all no-underline border-2 border-[#171e19] uppercase ${
                       isSelected
-                        ? "bg-[#2E7D4F] text-[#FFFFFF] border-[#2E7D4F]"
-                        : "bg-[#FFFFFF] text-[#1C1B18] border-[#E5DFD0] hover:bg-[#FAF7F0] hover:border-[#CBC3AE]"
+                        ? "bg-[#2d6a4f] text-white"
+                        : "bg-white text-[#171e19] hover:bg-[#ffe17c]"
                     }`}
+                    style={{ boxShadow: isSelected ? "none" : "1px 1px 0px #171e19" }}
                   >
                     <IconComponent className="w-3.5 h-3.5" />
                     <span>{cat.label}</span>
@@ -749,16 +769,16 @@ export default function HomeClient({
           </div>
         </div>
 
-        {/* Tab Navigation: Single green (#2E7D4F) underline for active tab */}
-        <div className="flex border-b border-[#E5DFD0] bg-[#FFFFFF] rounded-t-2xl px-6 pt-2 gap-8 overflow-x-auto scrollbar-none">
+        {/* Tab Navigation — Brutalist underlined tabs */}
+        <div className="flex border-b-[3px] border-[#171e19] bg-white px-6 pt-2 gap-8 overflow-x-auto scrollbar-none">
           <Link
             href={`/?tab=problems${
               selectedCategory ? `&category=${selectedCategory}` : ""
             }${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""}#browse-section`}
-            className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap no-underline ${
+            className={`py-3.5 text-sm font-extrabold border-b-[3px] flex items-center gap-2 transition-colors whitespace-nowrap no-underline uppercase tracking-wider ${
               activeTab === "problems"
-                ? "border-[#2E7D4F] text-[#2E7D4F]"
-                : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+                ? "border-[#ffe17c] text-[#171e19] bg-[#ffe17c]/20"
+                : "border-transparent text-[#171e19]/50 hover:text-[#171e19]"
             }`}
           >
             <MapPin size={16} />
@@ -771,10 +791,10 @@ export default function HomeClient({
             href={`/?tab=solutions${
               selectedCategory ? `&category=${selectedCategory}` : ""
             }${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""}#browse-section`}
-            className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap no-underline ${
+            className={`py-3.5 text-sm font-extrabold border-b-[3px] flex items-center gap-2 transition-colors whitespace-nowrap no-underline uppercase tracking-wider ${
               activeTab === "solutions"
-                ? "border-[#2E7D4F] text-[#2E7D4F]"
-                : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+                ? "border-[#ffe17c] text-[#171e19] bg-[#ffe17c]/20"
+                : "border-transparent text-[#171e19]/50 hover:text-[#171e19]"
             }`}
           >
             <Lightbulb size={16} />
@@ -787,10 +807,10 @@ export default function HomeClient({
             href={`/?tab=partnerships${
               selectedCategory ? `&category=${selectedCategory}` : ""
             }${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ""}#browse-section`}
-            className={`py-3.5 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap no-underline ${
+            className={`py-3.5 text-sm font-extrabold border-b-[3px] flex items-center gap-2 transition-colors whitespace-nowrap no-underline uppercase tracking-wider ${
               activeTab === "partnerships"
-                ? "border-[#2E7D4F] text-[#2E7D4F]"
-                : "border-transparent text-[#5E5C54] hover:text-[#1C1B18]"
+                ? "border-[#ffe17c] text-[#171e19] bg-[#ffe17c]/20"
+                : "border-transparent text-[#171e19]/50 hover:text-[#171e19]"
             }`}
           >
             <Handshake size={16} />
@@ -804,12 +824,12 @@ export default function HomeClient({
         {activeTab === "problems" && (
           <div>
             {problems.length === 0 ? (
-              <div className="card text-center py-16 text-[#5E5C54] space-y-3">
-                <MapPin className="w-12 h-12 mx-auto text-[#CBC3AE]" />
-                <h3 className="font-semibold text-lg text-[#1C1B18]">
+              <div className="card text-center py-16 text-[#171e19]/60 space-y-3">
+                <MapPin className="w-12 h-12 mx-auto text-[#b7c6c2]" />
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">
                   {tr("empty_problems_title")}
                 </h3>
-                <p className="text-sm text-[#5E5C54] max-w-md mx-auto">
+                <p className="text-sm text-[#171e19]/50 max-w-md mx-auto font-medium">
                   {tr("empty_problems_sub")}
                 </p>
               </div>
@@ -827,12 +847,12 @@ export default function HomeClient({
         {activeTab === "solutions" && (
           <div>
             {solutions.length === 0 ? (
-              <div className="card text-center py-16 text-[#5E5C54] space-y-3">
-                <Lightbulb className="w-12 h-12 mx-auto text-[#CBC3AE]" />
-                <h3 className="font-semibold text-lg text-[#1C1B18]">
+              <div className="card text-center py-16 text-[#171e19]/60 space-y-3">
+                <Lightbulb className="w-12 h-12 mx-auto text-[#b7c6c2]" />
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">
                   {tr("empty_solutions_title")}
                 </h3>
-                <p className="text-sm text-[#5E5C54] max-w-md mx-auto">
+                <p className="text-sm text-[#171e19]/50 max-w-md mx-auto font-medium">
                   {tr("empty_solutions_sub")}
                 </p>
               </div>
@@ -842,11 +862,11 @@ export default function HomeClient({
                   <div key={sol.id} className="card card-hover flex flex-col justify-between space-y-4">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <span className="badge bg-[#E4E9F5] text-[#17254A] border-[#17254A]/30">
+                        <span className="badge bg-[#b7c6c2] text-[#171e19] border-[#171e19]">
                           <GraduationCap size={13} />
                           <span>{sol.university.name}</span>
                         </span>
-                        <span className="text-xs text-[#5E5C54]">
+                        <span className="text-xs text-[#171e19]/50 font-bold">
                           {new Date(sol.createdAt).toLocaleDateString("en-IN", {
                             day: "numeric",
                             month: "short",
@@ -855,26 +875,26 @@ export default function HomeClient({
                         </span>
                       </div>
 
-                      <h2 className="font-semibold text-lg text-[#1C1B18] leading-snug">
+                      <h2 className="font-extrabold text-lg text-[#171e19] leading-snug uppercase">
                         {sol.title}
                       </h2>
 
-                      <div className="bg-[#FAF7F0] p-3 rounded-xl border border-[#E5DFD0] text-xs text-[#5E5C54]">
-                        <span className="font-semibold text-[#1C1B18]">
+                      <div className="bg-[#faf9f6] p-3 border-2 border-[#171e19]/15 text-xs text-[#171e19]/60 font-medium">
+                        <span className="font-bold text-[#171e19]">
                           {tr("card_problem_label")}
                         </span>{" "}
                         {sol.problem.title}{" "}
-                        <span className="text-[#5E5C54]">({sol.problem.location})</span>
+                        <span className="text-[#171e19]/50">({sol.problem.location})</span>
                       </div>
 
-                      <p className="text-sm text-[#5E5C54] line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-[#171e19]/60 line-clamp-3 leading-relaxed font-medium">
                         {sol.description}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-[#E5DFD0] flex items-center justify-between">
-                      <span className="text-xs text-[#5E5C54] flex items-center gap-1 font-medium">
-                        <Handshake size={14} className="text-[#2E7D4F]" />
+                    <div className="pt-3 border-t-2 border-[#171e19]/15 flex items-center justify-between">
+                      <span className="text-xs text-[#171e19]/60 flex items-center gap-1 font-bold">
+                        <Handshake size={14} className="text-[#2d6a4f]" />
                         <span>
                           {sol._count.partnerships}{" "}
                           {sol._count.partnerships !== 1
@@ -900,12 +920,12 @@ export default function HomeClient({
         {activeTab === "partnerships" && (
           <div>
             {partnerships.length === 0 ? (
-              <div className="card text-center py-16 text-[#5E5C54] space-y-3">
-                <Handshake className="w-12 h-12 mx-auto text-[#CBC3AE]" />
-                <h3 className="font-semibold text-lg text-[#1C1B18]">
+              <div className="card text-center py-16 text-[#171e19]/60 space-y-3">
+                <Handshake className="w-12 h-12 mx-auto text-[#b7c6c2]" />
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">
                   {tr("empty_partnerships_title")}
                 </h3>
-                <p className="text-sm text-[#5E5C54] max-w-md mx-auto">
+                <p className="text-sm text-[#171e19]/50 max-w-md mx-auto font-medium">
                   {tr("empty_partnerships_sub")}
                 </p>
               </div>
@@ -917,7 +937,7 @@ export default function HomeClient({
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <Link
                           href={`/industry/${p.industry.id}`}
-                          className="badge bg-[#FBEBD3] text-[#98590A] border-[#D98324]/40 hover:bg-[#FBEBD3]/80 transition-colors no-underline inline-flex items-center gap-1.5"
+                          className="badge bg-[#ffe17c] text-[#171e19] border-[#171e19] hover:bg-[#ffd94a] transition-colors no-underline inline-flex items-center gap-1.5"
                         >
                           <Building2 size={13} />
                           <span>
@@ -928,27 +948,27 @@ export default function HomeClient({
                       </div>
 
                       <div>
-                        <h3 className="font-semibold text-base text-[#1C1B18]">
+                        <h3 className="font-extrabold text-base text-[#171e19] uppercase">
                           {p.solution.title}
                         </h3>
-                        <p className="text-xs text-[#5E5C54] mt-1">
+                        <p className="text-xs text-[#171e19]/50 mt-1 font-medium">
                           {tr("card_university_label")}{" "}
-                          <span className="font-semibold text-[#1C1B18]">
+                          <span className="font-bold text-[#171e19]">
                             {p.solution.university.name}
                           </span>{" "}
                           • {tr("card_problem_card_label")}{" "}
-                          <span className="font-semibold text-[#1C1B18]">
+                          <span className="font-bold text-[#171e19]">
                             {p.solution.problem.title}
                           </span>
                         </p>
                       </div>
 
-                      <p className="text-sm text-[#5E5C54] line-clamp-3 bg-[#FAF7F0] p-3.5 rounded-xl border border-[#E5DFD0] leading-relaxed">
+                      <p className="text-sm text-[#171e19]/60 line-clamp-3 bg-[#faf9f6] p-3.5 border-2 border-[#171e19]/15 leading-relaxed font-medium">
                         {p.proposalDetails}
                       </p>
                     </div>
 
-                    <div className="pt-2 flex justify-end border-t border-[#E5DFD0]">
+                    <div className="pt-2 flex justify-end border-t-2 border-[#171e19]/15">
                       <Link
                         href={`/solutions/${p.solution.id}`}
                         className="btn-outline text-xs py-1.5 px-3.5 no-underline"
@@ -965,70 +985,70 @@ export default function HomeClient({
       </main>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          JOIN SECTION (3 Roles)
+          JOIN SECTION (3 Roles) — Neo-Brutalist stacked cards
       ───────────────────────────────────────────────────────────────────── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-[#E5DFD0] bg-[#FAF7F0]">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 border-t-[3px] border-[#171e19] bg-[#faf9f6]">
         <div className="max-w-7xl mx-auto space-y-10">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[#17254A]">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#171e19] uppercase tracking-tight">
               {tr("join_heading")}
             </h2>
-            <p className="text-sm text-[#5E5C54]">{tr("join_subtext")}</p>
+            <p className="text-sm text-[#171e19]/60 font-medium">{tr("join_subtext")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Citizen Card */}
-            <div className="card space-y-4 flex flex-col justify-between">
+            <div className="card space-y-4 flex flex-col justify-between bg-[#ffe17c]" style={{ boxShadow: "5px 5px 0px #171e19" }}>
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#E3F0E7] text-[#2E7D4F] flex items-center justify-center">
-                  <User size={20} />
+                <div className="w-11 h-11 bg-white text-[#171e19] border-2 border-[#171e19] flex items-center justify-center" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <User size={22} />
                 </div>
-                <h3 className="font-semibold text-lg text-[#1C1B18]">Citizens</h3>
-                <p className="text-xs sm:text-sm text-[#5E5C54] leading-relaxed">
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">Citizens</h3>
+                <p className="text-xs sm:text-sm text-[#171e19]/65 leading-relaxed font-medium">
                   Spot an issue in your area? Submit a verified problem report with location and photos to bring institutional focus.
                 </p>
               </div>
               <Link
                 href="/signup"
-                className="btn-outline text-xs font-semibold py-2.5 px-4 w-full text-center"
+                className="btn-secondary text-xs font-extrabold py-2.5 px-4 w-full text-center no-underline"
               >
                 Join as Citizen →
               </Link>
             </div>
 
             {/* University Card */}
-            <div className="card space-y-4 flex flex-col justify-between">
+            <div className="card space-y-4 flex flex-col justify-between bg-[#b7c6c2]" style={{ boxShadow: "5px 5px 0px #171e19" }}>
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#E4E9F5] text-[#17254A] flex items-center justify-center">
-                  <GraduationCap size={20} />
+                <div className="w-11 h-11 bg-white text-[#171e19] border-2 border-[#171e19] flex items-center justify-center" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <GraduationCap size={22} />
                 </div>
-                <h3 className="font-semibold text-lg text-[#1C1B18]">Universities</h3>
-                <p className="text-xs sm:text-sm text-[#5E5C54] leading-relaxed">
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">Universities</h3>
+                <p className="text-xs sm:text-sm text-[#171e19]/65 leading-relaxed font-medium">
                   Apply faculty R&D and student innovation to genuine local challenges, earning recognition and grant collaboration.
                 </p>
               </div>
               <Link
                 href="/signup"
-                className="btn-outline text-xs font-semibold py-2.5 px-4 w-full text-center"
+                className="btn-secondary text-xs font-extrabold py-2.5 px-4 w-full text-center no-underline"
               >
                 Join as University →
               </Link>
             </div>
 
             {/* Industry Card */}
-            <div className="card space-y-4 flex flex-col justify-between">
+            <div className="card space-y-4 flex flex-col justify-between bg-white" style={{ boxShadow: "5px 5px 0px #171e19" }}>
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#FBEBD3] text-[#98590A] flex items-center justify-center">
-                  <Building2 size={20} />
+                <div className="w-11 h-11 bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] flex items-center justify-center" style={{ boxShadow: "2px 2px 0px #171e19" }}>
+                  <Building2 size={22} />
                 </div>
-                <h3 className="font-semibold text-lg text-[#1C1B18]">Industry & CSR</h3>
-                <p className="text-xs sm:text-sm text-[#5E5C54] leading-relaxed">
+                <h3 className="font-extrabold text-lg text-[#171e19] uppercase">Industry & CSR</h3>
+                <p className="text-xs sm:text-sm text-[#171e19]/65 leading-relaxed font-medium">
                   Direct mandatory CSR funds to validated municipal solutions with end-to-end transparent impact reporting.
                 </p>
               </div>
               <Link
                 href="/signup"
-                className="btn-outline text-xs font-semibold py-2.5 px-4 w-full text-center"
+                className="btn-secondary text-xs font-extrabold py-2.5 px-4 w-full text-center no-underline"
               >
                 Join as Industry Partner →
               </Link>
@@ -1038,44 +1058,44 @@ export default function HomeClient({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          4.5 FOOTER (Flat Navy #17254A with clean links)
+          4.5 FOOTER — Neo-Brutalist: Deep charcoal with yellow accents
       ───────────────────────────────────────────────────────────────────── */}
-      <footer className="bg-[#17254A] text-[#FAF7F0] py-12 px-4 sm:px-6 lg:px-8 mt-auto">
+      <footer className="bg-[#171e19] text-[#faf9f6] py-14 px-4 sm:px-6 lg:px-8 mt-auto border-t-[4px] border-[#ffe17c]">
         <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/10 pb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b-2 border-white/10 pb-8">
             <BrandLogo size="md" isWhiteText={true} href="/" />
 
             {/* Links */}
-            <nav className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#E4E9F5]/90 font-medium">
-              <Link href="/problems" className="hover:text-white transition-colors">
+            <nav className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#faf9f6]/70 font-bold uppercase tracking-wider">
+              <Link href="/problems" className="hover:text-[#ffe17c] transition-colors">
                 {tr("nav_problems")}
               </Link>
-              <Link href="/solutions" className="hover:text-white transition-colors">
+              <Link href="/solutions" className="hover:text-[#ffe17c] transition-colors">
                 {tr("nav_solutions")}
               </Link>
-              <Link href="/partnerships" className="hover:text-white transition-colors">
+              <Link href="/partnerships" className="hover:text-[#ffe17c] transition-colors">
                 {tr("nav_partnerships")}
               </Link>
-              <Link href="#how-it-works" className="hover:text-white transition-colors">
+              <Link href="#how-it-works" className="hover:text-[#ffe17c] transition-colors">
                 {tr("footer_about")}
               </Link>
-              <span className="text-white/20">|</span>
-              <a href="mailto:support@jansamadhan.gov.in" className="hover:text-white transition-colors">
+              <span className="text-[#ffe17c]/30">|</span>
+              <a href="mailto:support@jansamadhan.gov.in" className="hover:text-[#ffe17c] transition-colors">
                 {tr("footer_contact")}
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-[#ffe17c] transition-colors">
                 {tr("footer_privacy")}
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-[#ffe17c] transition-colors">
                 {tr("footer_terms")}
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-[#ffe17c] transition-colors">
                 {tr("footer_accessibility")}
               </a>
             </nav>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#CBC3AE] gap-2">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#b7c6c2] gap-2 font-medium">
             <p>{tr("footer_tagline")}</p>
             <p>© {new Date().getFullYear()} JanSamadhan. {tr("footer_rights")}</p>
           </div>

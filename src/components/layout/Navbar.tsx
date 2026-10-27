@@ -145,10 +145,10 @@ export default function Navbar({ role, userName }: NavbarProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-md ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-[#FAF7F0]/85 border-b border-[#E5DFD0]/80 shadow-[0_4px_20px_-4px_rgba(23,37,74,0.06)]"
-          : "bg-[#FAF7F0]/70 border-b border-transparent"
+          ? "bg-[#faf9f6] border-b-2 border-[#171e19] shadow-[0_4px_0_0_#171e19]"
+          : "bg-[#faf9f6]/95 border-b-2 border-[#171e19]"
       }`}
       style={{ height: "72px" }}
     >
@@ -160,9 +160,9 @@ export default function Navbar({ role, userName }: NavbarProps) {
           href="/"
         />
 
-        {/* Centre Zone: Standard Glass Navigation Links */}
+        {/* Centre Zone: Standard Neo-Brutalist Navigation Links */}
         <nav
-          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/60 border border-white/60 shadow-sm backdrop-blur-md"
+          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-white border-2 border-[#171e19] shadow-[2px_2px_0_0_#171e19]"
           aria-label="Main Navigation"
         >
           {navItems.map((item) => {
@@ -176,19 +176,13 @@ export default function Navbar({ role, userName }: NavbarProps) {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold no-underline transition-all duration-200 ${
+                className={`relative px-3.5 py-1.5 font-mono text-xs font-bold uppercase no-underline transition-all duration-150 border border-transparent ${
                   isActive
-                    ? "bg-[#17254A] text-white shadow-sm font-bold"
-                    : "text-[#1C1B18]/85 hover:text-[#17254A] hover:bg-black/5"
+                    ? "bg-[#ffe17c] text-[#171e19] border-2 border-[#171e19] shadow-[1px_1px_0_0_#171e19]"
+                    : "text-[#171e19] hover:bg-[#b7c6c2]/30 hover:border-[#171e19]"
                 }`}
               >
                 <span>{item.label}</span>
-                {isActive && (
-                  <span
-                    className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#2E7D4F]"
-                    aria-hidden="true"
-                  />
-                )}
               </Link>
             );
           })}
@@ -205,17 +199,17 @@ export default function Navbar({ role, userName }: NavbarProps) {
               <NotificationBell />
 
               {/* User Chip */}
-              <div className="hidden sm:flex items-center gap-2.5 pl-2 border-l border-[#E5DFD0]">
-                <div className="w-8 h-8 rounded-full bg-[#E4E9F5] text-[#17254A] font-bold text-xs flex items-center justify-center border border-[#E5DFD0]">
+              <div className="hidden sm:flex items-center gap-2.5 pl-2 border-l-2 border-[#171e19]">
+                <div className="w-8 h-8 rounded-none bg-[#ffe17c] text-[#171e19] font-bold font-mono text-xs flex items-center justify-center border-2 border-[#171e19] shadow-[1px_1px_0_0_#171e19]">
                   {initials}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs font-semibold text-[#1C1B18] max-w-[120px] truncate leading-tight">
+                  <span className="text-xs font-bold text-[#171e19] max-w-[120px] truncate leading-tight">
                     {userName}
                   </span>
                   {currentRoleInfo && (
                     <span
-                      className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${currentRoleInfo.badgeClass} mt-0.5 leading-none w-fit`}
+                      className={`inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase px-1.5 py-0.5 border-2 border-[#171e19] shadow-[1px_1px_0_0_#171e19] mt-0.5 leading-none w-fit bg-[#b7c6c2] text-[#171e19]`}
                     >
                       <currentRoleInfo.icon className="w-2.5 h-2.5" />
                       <span>{currentRoleInfo.label}</span>
@@ -227,11 +221,11 @@ export default function Navbar({ role, userName }: NavbarProps) {
                 <button
                   onClick={handleLogout}
                   type="button"
-                  className="btn-ghost text-xs p-2 rounded-lg text-[#5E5C54] hover:text-[#A33A2B] hover:bg-[#F8E1DC] transition-colors ml-1"
+                  className="font-mono text-xs font-bold px-2 py-1 border-2 border-[#171e19] bg-white text-[#171e19] hover:bg-[#ff6b6b] hover:text-white transition-all shadow-[2px_2px_0_0_#171e19] active:translate-x-[1px] active:translate-y-[1px] ml-1 flex items-center gap-1 cursor-pointer"
                   title={tr("nav_logout")}
                   aria-label={tr("nav_logout")}
                 >
-                  <LogOut size={16} />
+                  <LogOut size={14} />
                   <span className="hidden xl:inline">{tr("nav_logout")}</span>
                 </button>
               </div>
@@ -240,13 +234,13 @@ export default function Navbar({ role, userName }: NavbarProps) {
             <div className="hidden sm:flex items-center gap-2">
               <Link
                 href="/login"
-                className="btn-ghost text-xs sm:text-sm font-semibold text-[#17254A] px-3.5 py-2 rounded-[10px]"
+                className="font-mono text-xs sm:text-sm font-bold uppercase px-3.5 py-2 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffe17c] transition-all no-underline"
               >
                 {tr("nav_login")}
               </Link>
               <Link
                 href="/signup"
-                className="btn-primary text-xs sm:text-sm font-semibold px-4 py-2 rounded-[10px]"
+                className="font-mono text-xs sm:text-sm font-bold uppercase px-4 py-2 border-2 border-[#171e19] bg-[#ffe17c] text-[#171e19] shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffdb5c] hover:shadow-[3px_3px_0_0_#171e19] transition-all no-underline"
               >
                 {tr("nav_get_started")}
               </Link>
@@ -255,39 +249,39 @@ export default function Navbar({ role, userName }: NavbarProps) {
 
           {/* Mobile Menu Hamburger (Below lg) */}
           <button
-            className="lg:hidden p-2 rounded-lg text-[#17254A] hover:bg-[#F1ECDF] transition-colors"
+            className="lg:hidden p-2 border-2 border-[#171e19] bg-white text-[#171e19] shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffe17c] transition-colors"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle navigation menu"
             type="button"
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer (Below lg) */}
       {menuOpen && (
-        <div className="lg:hidden bg-[#FAF7F0] border-b border-[#E5DFD0] px-4 py-4 space-y-2 shadow-lg animate-fade-in">
+        <div className="lg:hidden bg-[#faf9f6] border-b-2 border-[#171e19] px-4 py-4 space-y-2 shadow-[0_4px_0_0_#171e19] animate-fade-in">
           {isLoggedIn && currentRoleInfo && (
-            <div className="px-3.5 py-2.5 mb-2 bg-[#FFFFFF] rounded-xl border border-[#E5DFD0] flex items-center justify-between">
-              <span className="text-xs font-medium text-[#5E5C54]">
+            <div className="px-3.5 py-2.5 mb-2 bg-white border-2 border-[#171e19] shadow-[2px_2px_0_0_#171e19] flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase text-[#171e19]">
                 {tr("nav_signed_in_as")}
               </span>
               <div className="flex items-center gap-2">
                 <span
-                  className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full border ${currentRoleInfo.badgeClass}`}
+                  className="inline-flex items-center gap-1 text-xs font-mono font-bold px-2 py-0.5 border-2 border-[#171e19] bg-[#b7c6c2] text-[#171e19]"
                 >
                   <currentRoleInfo.icon className="w-3 h-3" />
                   <span>{currentRoleInfo.label}</span>
                 </span>
-                <span className="text-xs font-bold text-[#1C1B18]">
+                <span className="text-xs font-bold text-[#171e19]">
                   {userName}
                 </span>
               </div>
             </div>
           )}
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -299,23 +293,23 @@ export default function Navbar({ role, userName }: NavbarProps) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold no-underline transition-colors ${
+                  className={`flex items-center justify-between px-4 py-2.5 text-sm font-mono font-bold uppercase no-underline transition-colors border-2 border-[#171e19] ${
                     isActive
-                      ? "bg-[#17254A] text-[#FFFFFF]"
-                      : "text-[#1C1B18] hover:bg-[#F1ECDF]"
+                      ? "bg-[#ffe17c] text-[#171e19] shadow-[2px_2px_0_0_#171e19]"
+                      : "bg-white text-[#171e19] hover:bg-[#b7c6c2]/30"
                   }`}
                 >
                   <span>{item.label}</span>
                   <ChevronRight
                     size={16}
-                    className={isActive ? "text-white" : "text-[#5E5C54]"}
+                    className="text-[#171e19]"
                   />
                 </Link>
               );
             })}
           </div>
 
-          <div className="border-t border-[#E5DFD0] mt-3 pt-3">
+          <div className="border-t-2 border-[#171e19] mt-3 pt-3">
             {isLoggedIn ? (
               <button
                 onClick={() => {
@@ -323,7 +317,7 @@ export default function Navbar({ role, userName }: NavbarProps) {
                   handleLogout();
                 }}
                 type="button"
-                className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-[#A33A2B] hover:bg-[#F8E1DC] rounded-xl transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-mono font-bold uppercase text-white bg-[#ff6b6b] border-2 border-[#171e19] shadow-[2px_2px_0_0_#171e19] transition-all"
               >
                 <LogOut size={16} />
                 <span>{tr("nav_logout")}</span>
@@ -333,14 +327,14 @@ export default function Navbar({ role, userName }: NavbarProps) {
                 <Link
                   href="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="block w-full text-center py-2.5 rounded-[10px] border border-[#E5DFD0] bg-[#FFFFFF] text-sm font-semibold text-[#17254A] hover:bg-[#F1ECDF] no-underline"
+                  className="block w-full text-center py-2.5 border-2 border-[#171e19] bg-white text-sm font-mono font-bold uppercase text-[#171e19] shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffe17c] no-underline"
                 >
                   {tr("nav_login")}
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setMenuOpen(false)}
-                  className="block w-full text-center py-2.5 rounded-[10px] btn-primary text-sm font-semibold text-white no-underline"
+                  className="block w-full text-center py-2.5 border-2 border-[#171e19] bg-[#ffe17c] text-[#171e19] text-sm font-mono font-bold uppercase shadow-[2px_2px_0_0_#171e19] hover:bg-[#ffdb5c] no-underline"
                 >
                   {tr("nav_create_account")}
                 </Link>
