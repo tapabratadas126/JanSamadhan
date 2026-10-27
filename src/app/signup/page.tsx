@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { MapPin, Check, Info } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import BrandLogo from "@/components/layout/BrandLogo";
 
 function SignupForm() {
   const router = useRouter();
@@ -101,14 +102,7 @@ function SignupForm() {
     <div className="w-full max-w-xl my-8">
       {/* Logo / Brand */}
       <div className="text-center mb-6 flex flex-col items-center">
-        <Link href="/" className="inline-block hover:opacity-95 transition-opacity no-underline mb-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-full.png"
-            alt="JanSamadhan — Local voices. Shared solutions."
-            className="h-16 w-auto object-contain mx-auto"
-          />
-        </Link>
+        <BrandLogo size="lg" href="/" className="mb-2" />
         <div className="inline-block border-2 border-[#171e19] bg-[#ffe17c] px-3 py-1 shadow-[2px_2px_0_0_#171e19] mt-1">
           <p className="text-[#171e19] text-xs font-mono font-bold uppercase tracking-wider">{tr("signup_subtitle")}</p>
         </div>

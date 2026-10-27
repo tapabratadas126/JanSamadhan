@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 interface BrandLogoProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -14,6 +13,85 @@ interface BrandLogoProps {
   href?: string;
 }
 
+export function JanSamadhanSvgIcon({
+  className = "w-9 h-9",
+  isWhite = false,
+}: {
+  className?: string;
+  isWhite?: boolean;
+}) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-label="JanSamadhan Icon"
+    >
+      {/* Outer Connecting Ring of People */}
+      {/* Top Blue Person */}
+      <circle cx="50" cy="18" r="8" fill={isWhite ? "#ffe17c" : "#1034A6"} stroke="#171e19" strokeWidth="2.5" />
+      
+      {/* Left Orange Person */}
+      <circle cx="18" cy="50" r="8" fill="#F59E0B" stroke="#171e19" strokeWidth="2.5" />
+      
+      {/* Right Teal Person */}
+      <circle cx="82" cy="50" r="8" fill="#0D9488" stroke="#171e19" strokeWidth="2.5" />
+      
+      {/* Connecting Orbital Arc Lines */}
+      <path
+        d="M26 40 A36 36 0 0 1 42 22"
+        stroke={isWhite ? "#ffe17c" : "#1034A6"}
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M58 22 A36 36 0 0 1 74 40"
+        stroke={isWhite ? "#60A5FA" : "#1D4ED8"}
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M78 60 A36 36 0 0 1 64 78"
+        stroke="#0D9488"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M36 78 A36 36 0 0 1 22 60"
+        stroke="#F59E0B"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+
+      {/* Bottom Teal Person & Bridge Handshake Base */}
+      <path
+        d="M30 76 Q50 68 70 76"
+        stroke="#0D9488"
+        strokeWidth="4.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M40 73 L50 82 L60 73"
+        stroke="#0D9488"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <circle cx="50" cy="85" r="7.5" fill="#0D9488" stroke="#171e19" strokeWidth="2.5" />
+
+      {/* Central Geo-Location Pin with Center Hole */}
+      <path
+        d="M50 32 C41 32 34 39 34 48 C34 60 50 72 50 72 C50 72 66 60 66 48 C66 39 59 32 50 32 Z"
+        fill={isWhite ? "#ffffff" : "#0A2540"}
+        stroke="#171e19"
+        strokeWidth="3.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="50" cy="46" r="6" fill={isWhite ? "#171e19" : "#ffffff"} stroke="#171e19" strokeWidth="2" />
+    </svg>
+  );
+}
+
 export default function BrandLogo({
   size = "md",
   showWordmark = true,
@@ -23,77 +101,85 @@ export default function BrandLogo({
   isWhiteText = false,
   href = "/",
 }: BrandLogoProps) {
-  // If isWhiteText (like the dark navy footer), use the white text variant of the full logo
-  // For standard light headers & pages, use the official logo
-  const logoSrc = isWhiteText ? "/logo-white.png" : "/logo-full.png";
-
-  const sizeClasses = {
+  const sizeMap = {
     sm: {
-      height: 32,
-      iconOnlySize: 32,
-      fullLogoClass: "h-8 w-auto",
-      iconBox: "w-8 h-8",
-      title: "text-base",
-      hindi: "text-[10px]",
+      iconSize: "w-8 h-8",
+      titleSize: "text-lg",
+      subSize: "text-[10px]",
     },
     md: {
-      height: 42,
-      iconOnlySize: 42,
-      fullLogoClass: "h-10 w-auto",
-      iconBox: "w-10 h-10",
-      title: "text-lg",
-      hindi: "text-[11px]",
+      iconSize: "w-10 h-10",
+      titleSize: "text-2xl",
+      subSize: "text-[11px]",
     },
     lg: {
-      height: 52,
-      iconOnlySize: 52,
-      fullLogoClass: "h-13 w-auto",
-      iconBox: "w-14 h-14",
-      title: "text-2xl",
-      hindi: "text-xs",
+      iconSize: "w-13 h-13",
+      titleSize: "text-3xl",
+      subSize: "text-xs",
     },
     xl: {
-      height: 64,
-      iconOnlySize: 64,
-      fullLogoClass: "h-16 w-auto",
-      iconBox: "w-18 h-18",
-      title: "text-3xl",
-      hindi: "text-sm",
+      iconSize: "w-16 h-16",
+      titleSize: "text-4xl",
+      subSize: "text-sm",
     },
   }[size];
 
   const content = (
-    <div className={`inline-flex items-center gap-2.5 group shrink-0 ${className}`}>
-      {/* If full wordmark is requested, render the official logo graphic */}
-      {showWordmark ? (
-        <div className="flex items-center gap-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={logoSrc}
-            alt="JanSamadhan — Local voices. Shared solutions."
-            className={`${sizeClasses.fullLogoClass} object-contain transition-transform duration-300 group-hover:scale-[1.02]`}
-          />
+    <div className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
+      {/* SVG Icon Emblem with Neo-brutalist Shadow */}
+      <div className="shrink-0 transition-transform duration-200 group-hover:scale-105">
+        <JanSamadhanSvgIcon
+          className={sizeMap.iconSize}
+          isWhite={isWhiteText}
+        />
+      </div>
+
+      {showWordmark && (
+        <div className="flex flex-col leading-none">
+          {/* Main Brand Title */}
+          <div className="flex items-baseline tracking-tight font-black">
+            <span
+              className={
+                isWhiteText
+                  ? "text-[#ffe17c]"
+                  : "text-[#002699] font-black"
+              }
+              style={{ fontSize: "1.25em" }}
+            >
+              Jan
+            </span>
+            <span
+              className={
+                isWhiteText
+                  ? "text-white"
+                  : "text-[#0d7d74] font-black"
+              }
+              style={{ fontSize: "1.25em" }}
+            >
+              Samadhan
+            </span>
+          </div>
+
+          {/* Subtitle / Tagline */}
+          {showSubtitle && (
+            <span
+              className={`font-sans tracking-tight font-bold mt-0.5 ${
+                isWhiteText ? "text-gray-300" : "text-[#475569]"
+              } ${sizeMap.subSize}`}
+            >
+              Local voices. Shared solutions.
+            </span>
+          )}
+
           {subtitleExtra && (
             <span
-              className={`text-[10px] hidden xl:inline-block pl-2 border-l border-current/20 leading-tight ${
-                isWhiteText ? "text-white/70" : "text-[#5E5C54]"
+              className={`text-[10px] font-mono uppercase tracking-wider mt-0.5 ${
+                isWhiteText ? "text-[#ffe17c]/80" : "text-[#171e19]/70"
               }`}
             >
               {subtitleExtra}
             </span>
           )}
-        </div>
-      ) : (
-        /* Icon only emblem */
-        <div
-          className={`relative inline-flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 ${sizeClasses.iconBox}`}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-icon.png"
-            alt="JanSamadhan Icon"
-            className="w-full h-full object-contain"
-          />
         </div>
       )}
     </div>
